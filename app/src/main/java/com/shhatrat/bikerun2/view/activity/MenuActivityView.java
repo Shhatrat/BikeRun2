@@ -1,21 +1,27 @@
 package com.shhatrat.bikerun2.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.lid.lib.LabelImageView;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.presenter.activity.IMenuActivityPresenter;
 import com.shhatrat.bikerun2.presenter.activity.MenuActivityPresenter;
+import com.sweetzpot.stravazpot.authenticaton.ui.StravaLoginActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.view.View.GONE;
 
 public class MenuActivityView extends AppCompatActivity implements IMenuActivityView {
 
@@ -38,7 +44,37 @@ public class MenuActivityView extends AppCompatActivity implements IMenuActivity
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         menuActivityPresenter = new MenuActivityPresenter(this, this);
+        menuActivityPresenter.refreshImages();
+    }
+
+    @OnClick(R.id.menu_labelimagebutton_strava)
+    public void clickOnStravaButton()
+    {
+        //todo add Intents
+    }
+
+    @OnClick(R.id.menu_imagebutton_strava)
+    public void clickOnLoggingStravaButton()
+    {
+        menuActivityPresenter.logUser();
+    }
+
+    @OnClick({R.id.menu_imagebutton_bike, R.id.menu_imagebutton_running, R.id.cm_imagebutton_trainer})
+    public void startSportActivity(Button button)
+    {
+     //todo add Intents
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == R.integer.strava_request_login && resultCode == RESULT_OK && data != null) {
+            String code = data.getStringExtra(StravaLoginActivity.RESULT_CODE);
+            menuActivityPresenter.loginResultCode(code);
+        }
     }
 
     @Override
@@ -59,11 +95,13 @@ public class MenuActivityView extends AppCompatActivity implements IMenuActivity
 
     @Override
     public void setOfflineIcon() {
-
+        menuLabelimagebuttonStrava.setVisibility(GONE);
+        menuImagebuttonStrava.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setLoggedIcon(String name) {
-
+        menuImagebuttonStrava.setVisibility(GONE);
+        menuLabelimagebuttonStrava.setVisibility(View.VISIBLE);
     }
 }

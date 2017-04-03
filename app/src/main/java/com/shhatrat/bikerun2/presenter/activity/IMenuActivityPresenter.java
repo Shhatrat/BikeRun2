@@ -6,4 +6,6 @@ package com.shhatrat.bikerun2.presenter.activity;
 
 public interface IMenuActivityPresenter {
     public void refreshImages();
+    public void loginResultCode(String code);
+    public void logUser();
 }

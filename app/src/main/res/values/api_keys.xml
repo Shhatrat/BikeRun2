@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="strava_key">8572</integer>
+    <string name="strava_redirect_page">http://127.0.0.1</string>
+    <integer name="strava_request_login">11</integer>
+</resources>

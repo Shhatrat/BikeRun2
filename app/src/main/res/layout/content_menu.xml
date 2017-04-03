@@ -15,6 +15,14 @@
         android:padding="30dp"
         android:layout_gravity="center_horizontal">
 
+        <com.sweetzpot.stravazpot.authenticaton.ui.StravaLoginButton
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:type="orange"/>
+
         <Space
             android:layout_width="0px"
             android:layout_height="0px"
