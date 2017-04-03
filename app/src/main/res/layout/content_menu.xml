@@ -1,20 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.shhatrat.bikerun2.MenuActivity"
     tools:showIn="@layout/activity_menu">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World BikeRun2!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="30dp"
+        android:layout_gravity="center_horizontal">
+
+        <Space
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/space10" />
+
+        <ImageButton
+            android:id="@+id/menu_imagebutton_running"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/space10"
+            android:layout_margin="5dp"
+            android:layout_toLeftOf="@+id/space10"
+            android:layout_toStartOf="@+id/space10"
+            android:background="@null"
+            android:scaleType="fitEnd"
+            android:src="@drawable/icon_running" />
+
+
+        <ImageButton
+            android:id="@+id/menu_imagebutton_bike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/space10"
+            android:layout_margin="5dp"
+            android:layout_toEndOf="@+id/space10"
+            android:layout_toRightOf="@+id/space10"
+            android:background="@null"
+            android:maxHeight="40dp"
+            android:maxWidth="40dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/icon_bike" />
+
+
+
+
+        <com.lid.lib.LabelImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:id="@+id/menu_labelimagebutton_strava"
+            android:scaleType="fitStart"
+            android:src="@drawable/icon_strava_only"
+            android:layout_below="@+id/space10"
+            android:layout_toLeftOf="@+id/space10"
+            android:layout_toStartOf="@+id/space10"
+            app:label_distance="60dp"
+            app:label_text=""
+            app:label_backgroundColor="@android:color/black"
+            app:label_textColor="@android:color/white"
+            app:label_textSize="12sp"
+            android:layout_margin="5dp" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:visibility="gone"
+            android:scaleType="fitStart"
+            android:id="@+id/menu_imagebutton_strava"
+            android:src="@drawable/icon_log"
+            android:layout_below="@+id/space10"
+            android:layout_toLeftOf="@+id/space10"
+            android:layout_toStartOf="@+id/space10"
+            android:layout_margin="5dp" />
+
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:background="@null"
+            android:id="@+id/cm_imagebutton_trainer"
+            android:src="@drawable/icon_sta"
+            android:layout_below="@+id/space10"
+            android:layout_toRightOf="@+id/space10"
+            android:layout_toEndOf="@+id/space10"
+            android:layout_margin="5dp" />
+
+
+    </RelativeLayout>
+</LinearLayout>
