@@ -47,6 +47,7 @@ public class MenuActivityView extends AppCompatActivity implements IMenuActivity
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         menuActivityPresenter = new MenuActivityPresenter(this, this);
         menuActivityPresenter.refreshImages();
+        setOfflineIcon();
     }
 
     @OnClick(R.id.menu_labelimagebutton_strava)
@@ -71,7 +72,7 @@ public class MenuActivityView extends AppCompatActivity implements IMenuActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == R.integer.strava_request_login && resultCode == RESULT_OK && data != null) {
+        if(requestCode == getResources().getInteger(R.integer.strava_request_login) && resultCode == RESULT_OK && data != null) {
             String code = data.getStringExtra(StravaLoginActivity.RESULT_CODE);
             menuActivityPresenter.loginResultCode(code);
         }

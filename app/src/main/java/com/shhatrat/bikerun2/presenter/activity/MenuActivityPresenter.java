@@ -35,11 +35,11 @@ public class MenuActivityPresenter implements IMenuActivityPresenter {
     @Override
     public void logUser() {
         Intent intent = StravaLogin.withContext(activity)
-                .withClientID(R.integer.strava_key)
+                .withClientID(activity.getResources().getInteger(R.integer.strava_key))
                 .withRedirectURI(activity.getString(R.string.strava_redirect_page))
                 .withApprovalPrompt(ApprovalPrompt.AUTO)
                 .withAccessScope(AccessScope.VIEW_PRIVATE_WRITE)
                 .makeIntent();
-        activity.startActivityForResult(intent, R.integer.strava_request_login);
+        activity.startActivityForResult(intent, activity.getResources().getInteger(R.integer.strava_request_login));
     }
 }
