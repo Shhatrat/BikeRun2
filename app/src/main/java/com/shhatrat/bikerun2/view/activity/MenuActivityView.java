@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.lid.lib.LabelImageView;
+import com.shhatrat.bikerun2.BRApplication;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.di.components.ApplicationComponent;
 import com.shhatrat.bikerun2.di.components.DaggerApplicationComponent;
@@ -58,14 +59,7 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
         menuActivityPresenter = new MenuActivityPresenter(this, this);
         menuActivityPresenter.refreshImages();
         setOfflineIcon();
-
-        ApplicationComponent applicationComponent = DaggerApplicationComponent
-                .builder()
-                .applicationModule(
-                        new ApplicationModule(getApplicationContext()))
-                .build();
-
-        applicationComponent.inject(this);
+        ((BRApplication) getApplication()).getComponent().inject(this);
     }
 
     @OnClick(R.id.menu_labelimagebutton_strava)
@@ -83,7 +77,6 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
     @OnClick({R.id.menu_imagebutton_bike, R.id.menu_imagebutton_running, R.id.cm_imagebutton_trainer})
     public void startSportActivity(ImageButton button)
     {
-        Log.d("ddddd", "dddd"+ utils.getText());
      //todo add Intents
     }
 
@@ -124,4 +117,6 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
         menuImagebuttonStrava.setVisibility(GONE);
         menuLabelimagebuttonStrava.setVisibility(View.VISIBLE);
     }
+
+
 }

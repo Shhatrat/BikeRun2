@@ -15,16 +15,10 @@ public class UtilImpl {
     public UtilImpl(Context context) {
         c= context;
     }
-    Context c ;
+    Context c;
 
     public DaoPreferences getEasyPreferences()
     {
         return new DaoPreferences(c);
     }
-
-    public String getText()
-    {
-        return "ABC";
-    }
-
 }
