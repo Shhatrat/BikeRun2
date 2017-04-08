@@ -5,17 +5,23 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.lid.lib.LabelImageView;
 import com.shhatrat.bikerun2.R;
+import com.shhatrat.bikerun2.di.components.ApplicationComponent;
+import com.shhatrat.bikerun2.di.components.DaggerApplicationComponent;
+import com.shhatrat.bikerun2.di.modules.ApplicationModule;
+import com.shhatrat.bikerun2.di.UtilImpl;
 import com.shhatrat.bikerun2.presenter.activity.IMenuActivityPresenter;
 import com.shhatrat.bikerun2.presenter.activity.MenuActivityPresenter;
 import com.sweetzpot.stravazpot.authenticaton.ui.StravaLoginActivity;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +29,7 @@ import butterknife.OnClick;
 
 import static android.view.View.GONE;
 
-public class MenuActivityView extends AppCompatActivity implements IMenuActivityView {
+public class MenuActivityView extends BaseActivity implements IMenuActivityView {
 
     @BindView(R.id.menu_imagebutton_running)
     ImageButton menuImagebuttonRunning;
@@ -37,6 +43,10 @@ public class MenuActivityView extends AppCompatActivity implements IMenuActivity
     ImageButton cmImagebuttonTrainer;
     private IMenuActivityPresenter menuActivityPresenter;
 
+    @Inject
+    UtilImpl utils;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +58,14 @@ public class MenuActivityView extends AppCompatActivity implements IMenuActivity
         menuActivityPresenter = new MenuActivityPresenter(this, this);
         menuActivityPresenter.refreshImages();
         setOfflineIcon();
+
+        ApplicationComponent applicationComponent = DaggerApplicationComponent
+                .builder()
+                .applicationModule(
+                        new ApplicationModule(getApplicationContext()))
+                .build();
+
+        applicationComponent.inject(this);
     }
 
     @OnClick(R.id.menu_labelimagebutton_strava)
@@ -63,8 +81,9 @@ public class MenuActivityView extends AppCompatActivity implements IMenuActivity
     }
 
     @OnClick({R.id.menu_imagebutton_bike, R.id.menu_imagebutton_running, R.id.cm_imagebutton_trainer})
-    public void startSportActivity(Button button)
+    public void startSportActivity(ImageButton button)
     {
+        Log.d("ddddd", "dddd"+ utils.getText());
      //todo add Intents
     }
 
