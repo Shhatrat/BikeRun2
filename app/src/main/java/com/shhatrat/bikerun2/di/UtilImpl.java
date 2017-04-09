@@ -2,6 +2,7 @@ package com.shhatrat.bikerun2.di;
 
 import android.content.Context;
 import com.github.brunodles.simplepreferences.lib.DaoPreferences;
+import com.shhatrat.bikerun2.model.AppSettings;
 
 import javax.inject.Inject;
 
@@ -20,5 +21,10 @@ public class UtilImpl {
     public DaoPreferences getEasyPreferences()
     {
         return new DaoPreferences(c);
+    }
+
+    public AppSettings getAppSettings()
+    {
+        return new AppSettings(c);
     }
 }
