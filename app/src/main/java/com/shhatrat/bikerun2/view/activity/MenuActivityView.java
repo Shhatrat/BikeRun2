@@ -53,11 +53,10 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-        menuActivityPresenter = new MenuActivityPresenter(this, this);
-        menuActivityPresenter.refreshImages();
-        setOfflineIcon();
         ((BRApplication) getApplication()).getComponent().inject(this);
         ((BRApplication) getApplication()).getNetworkComponent().inject(this);
+        menuActivityPresenter = new MenuActivityPresenter(this, this, utils, net);
+        menuActivityPresenter.refreshImages();
     }
 
     @OnClick(R.id.menu_labelimagebutton_strava)
@@ -113,6 +112,7 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
     @Override
     public void setLoggedIcon(String name) {
         menuImagebuttonStrava.setVisibility(GONE);
+        menuLabelimagebuttonStrava.setLabelText(name);
         menuLabelimagebuttonStrava.setVisibility(View.VISIBLE);
     }
 }
