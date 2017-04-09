@@ -2,5 +2,7 @@
 <resources>
     <integer name="strava_key">8572</integer>
     <string name="strava_redirect_page">http://127.0.0.1</string>
+    <string name="strava_secret">put_your_key_here</string>
+    <integer name="strava_app_id">0000</integer>
     <integer name="strava_request_login">11</integer>
 </resources>
