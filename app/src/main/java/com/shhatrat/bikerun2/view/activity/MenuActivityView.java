@@ -2,10 +2,8 @@ package com.shhatrat.bikerun2.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +12,7 @@ import android.widget.ImageButton;
 import com.lid.lib.LabelImageView;
 import com.shhatrat.bikerun2.BRApplication;
 import com.shhatrat.bikerun2.R;
-import com.shhatrat.bikerun2.di.components.ApplicationComponent;
-import com.shhatrat.bikerun2.di.components.DaggerApplicationComponent;
-import com.shhatrat.bikerun2.di.modules.ApplicationModule;
+import com.shhatrat.bikerun2.di.NetImpl;
 import com.shhatrat.bikerun2.di.UtilImpl;
 import com.shhatrat.bikerun2.presenter.activity.IMenuActivityPresenter;
 import com.shhatrat.bikerun2.presenter.activity.MenuActivityPresenter;
@@ -46,7 +42,8 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
 
     @Inject
     UtilImpl utils;
-
+    @Inject
+    NetImpl net;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +57,7 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
         menuActivityPresenter.refreshImages();
         setOfflineIcon();
         ((BRApplication) getApplication()).getComponent().inject(this);
+        ((BRApplication) getApplication()).getNetworkComponent().inject(this);
     }
 
     @OnClick(R.id.menu_labelimagebutton_strava)
@@ -117,6 +115,4 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
         menuImagebuttonStrava.setVisibility(GONE);
         menuLabelimagebuttonStrava.setVisibility(View.VISIBLE);
     }
-
-
 }
