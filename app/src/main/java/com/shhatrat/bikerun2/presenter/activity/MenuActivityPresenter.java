@@ -6,8 +6,10 @@ import android.util.Log;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.di.NetImpl;
 import com.shhatrat.bikerun2.di.UtilImpl;
+import com.shhatrat.bikerun2.model.StaticFields;
 import com.shhatrat.bikerun2.view.activity.BaseActivity;
 import com.shhatrat.bikerun2.view.activity.IMenuActivityView;
+import com.sweetzpot.stravazpot.athlete.model.Athlete;
 import com.sweetzpot.stravazpot.authenticaton.api.AccessScope;
 import com.sweetzpot.stravazpot.authenticaton.api.ApprovalPrompt;
 import com.sweetzpot.stravazpot.authenticaton.api.StravaLogin;
@@ -17,8 +19,13 @@ import com.trello.rxlifecycle2.android.RxLifecycleAndroid;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.SingleSubject;
 
 /**
  * Created by szymon on 4/3/17.
@@ -41,21 +48,40 @@ public class MenuActivityPresenter implements IMenuActivityPresenter {
     @Override
     public void refreshImages() {
         if(util.getAppSettings().getAccountSaved())
-        { 
-            //// TODO: 09.04.17  
-            menuActivityView.setLoggedIcon("todo");}
+        {
+            menuActivityView.setLoggedIcon(util.getAppSettings().getName());
+            downloadAthlete();
+        }
         else
             menuActivityView.setOfflineIcon();
     }
 
+    private void downloadAthlete() {
+        Single<Athlete> athleteSingle = net.getStravaApi(true).getCurrentAthlete();
+        athleteSingle
+                .compose(RxLifecycleAndroid.bindActivity(baseActivity.lifecycle()))
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(e -> StaticFields.athlete = e, e -> e.getCause()); //todo
+    }
+
     @Override
     public void loginResultCode(String code) {
-        Single<LoginResult> resultLogin = net.getStravaApi().getResultLogin(baseActivity.getResources().getInteger(R.integer.strava_app_id), baseActivity.getString(R.string.strava_secret), code);
+
+        Single<LoginResult> resultLogin = net.getStravaApi(false).getResultLogin(baseActivity.getResources().getInteger(R.integer.strava_app_id), baseActivity.getString(R.string.strava_secret), code);
         resultLogin
                 .compose(RxLifecycleAndroid.bindActivity(baseActivity.lifecycle()))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(e -> menuActivityView.setLoggedIcon(e.getAthlete().getFirstName()) , throwable -> Log.e("dddd", throwable.toString()));
+                .subscribe(this::setUp, e -> e.getCause()); //todo
+    }
+
+    private void setUp(LoginResult loginResult){
+        util.getAppSettings().setToken(loginResult.getToken().toString());
+        util.getAppSettings().setAccountSaved(true);
+        util.getAppSettings().setName(loginResult.getAthlete().getFirstName());
+        StaticFields.athlete = loginResult.getAthlete();
+        refreshImages();
     }
 
     @Override

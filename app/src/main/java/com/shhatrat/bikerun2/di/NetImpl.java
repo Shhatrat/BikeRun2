@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.api.StravaApi;
+import com.shhatrat.bikerun2.model.AppSettings;
 import com.squareup.picasso.Picasso;
 import com.sweetzpot.stravazpot.activity.model.AchievementType;
 import com.sweetzpot.stravazpot.activity.model.ActivityType;
@@ -62,9 +63,14 @@ import com.sweetzpot.stravazpot.stream.model.Resolution;
 import com.sweetzpot.stravazpot.stream.model.SeriesType;
 import com.sweetzpot.stravazpot.stream.model.StreamType;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -87,15 +93,33 @@ public class NetImpl {
        return new Picasso.Builder(c).build();
     }
 
-    public StravaApi getStravaApi()
-    {
-
-
+    public StravaApi getStravaApi(Boolean header) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder()
+        OkHttpClient client;
+        if (!header) {
+            client = new OkHttpClient.Builder()
+                    .addInterceptor(logging)
+                    .build();
+        }
+        else
+        {
+        client = new OkHttpClient.Builder()
                 .addInterceptor(logging)
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request original = chain.request();
+
+                        Request request = original.newBuilder()
+                                .header("Authorization", new AppSettings(c).getToken())
+                                .method(original.method(), original.body())
+                                .build();
+                        return chain.proceed(request);
+                    }
+                })
                 .build();
+        }
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(makeGson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

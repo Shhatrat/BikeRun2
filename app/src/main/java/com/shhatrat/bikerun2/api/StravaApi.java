@@ -1,10 +1,12 @@
 package com.shhatrat.bikerun2.api;
 
+import com.sweetzpot.stravazpot.athlete.model.Athlete;
 import com.sweetzpot.stravazpot.authenticaton.model.LoginResult;
 
 import io.reactivex.Single;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -19,4 +21,7 @@ public interface StravaApi {
             @Field("client_id") Integer client_id,
             @Field("client_secret") String client_secret,
             @Field("code") String code);
+
+    @GET("api/v3/athlete")
+    Single<Athlete> getCurrentAthlete();
 }

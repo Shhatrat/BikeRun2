@@ -15,6 +15,30 @@ public class AppSettings extends ActivePreferences {
 
     @Property
     Boolean isAccountSaved;
+    @Property
+    String token;
+    @Property
+    String name;
+
+    public String getName() {
+        reload();
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        apply();
+    }
+
+    public String getToken() {
+        reload();
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+        apply();
+    }
 
     public Boolean getAccountSaved() {
         reload();
