@@ -62,7 +62,7 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
     @OnClick(R.id.menu_labelimagebutton_strava)
     public void clickOnStravaButton()
     {
-        //todo add Intents
+        startActivity(new Intent(this, StravaActivity.class));
     }
 
     @OnClick(R.id.menu_imagebutton_strava)

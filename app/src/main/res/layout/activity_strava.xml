@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shhatrat.bikerun2.view.activity.StravaActivity">
+<RelativeLayout android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <com.nightonke.wowoviewpager.WoWoViewPager
+        android:id="@+id/wowo_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <!--The view that need to play a scale animation-->
+    <View
+        android:id="@+id/test"
+        android:layout_width="180dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/strava_logo_transparent"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="DDDD"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
