@@ -45,6 +45,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-places:10.2.1'
     //ui
     compile 'com.github.linger1216:labelview:v1.1.2'
+    compile 'com.tapadoo.android:alerter:1.0.6'
+    compile 'com.github.matecode:Snacky:1.0.2'
     //di
     compile 'com.jakewharton:butterknife:8.5.1'
     //api
