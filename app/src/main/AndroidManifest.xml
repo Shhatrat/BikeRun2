@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.sweetzpot.stravazpot.authenticaton.ui.StravaLoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.activity.MenuActivityView"
             android:label="@string/app_name"
@@ -25,8 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.StravaActivity"
-            android:theme="@style/AppTheme.NoActionBar.Fullscreen"></activity>
+        <activity
+            android:name=".view.activity.StravaActivity"
+            android:theme="@style/AppTheme.NoActionBar.Fullscreen" />
+        <activity
+            android:name=".view.activity.StravaStatsActivity"
+            android:label="@string/title_activity_strava_stats"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
