@@ -8,4 +8,9 @@
     tools:context="com.shhatrat.bikerun2.view.activity.StravaStatsActivity"
     tools:showIn="@layout/activity_strava_stats">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/strava_stats_recycle_view"
+        android:layout_width="match_parent"
+        android:scrollbars="vertical"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>

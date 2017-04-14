@@ -14,9 +14,16 @@ import com.shhatrat.bikerun2.BRApplication;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.di.NetImpl;
 import com.shhatrat.bikerun2.di.UtilImpl;
+import com.shhatrat.bikerun2.model.AthleteDataToStats;
 import com.shhatrat.bikerun2.presenter.activity.IMenuActivityPresenter;
 import com.shhatrat.bikerun2.presenter.activity.MenuActivityPresenter;
+import com.shhatrat.bikerun2.view.activity.models.IMenuActivityView;
 import com.sweetzpot.stravazpot.authenticaton.ui.StravaLoginActivity;
+
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -56,13 +63,25 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
         ((BRApplication) getApplication()).getComponent().inject(this);
         ((BRApplication) getApplication()).getNetworkComponent().inject(this);
         menuActivityPresenter = new MenuActivityPresenter(this, this, utils, net);
-        menuActivityPresenter.refreshImages();
+        //menuActivityPresenter.refreshImages();
+        setLoggedIcon("ddd");
     }
 
     @OnClick(R.id.menu_labelimagebutton_strava)
     public void clickOnStravaButton()
     {
-        startActivity(new Intent(this, StravaStatsActivity.class));
+        List<AthleteDataToStats.AthleteData> list = new ArrayList<>();
+        list.add(new AthleteDataToStats.AthleteData("szymek", "imie"));
+        list.add(new AthleteDataToStats.AthleteData("Kamien", "imie"));
+        list.add(new AthleteDataToStats.AthleteData("szymek", "imie"));
+
+        AthleteDataToStats aa = new AthleteDataToStats();
+        aa.setListdata(list);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("example", Parcels.wrap(aa));
+        Intent i = new Intent(this, StravaStatsActivity.class);
+        i.putExtras(bundle);
+        startActivity(i);
     }
 
     @OnClick(R.id.menu_imagebutton_strava)

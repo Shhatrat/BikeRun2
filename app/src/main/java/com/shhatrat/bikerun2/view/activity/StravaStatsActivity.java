@@ -1,28 +1,49 @@
 package com.shhatrat.bikerun2.view.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Parcelable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.shhatrat.bikerun2.R;
+import com.shhatrat.bikerun2.StravaStatsAdapter;
+import com.shhatrat.bikerun2.model.AthleteDataToStats;
+import com.shhatrat.bikerun2.presenter.activity.IStravaStatsPresenter;
+import com.shhatrat.bikerun2.presenter.activity.StravaStatsPresenter;
+import com.shhatrat.bikerun2.view.activity.models.IStravaStatsActivity;
 
-public class StravaStatsActivity extends AppCompatActivity implements IStravaStatsActivity {
+import org.parceler.Parcels;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class StravaStatsActivity extends BaseActivity implements IStravaStatsActivity {
+
+
+    @BindView(R.id.strava_stats_recycle_view)
+    RecyclerView stravaStatsRecycleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_strava_stats);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        setToolbar(toolbar);
+        IStravaStatsPresenter stravaStatsPresenter  = new StravaStatsPresenter(this,this);
+        stravaStatsPresenter.getIntentData(Parcels.unwrap(getIntent().getParcelableExtra("example")));
+
     }
 
+    @Override
+    public void setDataToAdapter(AthleteDataToStats data) {
+        stravaStatsRecycleView.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        stravaStatsRecycleView.setLayoutManager(mLayoutManager);
+        stravaStatsRecycleView.setAdapter(new StravaStatsAdapter(data.getListdata()));
+    }
 }

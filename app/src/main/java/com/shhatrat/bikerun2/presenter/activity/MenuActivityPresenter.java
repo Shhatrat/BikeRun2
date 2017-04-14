@@ -1,14 +1,13 @@
 package com.shhatrat.bikerun2.presenter.activity;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.di.NetImpl;
 import com.shhatrat.bikerun2.di.UtilImpl;
 import com.shhatrat.bikerun2.model.StaticFields;
 import com.shhatrat.bikerun2.view.activity.BaseActivity;
-import com.shhatrat.bikerun2.view.activity.IMenuActivityView;
+import com.shhatrat.bikerun2.view.activity.models.IMenuActivityView;
 import com.sweetzpot.stravazpot.athlete.model.Athlete;
 import com.sweetzpot.stravazpot.authenticaton.api.AccessScope;
 import com.sweetzpot.stravazpot.authenticaton.api.ApprovalPrompt;
@@ -16,16 +15,11 @@ import com.sweetzpot.stravazpot.authenticaton.api.StravaLogin;
 import com.sweetzpot.stravazpot.authenticaton.model.LoginResult;
 import com.trello.rxlifecycle2.android.RxLifecycleAndroid;
 
-import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.SingleSubject;
 
 /**
  * Created by szymon on 4/3/17.
@@ -73,9 +67,29 @@ public class MenuActivityPresenter implements IMenuActivityPresenter {
                 .compose(RxLifecycleAndroid.bindActivity(baseActivity.lifecycle()))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setUp, e -> e.getCause()); //todo
+                .subscribe(i());
+//                .subscribe(this::setUp, e -> e.getCause()); //todo
     }
 
+        SingleObserver<LoginResult> i()
+        {
+            return new SingleObserver<LoginResult>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+            };
+        }
     private void setUp(LoginResult loginResult){
         util.getAppSettings().setToken(loginResult.getToken().toString());
         util.getAppSettings().setAccountSaved(true);
