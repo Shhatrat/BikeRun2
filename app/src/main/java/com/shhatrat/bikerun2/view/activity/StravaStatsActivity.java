@@ -1,21 +1,18 @@
 package com.shhatrat.bikerun2.view.activity;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.shhatrat.bikerun2.R;
-import com.shhatrat.bikerun2.StravaStatsAdapter;
+import com.shhatrat.bikerun2.adapter.StravaStatsAdapter;
 import com.shhatrat.bikerun2.model.AthleteDataToStats;
-import com.shhatrat.bikerun2.presenter.activity.IStravaStatsPresenter;
+import com.shhatrat.bikerun2.presenter.activity.models.IStravaStatsPresenter;
 import com.shhatrat.bikerun2.presenter.activity.StravaStatsPresenter;
 import com.shhatrat.bikerun2.view.activity.models.IStravaStatsActivity;
 
 import org.parceler.Parcels;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

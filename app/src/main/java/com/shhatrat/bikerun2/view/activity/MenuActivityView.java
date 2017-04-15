@@ -15,7 +15,7 @@ import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.di.NetImpl;
 import com.shhatrat.bikerun2.di.UtilImpl;
 import com.shhatrat.bikerun2.model.AthleteDataToStats;
-import com.shhatrat.bikerun2.presenter.activity.IMenuActivityPresenter;
+import com.shhatrat.bikerun2.presenter.activity.models.IMenuActivityPresenter;
 import com.shhatrat.bikerun2.presenter.activity.MenuActivityPresenter;
 import com.shhatrat.bikerun2.view.activity.models.IMenuActivityView;
 import com.sweetzpot.stravazpot.authenticaton.ui.StravaLoginActivity;
@@ -63,8 +63,7 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
         ((BRApplication) getApplication()).getComponent().inject(this);
         ((BRApplication) getApplication()).getNetworkComponent().inject(this);
         menuActivityPresenter = new MenuActivityPresenter(this, this, utils, net);
-        //menuActivityPresenter.refreshImages();
-        setLoggedIcon("ddd");
+        menuActivityPresenter.refreshImages();
     }
 
     @OnClick(R.id.menu_labelimagebutton_strava)

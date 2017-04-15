@@ -1,4 +1,4 @@
-package com.shhatrat.bikerun2;
+package com.shhatrat.bikerun2.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.model.AthleteDataToStats;
 
 import java.util.List;

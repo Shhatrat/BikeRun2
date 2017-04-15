@@ -12,9 +12,12 @@ import com.sweetzpot.stravazpot.activity.model.AchievementType;
 import com.sweetzpot.stravazpot.activity.model.ActivityType;
 import com.sweetzpot.stravazpot.activity.model.PhotoSource;
 import com.sweetzpot.stravazpot.activity.model.WorkoutType;
+import com.sweetzpot.stravazpot.athlete.model.Athlete;
 import com.sweetzpot.stravazpot.athlete.model.AthleteType;
 import com.sweetzpot.stravazpot.athlete.model.FriendStatus;
 import com.sweetzpot.stravazpot.athlete.model.MeasurementPreference;
+import com.sweetzpot.stravazpot.athlete.model.Stats;
+import com.sweetzpot.stravazpot.authenticaton.model.LoginResult;
 import com.sweetzpot.stravazpot.authenticaton.model.Token;
 import com.sweetzpot.stravazpot.club.model.ClubType;
 import com.sweetzpot.stravazpot.club.model.Membership;
@@ -67,6 +70,10 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -93,7 +100,7 @@ public class NetImpl {
        return new Picasso.Builder(c).build();
     }
 
-    public StravaApi getStravaApi(Boolean header) {
+    private StravaApi getStravaApi(Boolean header) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client;
@@ -128,7 +135,32 @@ public class NetImpl {
         return retrofit.create(StravaApi.class);
     }
 
-    private static Gson makeGson() {
+    public Single<LoginResult> getResultLogin(String code)
+    {
+        return getStravaApi(false).getResultLogin(
+                c.getResources().getInteger(R.integer.strava_app_id),
+                c.getString(R.string.strava_secret),
+                code)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Single<Athlete> getCurrentAthlete()
+    {
+        return getStravaApi(true).getCurrentAthlete()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public     Single<Stats> getAthleteStats(long id)
+    {
+        return getStravaApi(true).getAthleteStats((int) id)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+            private static Gson makeGson() {
         return new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
                 .registerTypeAdapter(Distance.class, new DistanceTypeAdapter())

@@ -1,4 +1,4 @@
-package com.shhatrat.bikerun2.presenter.activity;
+package com.shhatrat.bikerun2.presenter.activity.models;
 
 import com.shhatrat.bikerun2.model.AthleteDataToStats;
 

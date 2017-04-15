@@ -6,6 +6,7 @@ import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.di.NetImpl;
 import com.shhatrat.bikerun2.di.UtilImpl;
 import com.shhatrat.bikerun2.model.StaticFields;
+import com.shhatrat.bikerun2.presenter.activity.models.IMenuActivityPresenter;
 import com.shhatrat.bikerun2.view.activity.BaseActivity;
 import com.shhatrat.bikerun2.view.activity.models.IMenuActivityView;
 import com.sweetzpot.stravazpot.athlete.model.Athlete;
@@ -16,10 +17,6 @@ import com.sweetzpot.stravazpot.authenticaton.model.LoginResult;
 import com.trello.rxlifecycle2.android.RxLifecycleAndroid;
 
 import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by szymon on 4/3/17.
@@ -51,45 +48,29 @@ public class MenuActivityPresenter implements IMenuActivityPresenter {
     }
 
     private void downloadAthlete() {
-        Single<Athlete> athleteSingle = net.getStravaApi(true).getCurrentAthlete();
+        Single<Athlete> athleteSingle = net.getCurrentAthlete();
         athleteSingle
                 .compose(RxLifecycleAndroid.bindActivity(baseActivity.lifecycle()))
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(e -> StaticFields.athlete = e, e -> e.getCause()); //todo
+                .subscribe(this::downloadStatsAndsaveAthlete, e -> e.getCause()); //todo
+    }
+
+    private void downloadStatsAndsaveAthlete(Athlete athlete)
+    {
+        StaticFields.athlete = athlete;
+        net.getAthleteStats(athlete.getID())
+                .compose(RxLifecycleAndroid.bindActivity(baseActivity.lifecycle()))
+                .subscribe(e -> StaticFields.stats = e);
     }
 
     @Override
     public void loginResultCode(String code) {
 
-        Single<LoginResult> resultLogin = net.getStravaApi(false).getResultLogin(baseActivity.getResources().getInteger(R.integer.strava_app_id), baseActivity.getString(R.string.strava_secret), code);
+        Single<LoginResult> resultLogin = net.getResultLogin(code);
         resultLogin
                 .compose(RxLifecycleAndroid.bindActivity(baseActivity.lifecycle()))
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(i());
-//                .subscribe(this::setUp, e -> e.getCause()); //todo
+                .subscribe(this::setUp, e -> e.getCause()); //todo
     }
 
-        SingleObserver<LoginResult> i()
-        {
-            return new SingleObserver<LoginResult>() {
-                @Override
-                public void onSubscribe(Disposable d) {
-
-                }
-
-                @Override
-                public void onSuccess(LoginResult loginResult) {
-
-                }
-
-                @Override
-                public void onError(Throwable e) {
-
-                }
-            };
-        }
     private void setUp(LoginResult loginResult){
         util.getAppSettings().setToken(loginResult.getToken().toString());
         util.getAppSettings().setAccountSaved(true);
