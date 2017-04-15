@@ -19,6 +19,18 @@ public class AppSettings extends ActivePreferences {
     String token;
     @Property
     String name;
+    @Property
+    long userId;
+
+    public long getUserId() {
+        reload();
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+        apply();
+    }
 
     public String getName() {
         reload();

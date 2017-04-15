@@ -27,7 +27,7 @@ public interface StravaApi {
     @GET("api/v3/athlete")
     Single<Athlete> getCurrentAthlete();
 
-    @GET("api/v3/athlete/{id}/stats")
+    @GET("api/v3/athletes/{id}/stats")
     Single<Stats> getAthleteStats(
             @Path("id") int id);
 }

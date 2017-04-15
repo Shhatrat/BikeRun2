@@ -8,4 +8,5 @@ public interface IMenuActivityPresenter {
     public void refreshImages();
     public void loginResultCode(String code);
     public void logUser();
+    public void isStravaReady();
 }

@@ -19,6 +19,7 @@ import com.shhatrat.bikerun2.presenter.activity.models.IMenuActivityPresenter;
 import com.shhatrat.bikerun2.presenter.activity.MenuActivityPresenter;
 import com.shhatrat.bikerun2.view.activity.models.IMenuActivityView;
 import com.sweetzpot.stravazpot.authenticaton.ui.StravaLoginActivity;
+import com.tapadoo.alerter.Alerter;
 
 import org.parceler.Parcels;
 
@@ -69,18 +70,7 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
     @OnClick(R.id.menu_labelimagebutton_strava)
     public void clickOnStravaButton()
     {
-        List<AthleteDataToStats.AthleteData> list = new ArrayList<>();
-        list.add(new AthleteDataToStats.AthleteData("szymek", "imie"));
-        list.add(new AthleteDataToStats.AthleteData("Kamien", "imie"));
-        list.add(new AthleteDataToStats.AthleteData("szymek", "imie"));
-
-        AthleteDataToStats aa = new AthleteDataToStats();
-        aa.setListdata(list);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("example", Parcels.wrap(aa));
-        Intent i = new Intent(this, StravaStatsActivity.class);
-        i.putExtras(bundle);
-        startActivity(i);
+        menuActivityPresenter.isStravaReady();
     }
 
     @OnClick(R.id.menu_imagebutton_strava)

@@ -2,6 +2,7 @@ package com.shhatrat.bikerun2;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.shhatrat.bikerun2.di.components.ApplicationComponent;
 import com.shhatrat.bikerun2.di.components.DaggerApplicationComponent;
 import com.shhatrat.bikerun2.di.components.DaggerNetworkComponent;
@@ -20,6 +21,8 @@ public class BRApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Stetho.initializeWithDefaults(this);
 
         applicationComponent = DaggerApplicationComponent
                 .builder()
