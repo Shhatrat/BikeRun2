@@ -82,6 +82,7 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
     @OnClick({R.id.menu_imagebutton_bike, R.id.menu_imagebutton_running, R.id.cm_imagebutton_trainer})
     public void startSportActivity(ImageButton button)
     {
+        startActivity(new Intent(this, SportActivity.class));
      //todo add Intents
     }
 
