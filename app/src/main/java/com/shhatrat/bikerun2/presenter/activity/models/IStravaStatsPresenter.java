@@ -7,5 +7,6 @@ import com.shhatrat.bikerun2.model.AthleteDataToStats;
  */
 
 public interface IStravaStatsPresenter {
+    static String PARCEL_LIST="PARCEL_LIST";
     public void getIntentData(AthleteDataToStats data);
 }

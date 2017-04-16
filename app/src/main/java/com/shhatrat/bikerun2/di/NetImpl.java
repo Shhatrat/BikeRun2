@@ -1,7 +1,6 @@
 package com.shhatrat.bikerun2.di;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -68,26 +67,17 @@ import com.sweetzpot.stravazpot.stream.model.SeriesType;
 import com.sweetzpot.stravazpot.stream.model.StreamType;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.SingleSource;
-import io.reactivex.SingleTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -145,7 +135,7 @@ public class NetImpl {
         return retrofit.create(StravaApi.class);
     }
 
-    public Single<LoginResult> getResultLogin(String code)
+    public Observable<LoginResult> getResultLogin(String code)
     {
         return getStravaApi(false).getResultLogin(
                 c.getResources().getInteger(R.integer.strava_app_id),
@@ -154,39 +144,22 @@ public class NetImpl {
                 .compose(schedulers());
     }
 
-    public Single<Athlete> getCurrentAthlete()
+    public Observable<Athlete> getCurrentAthlete()
     {
         return getStravaApi(true).getCurrentAthlete()
                 .compose(schedulers());
     }
 
-    public     Single<Stats> getAthleteStats(long id)
+    public Observable<Stats> getAthleteStats(long id)
     {
         return getStravaApi(true).getAthleteStats((int) id)
                 .compose(schedulers());
     }
 
-    <T>SingleTransformer<T,T> schedulers(){
-        return new SingleTransformer<T, T>() {
-            @Override
-            public SingleSource<T> apply(Single<T> upstream) {
-                return upstream
-                        .subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnError(new Consumer<Throwable>() {
-                            @Override
-                            public void accept(@NonNull Throwable throwable) throws Exception {
-                                Log.e("error", "blad");
-                            }
-                        })
-                        .onErrorResumeNext(new Single<T>() {
-                            @Override
-                            protected void subscribeActual(SingleObserver<? super T> observer) {
-                                Log.e("error", "blad");
-                            }
-                        });
-            }
-        };
+    <T>ObservableTransformer<T,T> schedulers(){
+        return upstream -> upstream
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     private static Gson makeGson() {

@@ -30,11 +30,11 @@ public abstract class BaseActivity extends RxAppCompatActivity{
 
     public void showErrorSnacky(Throwable e)
     {
-        Log.w(getString(R.string.LOG_WARNING), e.getMessage());
+        Log.w(getString(R.string.LOG_ERROR), e.getMessage());
         Snacky.builder()
                 .setActivty(this)
                 .centerText()
-                .setText("Problem with downloading")
+                .setText(R.string.problem_with_downloading)
                 .setTextColor(ContextCompat.getColor(this, R.color.white))
                 .error()
                 .show();

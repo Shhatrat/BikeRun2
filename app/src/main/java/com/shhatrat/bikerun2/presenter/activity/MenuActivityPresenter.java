@@ -10,6 +10,7 @@ import com.shhatrat.bikerun2.di.UtilImpl;
 import com.shhatrat.bikerun2.model.AthleteDataToStats;
 import com.shhatrat.bikerun2.model.StaticFields;
 import com.shhatrat.bikerun2.presenter.activity.models.IMenuActivityPresenter;
+import com.shhatrat.bikerun2.presenter.activity.models.IStravaStatsPresenter;
 import com.shhatrat.bikerun2.view.activity.BaseActivity;
 import com.shhatrat.bikerun2.view.activity.StravaStatsActivity;
 import com.shhatrat.bikerun2.view.activity.models.IMenuActivityView;
@@ -26,8 +27,7 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
+import io.reactivex.Observable;
 
 /**
  * Created by szymon on 4/3/17.
@@ -39,12 +39,14 @@ public class MenuActivityPresenter implements IMenuActivityPresenter {
     private IMenuActivityView menuActivityView;
     private UtilImpl util;
     private NetImpl net;
+    private String error;
 
     public MenuActivityPresenter(BaseActivity baseActivity, IMenuActivityView menuActivityView, UtilImpl util, NetImpl net) {
         this.menuActivityView = menuActivityView;
         this.net = net;
         this.util = util;
         this.baseActivity = baseActivity;
+        this.error = baseActivity.getString(R.string.LOG_ERROR);
     }
 
     @Override
@@ -59,10 +61,10 @@ public class MenuActivityPresenter implements IMenuActivityPresenter {
     }
 
     private void downloadAthlete() {
-        Single<Athlete> athleteSingle = net.getCurrentAthlete();
+        Observable<Athlete> athleteSingle = net.getCurrentAthlete();
         athleteSingle
                 .compose(RxLifecycleAndroid.bindActivity(baseActivity.lifecycle()))
-                .subscribe(this::downloadStatsAndsaveAthlete);
+                .subscribe(this::downloadStatsAndsaveAthlete, e-> Log.d(error, e.getMessage()));
     }
 
     private void downloadStatsAndsaveAthlete(Athlete athlete)
@@ -70,13 +72,13 @@ public class MenuActivityPresenter implements IMenuActivityPresenter {
         StaticFields.athlete = athlete;
         net.getAthleteStats(athlete.getID())
                 .compose(RxLifecycleAndroid.bindActivity(baseActivity.lifecycle()))
-                .subscribe(e -> StaticFields.stats = e);
+                .subscribe(e -> StaticFields.stats = e, e-> Log.d(error, e.getMessage()));
     }
 
     @Override
     public void loginResultCode(String code) {
 
-        Single<LoginResult> resultLogin = net.getResultLogin(code);
+        Observable<LoginResult> resultLogin = net.getResultLogin(code);
         resultLogin
                 .compose(RxLifecycleAndroid.bindActivity(baseActivity.lifecycle()))
                 .subscribe(this::setUp, e -> menuActivityView.showErrorSnacky(e));
@@ -104,14 +106,13 @@ public class MenuActivityPresenter implements IMenuActivityPresenter {
 
     @Override
     public void isStravaReady() {
-        List<AthleteDataToStats.AthleteData> list = new ArrayList<>();
         if(StaticFields.stats!=null){
             List<AthleteDataToStats.AthleteData> data = prepareList(StaticFields.stats, StaticFields.athlete);
             startStatsActivity(data);
         }
         else
         {
-            menuActivityView.showInfoSnacky("Downloading..");
+            menuActivityView.showInfoSnacky(baseActivity.getString(R.string.downloading__));
             downloadAllDataForUserRequest();
         }
     }
@@ -121,7 +122,7 @@ public class MenuActivityPresenter implements IMenuActivityPresenter {
         AthleteDataToStats athleteDataToStats = new AthleteDataToStats();
         athleteDataToStats.setListdata(data);
         Bundle bundle = new Bundle();
-        bundle.putParcelable("example", Parcels.wrap(athleteDataToStats));
+        bundle.putParcelable(IStravaStatsPresenter.PARCEL_LIST, Parcels.wrap(athleteDataToStats));
         Intent i = new Intent(baseActivity, StravaStatsActivity.class);
         i.putExtras(bundle);
         baseActivity.startActivity(i);
@@ -129,26 +130,21 @@ public class MenuActivityPresenter implements IMenuActivityPresenter {
 
     private void downloadAllDataForUserRequest()
     {
-        Single<Athlete> singleAthlete = net.getCurrentAthlete()
-                .onErrorResumeNext(new Single<Athlete>() {
-                    @Override
-                    protected void subscribeActual(SingleObserver<? super Athlete> observer) {
-                        Log.e("dd", "dd");
-                    }
-                })
+        Observable<Athlete> singleAthlete = net.getCurrentAthlete()
                 .compose(RxLifecycleAndroid.bindActivity(baseActivity.lifecycle()));
-            net.getAthleteStats(util.getAppSettings().getUserId())
+        net.getAthleteStats(util.getAppSettings().getUserId())
                 .zipWith(singleAthlete, this::prepareList)
                 .subscribe(this::startStatsActivity, e -> menuActivityView.showErrorSnacky(e));
     }
 
     private List<AthleteDataToStats.AthleteData> prepareList(Stats s, Athlete a)
     {
+        //// TODO: 16.04.17 Fix this list
         List<AthleteDataToStats.AthleteData> list = new ArrayList<>();
-        list.add(new AthleteDataToStats.AthleteData("User", a.getFirstName()+ " " + a.getLastName()));
-        list.add(new AthleteDataToStats.AthleteData("Friends count", a.getFriendCount()+""));
-        list.add(new AthleteDataToStats.AthleteData("Followers count", a.getFollowerCount()+""));
-        list.add(new AthleteDataToStats.AthleteData("Rides", s.getAllRideTotals().getCount()+ " rides, distance "+s.getAllRideTotals().getDistance()));
+        list.add(new AthleteDataToStats.AthleteData(baseActivity.getString(R.string.user), a.getFirstName()+ " " + a.getLastName()));
+        list.add(new AthleteDataToStats.AthleteData(baseActivity.getString(R.string.friends_count), a.getFriendCount()+""));
+        list.add(new AthleteDataToStats.AthleteData(baseActivity.getString(R.string.followers_count), a.getFollowerCount()+""));
+        list.add(new AthleteDataToStats.AthleteData(baseActivity.getString(R.string.rides), s.getAllRideTotals().getCount()+ baseActivity.getString(R.string.rides__distance)+s.getAllRideTotals().getDistance()));
         return list;
     }
 }

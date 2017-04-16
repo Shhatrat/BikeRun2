@@ -8,8 +8,8 @@ import android.support.v7.widget.Toolbar;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.adapter.StravaStatsAdapter;
 import com.shhatrat.bikerun2.model.AthleteDataToStats;
-import com.shhatrat.bikerun2.presenter.activity.models.IStravaStatsPresenter;
 import com.shhatrat.bikerun2.presenter.activity.StravaStatsPresenter;
+import com.shhatrat.bikerun2.presenter.activity.models.IStravaStatsPresenter;
 import com.shhatrat.bikerun2.view.activity.models.IStravaStatsActivity;
 
 import org.parceler.Parcels;
@@ -32,8 +32,7 @@ public class StravaStatsActivity extends BaseActivity implements IStravaStatsAct
         setSupportActionBar(toolbar);
         setToolbar(toolbar);
         IStravaStatsPresenter stravaStatsPresenter  = new StravaStatsPresenter(this,this);
-        stravaStatsPresenter.getIntentData(Parcels.unwrap(getIntent().getParcelableExtra("example")));
-
+        stravaStatsPresenter.getIntentData(Parcels.unwrap(getIntent().getParcelableExtra(IStravaStatsPresenter.PARCEL_LIST)));
     }
 
     @Override

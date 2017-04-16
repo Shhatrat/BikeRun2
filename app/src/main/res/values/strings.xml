@@ -4,4 +4,12 @@
     <string name="address">https://www.strava.com</string>
     <string name="title_activity_strava_stats">Statistics</string>
     <string name="LOG_WARNING">LOG_WARNING</string>
+    <string name="LOG_ERROR">LOG_ERROR</string>
+    <string name="user">User</string>
+    <string name="friends_count">Friends count</string>
+    <string name="followers_count">Followers count</string>
+    <string name="rides">Rides</string>
+    <string name="rides__distance">rides, distance</string>
+    <string name="downloading__">Downloading..</string>
+    <string name="problem_with_downloading">Problem with downloading</string>
 </resources>

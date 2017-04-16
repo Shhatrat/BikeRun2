@@ -4,6 +4,7 @@ import com.sweetzpot.stravazpot.athlete.model.Athlete;
 import com.sweetzpot.stravazpot.athlete.model.Stats;
 import com.sweetzpot.stravazpot.authenticaton.model.LoginResult;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -19,15 +20,15 @@ public interface StravaApi {
 
     @FormUrlEncoded
     @POST("oauth/token")
-    Single<LoginResult> getResultLogin(
+    Observable<LoginResult> getResultLogin(
             @Field("client_id") Integer client_id,
             @Field("client_secret") String client_secret,
             @Field("code") String code);
 
     @GET("api/v3/athlete")
-    Single<Athlete> getCurrentAthlete();
+    Observable<Athlete> getCurrentAthlete();
 
     @GET("api/v3/athletes/{id}/stats")
-    Single<Stats> getAthleteStats(
+    Observable<Stats> getAthleteStats(
             @Path("id") int id);
 }
