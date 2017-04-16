@@ -1,5 +1,6 @@
 package com.shhatrat.bikerun2.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.view.View;
 
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.adapter.ViewPagerAdapter;
+import com.shhatrat.bikerun2.service.SportService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +37,7 @@ public class SportActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
+        startService(new Intent(this, SportService.class));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

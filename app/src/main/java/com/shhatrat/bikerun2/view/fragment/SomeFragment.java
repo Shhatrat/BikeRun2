@@ -31,10 +31,10 @@ public class SomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Fragment childFragment = new MapaFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.parent_fragment_container, childFragment).commit();
         Fragment childFragment2 = new DataFragment();
-        FragmentTransaction transaction2 = getChildFragmentManager().beginTransaction();
-        transaction2.replace(R.id.parent_fragment_second, childFragment2).commit();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction
+                .replace(R.id.parent_fragment_container, childFragment)
+                .replace(R.id.parent_fragment_second, childFragment2).commit();
     }
 }
