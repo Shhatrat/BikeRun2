@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import com.shhatrat.bikerun2.service.SportService;
-import com.trello.rxlifecycle2.components.RxFragment;
 
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
@@ -39,11 +37,6 @@ abstract public class BaseFragment extends Fragment {
     }
 
     abstract void subscribeData();
-
-//    void subscribeData()
-//    {
-//        Log.d("dddd", "PODLACZONE");
-//    }
 
     @Override
     public void onStart() {

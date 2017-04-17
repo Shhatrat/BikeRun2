@@ -1,6 +1,7 @@
 package com.shhatrat.bikerun2.view.fragment;
 
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,9 @@ import com.shhatrat.bikerun2.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.Subject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +52,30 @@ public class DataFragment extends BaseFragment {
 
     @Override
     void subscribeData() {
-            Log.d("dddd", "PODLACZONE");
+
+        Log.d("dddd", "PODLACZONE");
+        mService.getLocalizationObservable()
+                //.subscribe(e -> Log.d("dddd", e.getLatitude()+" " + e.getAccuracy() +" "+ e.getProvider()));
+        .subscribe(new Observer<Location>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                Log.d("dddd", "onsubsc" + d.isDisposed());
+            }
+
+            @Override
+            public void onNext(Location e) {
+                Log.d("dddd", e.getLatitude()+" " + e.getAccuracy() +" "+ e.getProvider());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("dddd", "onerror " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("dddd", "onComplete");
+            }
+        });
     }
 }
