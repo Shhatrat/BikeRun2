@@ -1,4 +1,4 @@
-package com.shhatrat.bikerun2.view.fragment;
+package com.shhatrat.bikerun2.view.fragment.data;
 
 
 import android.os.Bundle;
@@ -22,16 +22,25 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.shhatrat.bikerun2.R;
+import com.shhatrat.bikerun2.view.fragment.DataType;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MapaFragment extends Fragment implements OnMapReadyCallback {
-    public MapaFragment() {
+public class MapFragment extends Fragment implements OnMapReadyCallback {
+
+    public MapFragment() {
     }
     MapView mMapView;
-//    private GoogleMap googleMap;
 
+    public static MapFragment newInstance(DataType buttonType)
+    {
+        MapFragment mapFragment = new MapFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("dataType", buttonType);
+        mapFragment.setArguments(bundle);
+        return mapFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,7 +49,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
         View v =  inflater.inflate(R.layout.fragment_map2, container, false);
         mMapView = (MapView) v.findViewById(R.id.mapViewYOLO);
         mMapView.onCreate(savedInstanceState);
-        mMapView.onResume();// needed to get the map to display immediately
+        mMapView.onResume();
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
             mMapView.getMapAsync(this);
@@ -54,6 +63,7 @@ public class MapaFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.setMyLocationEnabled(true);
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
     }
 }

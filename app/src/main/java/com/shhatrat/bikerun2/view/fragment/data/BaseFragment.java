@@ -1,4 +1,4 @@
-package com.shhatrat.bikerun2.view.fragment;
+package com.shhatrat.bikerun2.view.fragment.data;
 
 import android.content.ComponentName;
 import android.content.Context;
