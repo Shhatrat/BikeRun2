@@ -1,20 +1,41 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.shhatrat.bikerun2.view.fragment.data.DataFragment">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        android:background="@color/white"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/data_fr_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:maxLines="2"
+            android:singleLine="true"
+            android:text="PREDKOSC"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+            autofit:minTextSize="16sp" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/data_fr_value"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="@string/hello_blank_fragment" />
-
+            android:maxLines="2"
+            android:singleLine="false"
+            android:text="PREDKOSC"
+            android:textAlignment="center"
+            android:textSize="40sp" />
     </RelativeLayout>
+
 </FrameLayout>

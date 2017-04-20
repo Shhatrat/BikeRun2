@@ -2,32 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="com.shhatrat.bikerun2.view.fragment.container.SomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        tools:text="DYMY DYMY HEHE" />
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/parent_fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
-
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    android:layout_height="match_parent">
         <FrameLayout
             android:id="@+id/parent_fragment_second"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@+id/parent_fragment_container"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp" />
-    </RelativeLayout>
+            android:layout_weight="2"
+            android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/parent_fragment_second3"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent" />
+</LinearLayout>
+        <FrameLayout
+            android:id="@+id/parent_fragment_third"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 </FrameLayout>

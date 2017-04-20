@@ -7,5 +7,6 @@ package com.shhatrat.bikerun2.view.fragment;
 public enum DataType {
         BUTTON_START,
         BUTTON_STOP,
-        DATA_POSITION
+        DATA_POSITION,
+        DATA_SPEED
 }

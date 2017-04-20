@@ -4,9 +4,13 @@
     android:layout_height="match_parent"
     tools:context="com.shhatrat.bikerun2.view.fragment.data.ButtonFragment">
 
-    <Button
+    <info.hoang8f.widget.FButton
+        android:id="@+id/bfrag_fbutton"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:text="OK"
-        android:layout_height="match_parent" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/white" />
 
 </FrameLayout>

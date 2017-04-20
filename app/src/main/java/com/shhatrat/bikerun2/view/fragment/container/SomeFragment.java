@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shhatrat.bikerun2.R;
+import com.shhatrat.bikerun2.view.fragment.DataType;
+import com.shhatrat.bikerun2.view.fragment.data.ButtonFragment;
 import com.shhatrat.bikerun2.view.fragment.data.DataFragment;
 import com.shhatrat.bikerun2.view.fragment.data.MapFragment;
 
@@ -38,11 +40,14 @@ public class SomeFragment extends Fragment implements IContainer {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Fragment childFragment = new MapFragment();
-        Fragment childFragment2 = new DataFragment();
+        Fragment childFragment = MapFragment.newInstance(DataType.BUTTON_START);
+        Fragment childFragment2 = DataFragment.newInstance(DataType.DATA_POSITION);
+        Fragment childFragment3 = DataFragment.newInstance(DataType.DATA_SPEED);
+//        Fragment childFragment3 = ButtonFragment.newInstance(DataType.BUTTON_START);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction
                 .replace(R.id.parent_fragment_container, childFragment)
+                .replace(R.id.parent_fragment_third, childFragment3)
                 .replace(R.id.parent_fragment_second, childFragment2).commit();
     }
 }

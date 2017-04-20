@@ -4,10 +4,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 
 import com.shhatrat.bikerun2.service.SportService;
+import com.shhatrat.bikerun2.view.fragment.DataType;
 
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
@@ -21,6 +23,7 @@ abstract public class BaseFragment extends Fragment {
     SportService mService;
     boolean mBound = false;
     Subject<Boolean> mObservable;
+    DataType dataType;
 
     public void setmBound(boolean val) {
         if(mBound!=val) {
@@ -43,6 +46,8 @@ abstract public class BaseFragment extends Fragment {
         super.onStart();
         Intent intent = new Intent(getActivity(), SportService.class);
         getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        Bundle b = this.getArguments();
+        dataType = (DataType) b.get("dataType");
     }
 
     @Override
