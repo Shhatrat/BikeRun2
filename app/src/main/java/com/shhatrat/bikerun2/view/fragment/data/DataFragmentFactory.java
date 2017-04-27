@@ -17,6 +17,10 @@ public class DataFragmentFactory {
             return   ButtonFragment.newInstance(dataType);
             case BUTTON_STOP:
                 return   ButtonFragment.newInstance(dataType);
+            case BUTTON_MOVE_LEFT:
+                return   ButtonFragment.newInstance(dataType);
+            case BUTTON_MOVE_RIGHT:
+                return   ButtonFragment.newInstance(dataType);
             case DATA_POSITION:
                 return   DataFragment.newInstance(dataType);
             case DATA_SPEED:

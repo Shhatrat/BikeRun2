@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SportActivity extends AppCompatActivity {
+public class SportActivity extends AppCompatActivity implements ISportActivity{
 
     @BindView(R.id.viewpager)
     ViewPager viewpager;
@@ -48,5 +48,14 @@ public class SportActivity extends AppCompatActivity {
         });
 
         viewpager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+    }
+    @Override
+    public void moveToLeftActivity() {
+        viewpager.setCurrentItem(viewpager.getCurrentItem()-1);
+    }
+
+    @Override
+    public void moveToRightActivity() {
+        viewpager.setCurrentItem(viewpager.getCurrentItem()+1);
     }
 }

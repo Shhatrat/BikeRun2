@@ -44,7 +44,7 @@ public class SomeFragment extends Fragment implements IContainer {
         Fragment childFragment = DataFragmentFactory.getInstance(DataType.MAP);
         Fragment childFragment2 = DataFragmentFactory.getInstance(DataType.DATA_POSITION);
         Fragment childFragment3 = DataFragmentFactory.getInstance(DataType.DATA_ACCURACY);
-        Fragment childFragment4 = DataFragmentFactory.getInstance(DataType.BUTTON_START);
+        Fragment childFragment4 = DataFragmentFactory.getInstance(DataType.BUTTON_MOVE_RIGHT);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction
                 .replace(R.id.parent_fragment_container, childFragment)

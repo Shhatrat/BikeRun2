@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.shhatrat.bikerun2.view.fragment.data.ButtonFragment">
 
     <info.hoang8f.widget.FButton
@@ -9,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
+        android:enabled="false"
         android:text="OK"
+        app:buttonColor="@color/colorPrimaryDark"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/white" />
 
