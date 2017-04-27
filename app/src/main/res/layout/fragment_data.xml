@@ -35,6 +35,7 @@
             android:singleLine="false"
             android:text=""
             android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="100sp" />
     </RelativeLayout>
 

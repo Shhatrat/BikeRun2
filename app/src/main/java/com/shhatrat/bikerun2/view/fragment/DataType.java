@@ -12,5 +12,6 @@ public enum DataType {
         DATA_BEARING,
         DATA_ACCURACY,
         DATA_ALTITUDE,
-        DATA_TIME
+        DATA_TIME,
+        MAP;
 }
