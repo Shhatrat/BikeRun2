@@ -1,5 +1,6 @@
 package com.shhatrat.bikerun2.di;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import com.github.brunodles.simplepreferences.lib.DaoPreferences;
 import com.shhatrat.bikerun2.model.AppSettings;
@@ -26,5 +27,15 @@ public class UtilImpl {
     public AppSettings getAppSettings()
     {
         return new AppSettings(c);
+    }
+
+    public boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) c.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

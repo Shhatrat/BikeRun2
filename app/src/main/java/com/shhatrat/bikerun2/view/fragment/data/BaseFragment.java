@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import com.shhatrat.bikerun2.service.SportService;
 import com.shhatrat.bikerun2.view.fragment.DataType;
 
+import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
@@ -48,6 +49,14 @@ abstract public class BaseFragment extends Fragment {
         getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
         Bundle b = this.getArguments();
         dataType = (DataType) b.get("dataType");
+    }
+
+    Disposable sub;
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        sub.dispose();
     }
 
     @Override

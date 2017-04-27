@@ -63,8 +63,14 @@ public class DataFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+
 
     void prepareField() {
         IContainer f = (IContainer) getParentFragment();
@@ -72,7 +78,7 @@ public class DataFragment extends BaseFragment {
     }
 
     private void setPosition(Location l) {
-        dataFrTitle.setText("Position"+ l.getTime());
+        dataFrTitle.setText("Position");
         dataFrValue.setText(l.getLatitude()+"\n"+l.getLongitude());
     }
 
@@ -110,23 +116,24 @@ public class DataFragment extends BaseFragment {
     void subscribeData() {
         switch (dataType) {
             case DATA_POSITION:
-                mService.getL().subscribe(this::setPosition);
+                 sub =  mService.getRawGpsSubject().subscribe(this::setPosition);
                 break;
             case DATA_SPEED:
-                mService.getL().subscribe(this::setSpeed);
+                sub =mService.getRawGpsSubject().subscribe(this::setSpeed);
                 break;
             case DATA_BEARING:
-                mService.getL().subscribe(this::setBearing);
+                sub =mService.getRawGpsSubject().subscribe(this::setBearing);
                 break;
             case DATA_ACCURACY:
-                mService.getL().subscribe(this::setAccurancy);
+                sub =mService.getRawGpsSubject().subscribe(this::setAccurancy);
                 break;
             case DATA_ALTITUDE:
-                mService.getL().subscribe(this::setAltitude);
+                sub =mService.getRawGpsSubject().subscribe(this::setAltitude);
                 break;
             case DATA_TIME:
-                mService.getL().subscribe(this::setTime);
+                sub =mService.getRawGpsSubject().subscribe(this::setTime);
                 break;
         }
+        mService.getRawGpsSubject().onNext(new Location(""));
     }
 }

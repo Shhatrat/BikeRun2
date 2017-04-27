@@ -9,9 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.shhatrat.bikerun2.BRApplication;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.adapter.ViewPagerAdapter;
+import com.shhatrat.bikerun2.di.UtilImpl;
 import com.shhatrat.bikerun2.service.SportService;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +25,9 @@ public class SportActivity extends AppCompatActivity {
     @BindView(R.id.viewpager)
     ViewPager viewpager;
 
+    @Inject
+    UtilImpl utils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,15 +35,8 @@ public class SportActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        ((BRApplication) getApplication()).getComponent().inject(this);
+        if(utils.isMyServiceRunning(SportService.class))
         startService(new Intent(this, SportService.class));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -48,8 +48,5 @@ public class SportActivity extends AppCompatActivity {
         });
 
         viewpager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-
-
     }
-
 }

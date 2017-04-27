@@ -20,7 +20,7 @@
             android:layout_alignParentTop="true"
             android:maxLines="2"
             android:singleLine="true"
-            android:text="PREDKOSC"
+            android:text=""
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
             autofit:minTextSize="16sp" />
@@ -33,9 +33,9 @@
             android:layout_centerVertical="true"
             android:maxLines="2"
             android:singleLine="false"
-            android:text="PREDKOSC"
+            android:text=""
             android:textAlignment="center"
-            android:textSize="40sp" />
+            android:textSize="100sp" />
     </RelativeLayout>
 
 </FrameLayout>

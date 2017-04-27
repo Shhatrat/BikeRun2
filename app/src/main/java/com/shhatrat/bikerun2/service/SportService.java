@@ -17,7 +17,7 @@ public class SportService extends Service {
     private final IBinder mBinder = new LocalBinder();
     private LocationManager locationManager;
     private PublishSubject<Location> last = PublishSubject.create();
-
+    private LocationListener locationListener;
     public SportService() {
     }
 
@@ -37,18 +37,24 @@ public class SportService extends Service {
     public void onCreate() {
         super.onCreate();
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, new LocationListener() {
+        prepareListener();
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, locationListener);
+    }
+
+    private void prepareListener()
+    {
+     locationListener =   new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 last.onNext(location);
             }
 
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
+             @Override
+             public void onStatusChanged(String provider, int status, Bundle extras) {
 
-            }
+             }
 
-            @Override
+         @Override
             public void onProviderEnabled(String provider) {
 
             }
@@ -57,10 +63,17 @@ public class SportService extends Service {
             public void onProviderDisabled(String provider) {
 
             }
-        });
+        };
     }
 
-    public PublishSubject<Location> getL()
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        last.onComplete();
+        locationManager.removeUpdates(locationListener);
+    }
+
+    public PublishSubject<Location> getRawGpsSubject()
     {
         return last;
     }

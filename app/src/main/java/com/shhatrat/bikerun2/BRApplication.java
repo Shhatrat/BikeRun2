@@ -9,6 +9,7 @@ import com.shhatrat.bikerun2.di.components.DaggerNetworkComponent;
 import com.shhatrat.bikerun2.di.components.NetworkComponent;
 import com.shhatrat.bikerun2.di.modules.ApplicationModule;
 import com.shhatrat.bikerun2.di.modules.NetworkModule;
+import com.squareup.leakcanary.LeakCanary;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 import io.realm.Realm;
@@ -26,6 +27,7 @@ public class BRApplication extends Application {
         super.onCreate();
 
         Realm.init(this);
+        LeakCanary.install(this);
         Stetho.initialize(
                 Stetho.newInitializerBuilder(this)
                         .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
