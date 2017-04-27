@@ -8,5 +8,9 @@ public enum DataType {
         BUTTON_START,
         BUTTON_STOP,
         DATA_POSITION,
-        DATA_SPEED
+        DATA_SPEED,
+        DATA_BEARING,
+        DATA_ACCURACY,
+        DATA_ALTITUDE,
+        DATA_TIME
 }

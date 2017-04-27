@@ -66,13 +66,13 @@ public class DataFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    void d() {
+    void prepareField() {
         IContainer f = (IContainer) getParentFragment();
         f.setDataField();
     }
 
     private void setPosition(Location l) {
-        dataFrTitle.setText("Position");
+        dataFrTitle.setText("Position"+ l.getTime());
         dataFrValue.setText(l.getLatitude()+"\n"+l.getLongitude());
     }
 
@@ -82,42 +82,51 @@ public class DataFragment extends BaseFragment {
         dataFrValue.setText(l.getSpeed()+"km/h");
     }
 
+    private void setBearing(Location l)
+    {
+        dataFrTitle.setText("Bearing");
+        dataFrValue.setText(l.getBearing()+"°");
+    }
+
+    private void setAccurancy(Location l)
+    {
+        dataFrTitle.setText("Accurancy");
+        dataFrValue.setText(l.getAccuracy()+"m");
+    }
+
+    private void setAltitude(Location l)
+    {
+        dataFrTitle.setText("Altitude");
+        dataFrValue.setText(l.getAltitude()+"m");
+    }
+
+    private void setTime(Location l)
+    {
+        dataFrTitle.setText("Time");
+        dataFrValue.setText(l.getTime()+"");
+    }
+
     @Override
     void subscribeData() {
-
         switch (dataType) {
             case DATA_POSITION:
-                mService.getLocalizationObservable().subscribe(this::setPosition);
+                mService.getL().subscribe(this::setPosition);
                 break;
             case DATA_SPEED:
+                mService.getL().subscribe(this::setSpeed);
+                break;
+            case DATA_BEARING:
+                mService.getL().subscribe(this::setBearing);
+                break;
+            case DATA_ACCURACY:
+                mService.getL().subscribe(this::setAccurancy);
+                break;
+            case DATA_ALTITUDE:
+                mService.getL().subscribe(this::setAltitude);
+                break;
+            case DATA_TIME:
+                mService.getL().subscribe(this::setTime);
                 break;
         }
-//        Log.d("ddd", dataType+"");
-//        Log.d("ddd", dataType+"");
-//        Log.d("dddd", "PODLACZONE");
-//        mService.getLocalizationObservable()
-//                //.subscribe(e -> Log.d("dddd", e.getLatitude()+" " + e.getAccuracy() +" "+ e.getProvider()));
-//        .subscribe(new Observer<Location>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//                Log.d("dddd", "onsubsc" + d.isDisposed());
-//            }
-//
-//            @Override
-//            public void onNext(Location e) {
-//                //Log.d("dddd", e.getLatitude()+" " + e.getAccuracy() +" "+ e.getProvider());
-//                d();
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                Log.d("dddd", "onerror " + e.getMessage());
-//            }
-//
-//            @Override
-//            public void onComplete() {
-//                Log.d("dddd", "onComplete");
-//            }
-//        });
     }
 }

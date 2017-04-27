@@ -42,8 +42,7 @@ public class SomeFragment extends Fragment implements IContainer {
         super.onViewCreated(view, savedInstanceState);
         Fragment childFragment = MapFragment.newInstance(DataType.BUTTON_START);
         Fragment childFragment2 = DataFragment.newInstance(DataType.DATA_POSITION);
-        Fragment childFragment3 = DataFragment.newInstance(DataType.DATA_SPEED);
-//        Fragment childFragment3 = ButtonFragment.newInstance(DataType.BUTTON_START);
+        Fragment childFragment3 = DataFragment.newInstance(DataType.DATA_ACCURACY);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction
                 .replace(R.id.parent_fragment_container, childFragment)

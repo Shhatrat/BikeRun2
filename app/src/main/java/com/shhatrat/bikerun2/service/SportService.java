@@ -1,30 +1,26 @@
 package com.shhatrat.bikerun2.service;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Binder;
+import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 
-import java.util.Random;
+import io.reactivex.subjects.PublishSubject;
 
-import io.nlopez.smartlocation.OnLocationUpdatedListener;
-import io.nlopez.smartlocation.SmartLocation;
-import io.nlopez.smartlocation.location.LocationProvider;
-import io.nlopez.smartlocation.location.config.LocationParams;
-import io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProvider;
-import io.nlopez.smartlocation.location.providers.LocationManagerProvider;
-import io.nlopez.smartlocation.location.providers.MultiFallbackProvider;
-import io.nlopez.smartlocation.rx.ObservableFactory;
-import io.reactivex.Observable;
-
-public class SportService extends Service{
+public class SportService extends Service {
 
     private final IBinder mBinder = new LocalBinder();
+    private LocationManager locationManager;
+    private PublishSubject<Location> last = PublishSubject.create();
 
     public SportService() {
     }
+
 
     public class LocalBinder extends Binder{
         public SportService getService() {
@@ -37,11 +33,35 @@ public class SportService extends Service{
         return mBinder;
     }
 
-    public Observable<Location> getLocalizationObservable()
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                last.onNext(location);
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        });
+    }
+
+    public PublishSubject<Location> getL()
     {
-        SmartLocation.LocationControl dd = SmartLocation.with(this).location().config(LocationParams.NAVIGATION);
-        Log.d("dddd" , "status "+ dd.state().isGpsAvailable());
-        Observable<Location> locationObservable = ObservableFactory.from(dd);
-        return locationObservable;
+        return last;
     }
 }
