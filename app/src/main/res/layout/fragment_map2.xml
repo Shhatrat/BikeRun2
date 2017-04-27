@@ -4,16 +4,10 @@
     android:layout_height="match_parent"
     tools:context="com.shhatrat.bikerun2.view.fragment.data.MapFragment">
 
-    <TextView
-        android:text="dymy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapViewYOLO"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_margin="10dp" />
-
 </FrameLayout>

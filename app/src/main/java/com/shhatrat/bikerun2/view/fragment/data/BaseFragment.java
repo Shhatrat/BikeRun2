@@ -56,6 +56,7 @@ abstract public class BaseFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        if(!(sub ==null))
         sub.dispose();
     }
 
