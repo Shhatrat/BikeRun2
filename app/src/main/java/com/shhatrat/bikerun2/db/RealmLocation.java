@@ -9,20 +9,19 @@ import io.realm.annotations.PrimaryKey;
 
 public class RealmLocation extends RealmObject{
 
-    @PrimaryKey
-    private int id;
     private double latitude;
     private double longitude;
     private long time;
+    private float accuracy;
+    private float bearing;
+    private double altitude;
+    private float speed;
 
-    public RealmLocation() {}
+    private double avgSpeed;
+    private double distance;
+    private int segment;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public RealmLocation() {
     }
 
     public double getLatitude() {
@@ -47,5 +46,61 @@ public class RealmLocation extends RealmObject{
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public float getAccuracy() {
+        return accuracy;
+    }
+
+    public void setAccuracy(float accuracy) {
+        this.accuracy = accuracy;
+    }
+
+    public float getBearing() {
+        return bearing;
+    }
+
+    public void setBearing(float bearing) {
+        this.bearing = bearing;
+    }
+
+    public double getAltitude() {
+        return altitude;
+    }
+
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public double getAvgSpeed() {
+        return avgSpeed;
+    }
+
+    public void setAvgSpeed(double avgSpeed) {
+        this.avgSpeed = avgSpeed;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public int getSegment() {
+        return segment;
+    }
+
+    public void setSegment(int segment) {
+        this.segment = segment;
     }
 }

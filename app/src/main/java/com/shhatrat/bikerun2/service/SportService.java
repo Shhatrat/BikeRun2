@@ -42,6 +42,7 @@ public class SportService extends Service {
         //// TODO: 29.04.17 permissions
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, locationListener);
         training = new Training(this, SportType.BIKE, last);
+        training.startTraining();
     }
 
     private void prepareListener()
