@@ -1,5 +1,7 @@
 package com.shhatrat.bikerun2.service;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +11,17 @@ import android.location.LocationManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
+
+import com.shhatrat.bikerun2.R;
+import com.shhatrat.bikerun2.view.activity.MenuActivityView;
 
 import io.reactivex.subjects.PublishSubject;
 
 public class SportService extends Service {
+
+    static int NOTIFICATION_TAG = 1111;
 
     private final IBinder mBinder = new LocalBinder();
     private LocationManager locationManager;
@@ -20,6 +29,23 @@ public class SportService extends Service {
     private LocationListener locationListener;
     public Training training;
     public SportService() {
+    }
+
+    public void createForegroundNotification()
+    {
+        Intent notificationIntent = new Intent(this, MenuActivityView.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+                notificationIntent, 0);
+        Notification notification = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Training service")
+                .setContentIntent(pendingIntent).build();
+        startForeground(NOTIFICATION_TAG, notification);
+    }
+
+    public void stopForegroundNotification()
+    {
+        stopForeground(true);
     }
 
 
@@ -40,9 +66,8 @@ public class SportService extends Service {
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         prepareListener();
         //// TODO: 29.04.17 permissions
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         training = new Training(this, SportType.BIKE, last);
-        training.startTraining();
     }
 
     private void prepareListener()
@@ -51,6 +76,7 @@ public class SportService extends Service {
             @Override
             public void onLocationChanged(Location location) {
                 last.onNext(location);
+                Log.d("GPSGPS", "save from GPS");
             }
 
              @Override

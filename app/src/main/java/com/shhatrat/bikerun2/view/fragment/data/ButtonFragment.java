@@ -43,11 +43,13 @@ public class ButtonFragment extends BaseFragment {
     {
         switch (dataType) {
             case BUTTON_START:
-                //// TODO: 4/27/17
+                mService.training.startTraining();
                 break;
             case BUTTON_STOP:
-                //// TODO: 4/27/17
+                mService.training.stopTraining();
                 break;
+            case BUTTON_PAUSE:
+                mService.training.pauseTraining();
             case BUTTON_MOVE_LEFT:
                 ((SportActivity)this.getActivity()).moveToLeftActivity();
                 break;
@@ -71,6 +73,9 @@ public class ButtonFragment extends BaseFragment {
         switch (dataType) {
             case BUTTON_START:
                 bfragFbutton.setText("START");
+                break;
+            case BUTTON_PAUSE:
+                bfragFbutton.setText("PAUSE");
                 break;
             case BUTTON_STOP:
                 bfragFbutton.setText("STOP");
