@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.shhatrat.bikerun2.service.SportService;
 import com.shhatrat.bikerun2.view.fragment.DataType;
@@ -37,7 +38,7 @@ abstract public class BaseFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mObservable = PublishSubject.create();
-        this.mObservable.filter(e -> e).subscribe(ee -> subscribeData());
+        this.mObservable.filter(e -> e).subscribe(ee -> subscribeData(), e -> Log.e("mObservable", e.getMessage()));
     }
 
     abstract void subscribeData();

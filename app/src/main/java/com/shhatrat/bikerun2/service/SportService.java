@@ -18,6 +18,7 @@ public class SportService extends Service {
     private LocationManager locationManager;
     private PublishSubject<Location> last = PublishSubject.create();
     private LocationListener locationListener;
+    public Training training;
     public SportService() {
     }
 
@@ -38,7 +39,9 @@ public class SportService extends Service {
         super.onCreate();
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         prepareListener();
+        //// TODO: 29.04.17 permissions
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, locationListener);
+        training = new Training(this, SportType.BIKE, last);
     }
 
     private void prepareListener()
@@ -72,7 +75,6 @@ public class SportService extends Service {
         last.onComplete();
         locationManager.removeUpdates(locationListener);
     }
-
     public PublishSubject<Location> getRawGpsSubject()
     {
         return last;
