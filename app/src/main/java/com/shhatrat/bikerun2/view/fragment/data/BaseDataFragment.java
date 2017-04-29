@@ -20,7 +20,7 @@ import io.reactivex.subjects.Subject;
  * Created by szymon on 16.04.17.
  */
 
-abstract public class BaseFragment extends Fragment {
+abstract public class BaseDataFragment extends Fragment {
 
     SportService mService;
     boolean mBound = false;

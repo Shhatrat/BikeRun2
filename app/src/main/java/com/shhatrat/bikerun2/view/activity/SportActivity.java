@@ -2,8 +2,6 @@ package com.shhatrat.bikerun2.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -49,6 +47,7 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
 
         viewpager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
     }
+
     @Override
     public void moveToLeftActivity() {
         viewpager.setCurrentItem(viewpager.getCurrentItem()-1);

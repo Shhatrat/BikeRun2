@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:maxLines="2"
+            android:maxLines="1"
             android:singleLine="false"
             android:text=""
             android:textAlignment="center"

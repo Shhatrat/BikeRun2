@@ -41,10 +41,10 @@ public class SomeFragment extends Fragment implements IContainer {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Fragment childFragment = DataFragmentFactory.getInstance(DataType.MAP);
-        Fragment childFragment2 = DataFragmentFactory.getInstance(DataType.DATA_POSITION);
-        Fragment childFragment3 = DataFragmentFactory.getInstance(DataType.DATA_ACCURACY);
-        Fragment childFragment4 = DataFragmentFactory.getInstance(DataType.BUTTON_MOVE_RIGHT);
+        Fragment childFragment = DataFragmentFactory.getInstance(DataType.BUTTON_STARTSTOP);
+        Fragment childFragment2 = DataFragmentFactory.getInstance(DataType.BUTTON_START);
+        Fragment childFragment3 = DataFragmentFactory.getInstance(DataType.DATA_TIME);
+        Fragment childFragment4 = DataFragmentFactory.getInstance(DataType.BUTTON_PAUSE);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction
                 .replace(R.id.parent_fragment_container, childFragment)

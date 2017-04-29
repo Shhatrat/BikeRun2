@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shhatrat.bikerun2.R;
+import com.shhatrat.bikerun2.db.RealmLocation;
 import com.shhatrat.bikerun2.view.fragment.DataType;
 import com.shhatrat.bikerun2.view.fragment.container.IContainer;
 
@@ -21,7 +22,7 @@ import me.grantland.widget.AutofitTextView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DataFragment extends BaseFragment {
+public class DataFragment extends BaseDataFragment {
 
     Unbinder unbinder;
     @BindView(R.id.data_fr_title)
@@ -112,9 +113,27 @@ public class DataFragment extends BaseFragment {
         dataFrValue.setText(l.getTime()+"");
     }
 
+    private void setAvgSpeed(RealmLocation rl)
+    {
+        dataFrTitle.setText("Avg speed");
+        dataFrValue.setText(rl.getAvgSpeed()+"km/h");
+    }
+
+    private void setDistance(RealmLocation rl)
+    {
+        dataFrTitle.setText("Distance");
+        dataFrValue.setText(rl.getDistance()+"m");
+    }
+
     @Override
     void subscribeData() {
         switch (dataType) {
+            case DATA_DISTANCE:
+                sub = mService.training.getCalculatedSubject().subscribe(this::setDistance);
+                break;
+            case DATA_AVG_SPEED:
+                sub = mService.training.getCalculatedSubject().subscribe(this::setAvgSpeed);
+                break;
             case DATA_POSITION:
                  sub =  mService.getRawGpsSubject().subscribe(this::setPosition);
                 break;

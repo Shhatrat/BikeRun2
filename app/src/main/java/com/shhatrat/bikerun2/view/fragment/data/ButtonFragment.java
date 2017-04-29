@@ -3,7 +3,7 @@ package com.shhatrat.bikerun2.view.fragment.data;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +11,19 @@ import android.view.ViewGroup;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.view.activity.SportActivity;
 import com.shhatrat.bikerun2.view.fragment.DataType;
+import com.tapadoo.alerter.Alerter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import de.mateware.snacky.Snacky;
 import info.hoang8f.widget.FButton;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ButtonFragment extends BaseFragment {
+public class ButtonFragment extends BaseDataFragment {
 
     @BindView(R.id.bfrag_fbutton)
     FButton bfragFbutton;
@@ -48,8 +50,12 @@ public class ButtonFragment extends BaseFragment {
             case BUTTON_STOP:
                 mService.training.stopTraining();
                 break;
+            case BUTTON_STARTSTOP:
+                startStop();
+                break;
             case BUTTON_PAUSE:
-                mService.training.pauseTraining();
+                pauseUnpause();
+                break;
             case BUTTON_MOVE_LEFT:
                 ((SportActivity)this.getActivity()).moveToLeftActivity();
                 break;
@@ -59,6 +65,21 @@ public class ButtonFragment extends BaseFragment {
         }
     }
 
+    private void pauseUnpause()
+    {
+        mService.training.pauseTraining();
+        preparePauseUnpause();
+    }
+
+    private void startStop()
+    {
+        if(mService.training.isTrainingRunning()) {
+            mService.training.stopTraining();
+        }else {
+            mService.training.startTraining();
+        }
+        prepareStartStop();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,14 +89,57 @@ public class ButtonFragment extends BaseFragment {
         return view;
     }
 
+    void prepareStartStop()
+    {
+        if(mService.training.isTrainingRunning())
+        {
+            bfragFbutton.setButtonColor(ContextCompat.getColor(this.getActivity(), R.color.colorAccent));
+            bfragFbutton.setText("STOP");
+        }
+        else
+        {
+            bfragFbutton.setButtonColor(ContextCompat.getColor(this.getActivity(), R.color.fbutton_color_green_sea));
+            bfragFbutton.setText("START");
+        }
+    }
+
+    void preparePauseUnpause()
+    {
+        if(!mService.training.isTrainingRunning())
+        {
+            bfragFbutton.setButtonColor(ContextCompat.getColor(this.getActivity(), R.color.colorAccent));
+            bfragFbutton.setText("PAUSE");
+            Alerter.create(this.getActivity())
+                    .setBackgroundColor(R.color.colorPrimary)
+                    .setTitle("Training is not started")
+                    .show();
+        }
+        else
+        {
+            if(mService.training.isTrainingPaused())
+            {
+                bfragFbutton.setButtonColor(ContextCompat.getColor(this.getActivity(), R.color.fbutton_color_green_sea));
+                bfragFbutton.setText("UNPAUSE");
+            }
+            else
+            {
+                bfragFbutton.setButtonColor(ContextCompat.getColor(this.getActivity(), R.color.colorAccent));
+                bfragFbutton.setText("PAUSE");
+            }
+        }
+    }
+
     @Override
     void subscribeData() {
         switch (dataType) {
             case BUTTON_START:
                 bfragFbutton.setText("START");
                 break;
+            case BUTTON_STARTSTOP:
+                prepareStartStop();
+                break;
             case BUTTON_PAUSE:
-                bfragFbutton.setText("PAUSE");
+                preparePauseUnpause();
                 break;
             case BUTTON_STOP:
                 bfragFbutton.setText("STOP");
