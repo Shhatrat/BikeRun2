@@ -39,9 +39,9 @@ public class DataFragmentFactory {
             case DATA_TIME:
                 return   DataFragment.newInstance(dataType);
             case DATA_AVG_SPEED:
-                break;
+                return   DataFragment.newInstance(dataType);
             case DATA_DISTANCE:
-                break;
+                return   DataFragment.newInstance(dataType);
             case MAP:
                 return MapFragment.newInstance(dataType);
         }
