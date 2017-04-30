@@ -21,8 +21,6 @@ import io.reactivex.subjects.PublishSubject;
 
 public class SportService extends Service {
 
-    static int NOTIFICATION_TAG = 1111;
-
     private final IBinder mBinder = new LocalBinder();
     private LocationManager locationManager;
     private PublishSubject<Location> locationPublishSubject = PublishSubject.create();
@@ -40,7 +38,7 @@ public class SportService extends Service {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Training service")
                 .setContentIntent(pendingIntent).build();
-        startForeground(NOTIFICATION_TAG, notification);
+        startForeground(getResources().getInteger(R.integer.strava_nofitication_tag), notification);
     }
 
     public void stopForegroundNotification()
