@@ -47,7 +47,7 @@ DataFragments connect with background service by Binder and subscribe data by RX
 - RxJava2
 - Butterknife
 - Realm
-- Retrolambda, Streams
+- Retrolambda, Streams (Android and Java8 :angry:)
 -	No libs hardly based on ~~reflection~~ like EventBus!
 - and more...
 
