@@ -1,4 +1,4 @@
-package com.shhatrat.bikerun2.view.activity;
+package com.shhatrat.bikerun2.view.activity.settings;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

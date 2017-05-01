@@ -18,17 +18,11 @@ import com.shhatrat.bikerun2.BRApplication;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.di.NetImpl;
 import com.shhatrat.bikerun2.di.UtilImpl;
-import com.shhatrat.bikerun2.model.AthleteDataToStats;
 import com.shhatrat.bikerun2.presenter.activity.models.IMenuActivityPresenter;
 import com.shhatrat.bikerun2.presenter.activity.MenuActivityPresenter;
 import com.shhatrat.bikerun2.view.activity.models.IMenuActivityView;
+import com.shhatrat.bikerun2.view.activity.settings.SettingsActivity;
 import com.sweetzpot.stravazpot.authenticaton.ui.StravaLoginActivity;
-import com.tapadoo.alerter.Alerter;
-
-import org.parceler.Parcels;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 

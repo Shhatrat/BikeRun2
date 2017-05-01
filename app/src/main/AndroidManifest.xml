@@ -55,7 +55,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".view.activity.SettingsActivity"
+            android:name=".view.activity.settings.SettingsActivity"
             android:label="@string/title_activity_settings"></activity>
     </application>
 
