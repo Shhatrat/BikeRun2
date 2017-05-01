@@ -1,6 +1,5 @@
 package com.shhatrat.bikerun2.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +12,16 @@ import com.shhatrat.bikerun2.BRApplication;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.adapter.ViewPagerAdapter;
 import com.shhatrat.bikerun2.di.UtilImpl;
-import com.shhatrat.bikerun2.service.SportService;
+import com.shhatrat.bikerun2.presenter.activity.SportPresenter;
+import com.shhatrat.bikerun2.presenter.activity.models.ISportPresenter;
+import com.shhatrat.bikerun2.service.SportType;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class SportActivity extends AppCompatActivity implements ISportActivity{
 
@@ -27,6 +30,7 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
 
     @Inject
     UtilImpl utils;
+    ISportPresenter sportPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +40,6 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ((BRApplication) getApplication()).getComponent().inject(this);
-        if(utils.isMyServiceRunning(SportService.class))
-        startService(new Intent(this, SportService.class));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -46,8 +48,9 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
                 finish();
             }
         });
-
-        viewpager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        SportType sportType = (SportType) getIntent().getSerializableExtra("type");
+        sportPresenter = new SportPresenter(this,this,sportType, utils.getRealm());
+        sportPresenter.preapreScreen();
     }
 
     @Override
@@ -80,5 +83,11 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
     @Override
     public void moveToRightActivity() {
         viewpager.setCurrentItem(viewpager.getCurrentItem()+1);
+    }
+
+    @Override
+    public void putNewAdapter(ViewPagerAdapter adapter) {
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewpager.setAdapter(adapter);
     }
 }

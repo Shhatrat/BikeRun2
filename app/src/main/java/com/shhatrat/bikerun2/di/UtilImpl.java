@@ -7,6 +7,9 @@ import com.shhatrat.bikerun2.model.AppSettings;
 
 import javax.inject.Inject;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 /**
  * Created by szymon on 08.04.17.
  */
@@ -27,6 +30,11 @@ public class UtilImpl {
     public AppSettings getAppSettings()
     {
         return new AppSettings(c);
+    }
+
+    public Realm getRealm() {
+        RealmConfiguration config = new RealmConfiguration.Builder().build();
+        return Realm.getInstance(config);
     }
 
     public boolean isMyServiceRunning(Class<?> serviceClass) {
