@@ -73,16 +73,11 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            openSettings();
+        if (id == R.id.menu_sport_settings) {
+            sportPresenter.prepareScreenConfiguration();
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void openSettings()
-    {
-
     }
 
     @Override

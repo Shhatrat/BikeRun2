@@ -43,6 +43,11 @@ public class SportPresenter implements ISportPresenter {
         appCompatActivity.startActivityForResult(i, appCompatActivity.getResources().getInteger(R.integer.config_screen));
     }
 
+    public void prepareScreenConfiguration()
+    {
+        prepareNewScreenConfiguration(sportType);
+    }
+
     private void prepareScreenFromConfig(SportType sportType) {
 
     }

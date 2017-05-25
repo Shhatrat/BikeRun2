@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.shhatrat.bikerun2.view.activity.MenuActivityView">
+    <item
+        android:id="@+id/menu_help"
+        android:icon="@drawable/ic_help_outline_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="Compose">
+    </item>
+    <item
+        android:id="@+id/menu_done"
+        android:icon="@drawable/ic_done_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="Compose">
+    </item>
+</menu>

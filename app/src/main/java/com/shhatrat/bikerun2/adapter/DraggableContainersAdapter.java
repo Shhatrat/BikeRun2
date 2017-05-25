@@ -38,6 +38,12 @@ public class DraggableContainersAdapter extends RecyclerView.Adapter<DraggableCo
         mItems = Stream.of(l).map(DataRealm::getFieldName).toList();
     }
 
+    public void addSection(String s)
+    {
+        mItems.add(s);
+        notifyDataSetChanged();
+    }
+
     public List<String> getCollection()
     {
         return mItems;
@@ -107,7 +113,7 @@ public class DraggableContainersAdapter extends RecyclerView.Adapter<DraggableCo
 
         @Override
         public void onItemClear() {
-            itemView.setBackgroundColor(0);
+            itemView.setBackgroundColor(Color.WHITE);
         }
     }
 }
