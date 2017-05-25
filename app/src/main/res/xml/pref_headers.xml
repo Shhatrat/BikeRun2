@@ -6,7 +6,7 @@
         android:title="@string/pref_header_general" />
     <header
         android:fragment="com.shhatrat.bikerun2.view.activity.settings.SettingsActivity$GeneralPreferenceFragment"
-        android:icon="@drawable/ic_gps_fixed_black_24dp"
+        android:icon="@drawable/alerter_ic_face"
         android:title="@string/gps" />
 
     <header

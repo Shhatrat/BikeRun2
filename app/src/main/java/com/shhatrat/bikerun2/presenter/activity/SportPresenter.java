@@ -3,6 +3,7 @@ package com.shhatrat.bikerun2.presenter.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
+import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.db.RealmSportActivity;
 import com.shhatrat.bikerun2.presenter.activity.models.ISportPresenter;
 import com.shhatrat.bikerun2.service.SportType;
@@ -29,21 +30,17 @@ public class SportPresenter implements ISportPresenter {
     }
 
     @Override
-    public void preapreScreen() {
+    public void prepareScreen() {
         if(checkConfAvailable(sportType))
-        {
             prepareScreenFromConfig(sportType);
-        }
         else
-        {
             prepareNewScreenConfiguration(sportType);
-        }
     }
 
     private void prepareNewScreenConfiguration(SportType sportType) {
         Intent i  = new Intent(appCompatActivity, PrepareContainersActivity.class);
-        i.putExtra("dd", sportType);
-        appCompatActivity.startActivityForResult(i, 199);
+        i.putExtra(appCompatActivity.getResources().getString(R.string.config_screen), sportType);
+        appCompatActivity.startActivityForResult(i, appCompatActivity.getResources().getInteger(R.integer.config_screen));
     }
 
     private void prepareScreenFromConfig(SportType sportType) {

@@ -1,5 +1,6 @@
 package com.shhatrat.bikerun2.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +21,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 public class SportActivity extends AppCompatActivity implements ISportActivity{
 
@@ -40,6 +39,7 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ((BRApplication) getApplication()).getComponent().inject(this);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -48,15 +48,25 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
                 finish();
             }
         });
-        SportType sportType = (SportType) getIntent().getSerializableExtra("type");
+
+        SportType sportType = (SportType) getIntent().getSerializableExtra(getResources().getString(R.string.sport_type));
         sportPresenter = new SportPresenter(this,this,sportType, utils.getRealm());
-        sportPresenter.preapreScreen();
+        sportPresenter.prepareScreen();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_sport, menu);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == getResources().getInteger(R.integer.config_screen))
+        {
+            //todo
+        }
     }
 
     @Override

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="strava_nofitication_tag">1111</integer>
+    <integer name="permission_request">501</integer>
+    <integer name="config_screen">199</integer>
 </resources>

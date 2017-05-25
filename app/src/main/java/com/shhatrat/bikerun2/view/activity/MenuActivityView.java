@@ -78,7 +78,7 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
             } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        501);
+                        getResources().getInteger(R.integer.permission_request));
             }
         }
 
@@ -91,7 +91,7 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
             } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                        501);
+                        getResources().getInteger(R.integer.permission_request));
             }
         }
     }
@@ -113,11 +113,11 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
     {
         Intent i = new Intent(this, SportActivity.class);
         if(button.getId()==R.id.menu_imagebutton_bike)
-            i.putExtra("type", SportType.BIKE);
+            i.putExtra(getResources().getString(R.string.sport_type), SportType.BIKE);
         if(button.getId()==R.id.menu_imagebutton_running)
-            i.putExtra("type", SportType.RUNNING);
+            i.putExtra(getResources().getString(R.string.sport_type), SportType.RUNNING);
         if(button.getId()==R.id.cm_imagebutton_trainer)
-            i.putExtra("type", SportType.TRAINER);
+            i.putExtra(getResources().getString(R.string.sport_type), SportType.TRAINER);
         startActivity(i);
     }
 
