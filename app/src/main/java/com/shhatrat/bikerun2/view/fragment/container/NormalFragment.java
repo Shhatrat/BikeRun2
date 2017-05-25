@@ -20,10 +20,10 @@ import com.shhatrat.bikerun2.view.fragment.data.MapFragment;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SomeFragment extends Fragment implements IContainer {
+public class NormalFragment extends BaseContainer implements IContainer {
 
 
-    public SomeFragment() {
+    public NormalFragment() {
     }
 
     @Override
@@ -35,6 +35,7 @@ public class SomeFragment extends Fragment implements IContainer {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        enumContainer = EnumContainer.NORMAL;
         return inflater.inflate(R.layout.fragment_some, container, false);
     }
 

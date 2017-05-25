@@ -89,4 +89,5 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="strava">Strava</string>
     <string name="gps">Gps</string>
+    <string name="title_activity_prepare_containers">PrepareContainersActivity</string>
 </resources>

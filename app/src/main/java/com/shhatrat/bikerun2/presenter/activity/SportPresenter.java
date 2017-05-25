@@ -1,11 +1,13 @@
 package com.shhatrat.bikerun2.presenter.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import com.shhatrat.bikerun2.db.RealmSportActivity;
 import com.shhatrat.bikerun2.presenter.activity.models.ISportPresenter;
 import com.shhatrat.bikerun2.service.SportType;
 import com.shhatrat.bikerun2.view.activity.ISportActivity;
+import com.shhatrat.bikerun2.view.activity.PrepareContainersActivity;
 
 import io.realm.Realm;
 
@@ -39,7 +41,9 @@ public class SportPresenter implements ISportPresenter {
     }
 
     private void prepareNewScreenConfiguration(SportType sportType) {
-
+        Intent i  = new Intent(appCompatActivity, PrepareContainersActivity.class);
+        i.putExtra("dd", sportType);
+        appCompatActivity.startActivityForResult(i, 199);
     }
 
     private void prepareScreenFromConfig(SportType sportType) {

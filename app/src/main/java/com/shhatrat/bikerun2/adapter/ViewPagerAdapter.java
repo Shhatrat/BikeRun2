@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.shhatrat.bikerun2.view.fragment.data.MapFragment;
-import com.shhatrat.bikerun2.view.fragment.container.SomeFragment;
+import com.shhatrat.bikerun2.view.fragment.container.NormalFragment;
 
 /**
  * Created by szymon on 16.04.17.
@@ -21,7 +21,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new SomeFragment();
+                return new NormalFragment();
             default:
                 return new MapFragment();
         }

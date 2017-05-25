@@ -56,7 +56,11 @@
 
         <activity
             android:name=".view.activity.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".view.activity.PrepareContainersActivity"
+            android:label="@string/title_activity_prepare_containers"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

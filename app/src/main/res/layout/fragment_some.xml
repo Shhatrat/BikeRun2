@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.shhatrat.bikerun2.view.fragment.container.SomeFragment">
+    tools:context="com.shhatrat.bikerun2.view.fragment.container.NormalFragment">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
