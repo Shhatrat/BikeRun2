@@ -14,6 +14,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = {ApplicationModule.class})
 public interface ApplicationComponent {
-    public void inject(MenuActivityView menuActivityView);
-    public void inject(SportActivity sportActivity);
+    void inject(MenuActivityView menuActivityView);
+    void inject(SportActivity sportActivity);
 }

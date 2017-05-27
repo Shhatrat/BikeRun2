@@ -5,6 +5,6 @@ package com.shhatrat.bikerun2.view.activity.models;
  */
 
 public interface IMessages {
-    public void showErrorSnacky(Throwable e);
-    public void showInfoSnacky(String message);
+    void showErrorSnacky(Throwable e);
+    void showInfoSnacky(String message);
 }

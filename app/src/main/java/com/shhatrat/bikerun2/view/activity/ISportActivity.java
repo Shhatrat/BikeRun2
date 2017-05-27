@@ -7,7 +7,7 @@ import com.shhatrat.bikerun2.adapter.ViewPagerAdapter;
  */
 
 public interface ISportActivity {
-    public void moveToLeftActivity();
-    public void moveToRightActivity();
-    public void putNewAdapter(ViewPagerAdapter adapter);
+    void moveToLeftActivity();
+    void moveToRightActivity();
+    void putNewAdapter(ViewPagerAdapter adapter);
 }

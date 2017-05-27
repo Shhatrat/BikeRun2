@@ -1,5 +1,6 @@
 package com.shhatrat.bikerun2.db;
 
+import com.shhatrat.bikerun2.StringUtil;
 import com.shhatrat.bikerun2.service.EnumSportType;
 import com.shhatrat.bikerun2.view.fragment.container.EnumContainerType;
 
@@ -17,7 +18,7 @@ public class RealmContainer extends RealmObject {
 
     @PrimaryKey
     @Required
-    Long id;
+    String id;
 
     public RealmContainer(NormalContainer nc)
     {
@@ -28,14 +29,14 @@ public class RealmContainer extends RealmObject {
     }
 
     public RealmContainer() {
-        this.id = System.currentTimeMillis();
+        this.id = System.currentTimeMillis()+ StringUtil.getRandomString();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

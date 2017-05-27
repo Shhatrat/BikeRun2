@@ -6,6 +6,6 @@ package com.shhatrat.bikerun2.view.activity.models;
 
 public interface IMenuActivityView extends IMessages {
 
-    public void setOfflineIcon();
-    public void setLoggedIcon(String name);
+    void setOfflineIcon();
+    void setLoggedIcon(String name);
 }

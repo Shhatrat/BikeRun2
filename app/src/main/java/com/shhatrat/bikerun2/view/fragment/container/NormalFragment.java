@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shhatrat.bikerun2.R;
-import com.shhatrat.bikerun2.view.fragment.data.EnumDataType;
 import com.shhatrat.bikerun2.view.fragment.data.DataFragmentFactory;
+import com.shhatrat.bikerun2.view.fragment.data.EnumDataType;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,9 +24,9 @@ public class NormalFragment extends BaseContainer implements IContainer {
     }
 
     @Override
-    public void setDataField()
+    public void setDataField(String tag)
     {
-        Log.d("dddd", "JESTEM SOME FRAGMENTEM");
+        Log.d("dddd", "JESTEM SOME FRAGMENTEM, tag " + tag);
     }
 
     @Override
@@ -39,10 +39,10 @@ public class NormalFragment extends BaseContainer implements IContainer {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Fragment childFragment = DataFragmentFactory.getInstance(EnumDataType.BUTTON_STARTSTOP);
-        Fragment childFragment2 = DataFragmentFactory.getInstance(EnumDataType.BUTTON_START);
-        Fragment childFragment3 = DataFragmentFactory.getInstance(EnumDataType.DATA_TIME);
-        Fragment childFragment4 = DataFragmentFactory.getInstance(EnumDataType.BUTTON_PAUSE);
+        Fragment childFragment = DataFragmentFactory.getInstance(EnumDataType.BUTTON_BLANK, "1");
+        Fragment childFragment2 = DataFragmentFactory.getInstance(EnumDataType.BUTTON_START, "2");
+        Fragment childFragment3 = DataFragmentFactory.getInstance(EnumDataType.DATA_TIME, "3");
+        Fragment childFragment4 = DataFragmentFactory.getInstance(EnumDataType.BUTTON_BLANK, "4");
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction
                 .replace(R.id.parent_fragment_container, childFragment)

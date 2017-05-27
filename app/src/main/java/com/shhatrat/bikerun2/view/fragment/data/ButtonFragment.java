@@ -15,6 +15,7 @@ import com.tapadoo.alerter.Alerter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import butterknife.Unbinder;
 import info.hoang8f.widget.FButton;
 
@@ -28,14 +29,6 @@ public class ButtonFragment extends BaseDataFragment {
     Unbinder unbinder;
 
     public ButtonFragment() {
-    }
-
-    public static ButtonFragment newInstance(EnumDataType buttonType) {
-        ButtonFragment buttonFragment = new ButtonFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("enumDataType", buttonType);
-        buttonFragment.setArguments(bundle);
-        return buttonFragment;
     }
 
     @OnClick(R.id.bfrag_fbutton)
@@ -60,8 +53,13 @@ public class ButtonFragment extends BaseDataFragment {
             case BUTTON_MOVE_RIGHT:
                 ((SportActivity)this.getActivity()).moveToRightActivity();
                 break;
+            case BUTTON_BLANK:
+                changeFragment(tag);
+                break;
         }
     }
+
+
 
     private void pauseUnpause()
     {
@@ -127,6 +125,13 @@ public class ButtonFragment extends BaseDataFragment {
         }
     }
 
+    @OnLongClick(R.id.bfrag_fbutton)
+    boolean changeFragmentExecutor()
+    {
+        changeFragment(tag);
+        return false;
+    }
+
     @Override
     void subscribeData() {
         switch (enumDataType) {
@@ -147,6 +152,9 @@ public class ButtonFragment extends BaseDataFragment {
                 break;
             case BUTTON_MOVE_RIGHT:
                 bfragFbutton.setText("RIGHT PAGE");
+                break;
+            case BUTTON_BLANK:
+                bfragFbutton.setText("Click to set");
                 break;
         }
         bfragFbutton.setEnabled(true);

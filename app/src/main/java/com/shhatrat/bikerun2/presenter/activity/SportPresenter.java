@@ -4,11 +4,16 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import com.shhatrat.bikerun2.R;
-import com.shhatrat.bikerun2.db.RealmContainer;
+import com.shhatrat.bikerun2.RealmUtils;
+import com.shhatrat.bikerun2.adapter.ViewPagerAdapter;
+import com.shhatrat.bikerun2.db.NormalContainer;
+import com.shhatrat.bikerun2.exception.RealmException;
 import com.shhatrat.bikerun2.presenter.activity.models.ISportPresenter;
 import com.shhatrat.bikerun2.service.EnumSportType;
 import com.shhatrat.bikerun2.view.activity.ISportActivity;
 import com.shhatrat.bikerun2.view.activity.PrepareContainersActivity;
+
+import java.util.ArrayList;
 
 import io.realm.Realm;
 
@@ -42,7 +47,7 @@ public class SportPresenter implements ISportPresenter {
     private void prepareNewScreenConfiguration(EnumSportType enumSportType) {
         Intent i  = new Intent(appCompatActivity, PrepareContainersActivity.class);
         i.putExtra(appCompatActivity.getResources().getString(R.string.config_screen), enumSportType);
-        appCompatActivity.startActivityForResult(i, appCompatActivity.getResources().getInteger(R.integer.config_screen));
+        appCompatActivity.startActivityForResult(i, appCompatActivity.getResources().getInteger(R.integer.config_screen)    );
     }
 
     public void prepareScreenConfiguration()
@@ -51,6 +56,12 @@ public class SportPresenter implements ISportPresenter {
     }
 
     private void prepareScreenFromConfig(EnumSportType enumSportType) {
+        try {
+            RealmUtils.getContainerList(realm, enumSportType);
+            sportActivity.putNewAdapter(new ViewPagerAdapter(appCompatActivity.getSupportFragmentManager(), new ArrayList<>()));
+        } catch (RealmException e) {
+            e.printStackTrace();
+        }
         //// TODO: 26.05.17  
     }
 }

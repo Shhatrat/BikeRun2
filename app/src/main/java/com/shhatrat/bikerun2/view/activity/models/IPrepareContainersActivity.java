@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface IPrepareContainersActivity {
 
-    public void preapreRecycleViewData(List<RealmContainer> list);
+    void preapreRecycleViewData(List<RealmContainer> list);
 }

@@ -1,5 +1,6 @@
 package com.shhatrat.bikerun2.view.fragment.data;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 /**
@@ -8,41 +9,73 @@ import android.support.v4.app.Fragment;
 
 public class DataFragmentFactory {
     
-    public static Fragment getInstance(EnumDataType enumDataType)
+    public static Fragment getInstance(EnumDataType enumDataType, String tag)
     {
         switch (enumDataType) {
             case BUTTON_START:
-            return   ButtonFragment.newInstance(enumDataType);
+            return   newButtonInstance(enumDataType, tag);
             case BUTTON_STOP:
-                return   ButtonFragment.newInstance(enumDataType);
+                return   newButtonInstance(enumDataType, tag);
             case BUTTON_STARTSTOP:
-                return   ButtonFragment.newInstance(enumDataType);
+                return   newButtonInstance(enumDataType, tag);
             case BUTTON_PAUSE:
-                return   ButtonFragment.newInstance(enumDataType);
+                return   newButtonInstance(enumDataType, tag);
             case BUTTON_MOVE_LEFT:
-                return   ButtonFragment.newInstance(enumDataType);
+                return   newButtonInstance(enumDataType, tag);
             case BUTTON_MOVE_RIGHT:
-                return   ButtonFragment.newInstance(enumDataType);
-            case DATA_POSITION:
-                return   DataFragment.newInstance(enumDataType);
-            case DATA_SPEED:
-                return   DataFragment.newInstance(enumDataType);
-            case DATA_BEARING:
-                return   DataFragment.newInstance(enumDataType);
-            case DATA_ACCURACY:
-                return   DataFragment.newInstance(enumDataType);
+                return   newButtonInstance(enumDataType, tag);
+            case BUTTON_BLANK:
+                return   newButtonInstance(enumDataType, tag);
 
+            case DATA_POSITION:
+                return   newDataInstance(enumDataType, tag);
+            case DATA_SPEED:
+                return   newDataInstance(enumDataType, tag);
+            case DATA_BEARING:
+                return   newDataInstance(enumDataType, tag);
+            case DATA_ACCURACY:
+                return   newDataInstance(enumDataType, tag);
             case DATA_ALTITUDE:
-                return   DataFragment.newInstance(enumDataType);
+                return   newDataInstance(enumDataType, tag);
             case DATA_TIME:
-                return   DataFragment.newInstance(enumDataType);
+                return   newDataInstance(enumDataType, tag);
             case DATA_AVG_SPEED:
-                return   DataFragment.newInstance(enumDataType);
+                return   newDataInstance(enumDataType, tag);
             case DATA_DISTANCE:
-                return   DataFragment.newInstance(enumDataType);
+                return   newDataInstance(enumDataType, tag);
+
+
             case MAP:
-                return MapFragment.newInstance(enumDataType);
+                return newMapInstance(enumDataType, tag);
         }
-        return DataFragment.newInstance(EnumDataType.DATA_TIME);
+        return newDataInstance(EnumDataType.DATA_TIME, tag);
     }
+
+    private static ButtonFragment newButtonInstance(EnumDataType buttonType, String tag) {
+        ButtonFragment buttonFragment = new ButtonFragment();
+        buttonFragment.setArguments(createBundle(buttonType, tag));
+        return buttonFragment;
+    }
+
+    private static DataFragment newDataInstance(EnumDataType buttonType, String tag) {
+        DataFragment buttonFragment = new DataFragment();
+        buttonFragment.setArguments(createBundle(buttonType, tag));
+        return buttonFragment;
+    }
+
+    private static MapFragment newMapInstance(EnumDataType buttonType, String tag) {
+        MapFragment buttonFragment = new MapFragment();
+        buttonFragment.setArguments(createBundle(buttonType, tag));
+        return buttonFragment;
+    }
+
+    private static Bundle createBundle(EnumDataType buttonType, String tag)
+    {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("enumDataType", buttonType);
+        bundle.putString("tag", tag);
+        return bundle;
+    }
+
+
 }

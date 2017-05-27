@@ -17,6 +17,8 @@ import com.shhatrat.bikerun2.presenter.activity.SportPresenter;
 import com.shhatrat.bikerun2.presenter.activity.models.ISportPresenter;
 import com.shhatrat.bikerun2.service.EnumSportType;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -65,7 +67,7 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == getResources().getInteger(R.integer.config_screen))
         {
-            //todo
+            sportPresenter.prepareScreen();
         }
     }
 
@@ -92,7 +94,7 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
 
     @Override
     public void putNewAdapter(ViewPagerAdapter adapter) {
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter = new ViewPagerAdapter(getSupportFragmentManager(), new ArrayList<>());
         viewpager.setAdapter(adapter);
     }
 }

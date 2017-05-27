@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.db.RealmLocation;
@@ -15,6 +16,7 @@ import com.shhatrat.bikerun2.view.fragment.container.IContainer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnLongClick;
 import butterknife.Unbinder;
 import me.grantland.widget.AutofitTextView;
 
@@ -28,16 +30,10 @@ public class DataFragment extends BaseDataFragment {
     AutofitTextView dataFrTitle;
     @BindView(R.id.data_fr_value)
     AutofitTextView dataFrValue;
+    @BindView(R.id.data_fr_recycleview)
+    RelativeLayout dataFrRecycleview;
 
     public DataFragment() {
-    }
-
-    public static DataFragment newInstance(EnumDataType buttonType) {
-        DataFragment dataFragment = new DataFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("enumDataType", buttonType);
-        dataFragment.setArguments(bundle);
-        return dataFragment;
     }
 
     @Override
@@ -71,57 +67,55 @@ public class DataFragment extends BaseDataFragment {
     }
 
 
-
     void prepareField() {
         IContainer f = (IContainer) getParentFragment();
-        f.setDataField();
+        f.setDataField(tag);
     }
 
     private void setPosition(Location l) {
         dataFrTitle.setText("Position");
-        dataFrValue.setText(l.getLatitude()+"\n"+l.getLongitude());
+        dataFrValue.setText(l.getLatitude() + "\n" + l.getLongitude());
     }
 
-    private void setSpeed(Location l)
-    {
+    private void setSpeed(Location l) {
         dataFrTitle.setText("Speed");
-        dataFrValue.setText(l.getSpeed()+"km/h");
+        dataFrValue.setText(l.getSpeed() + "km/h");
     }
 
-    private void setBearing(Location l)
-    {
+    private void setBearing(Location l) {
         dataFrTitle.setText("Bearing");
-        dataFrValue.setText(l.getBearing()+"°");
+        dataFrValue.setText(l.getBearing() + "°");
     }
 
-    private void setAccurancy(Location l)
-    {
+    private void setAccurancy(Location l) {
         dataFrTitle.setText("Accurancy");
-        dataFrValue.setText(l.getAccuracy()+"m");
+        dataFrValue.setText(l.getAccuracy() + "m");
     }
 
-    private void setAltitude(Location l)
-    {
+    private void setAltitude(Location l) {
         dataFrTitle.setText("Altitude");
-        dataFrValue.setText(l.getAltitude()+"m");
+        dataFrValue.setText(l.getAltitude() + "m");
     }
 
-    private void setTime(Location l)
-    {
+    private void setTime(Location l) {
         dataFrTitle.setText("Time");
-        dataFrValue.setText(l.getTime()+"");
+        dataFrValue.setText(l.getTime() + "");
     }
 
-    private void setAvgSpeed(RealmLocation rl)
-    {
+    private void setAvgSpeed(RealmLocation rl) {
         dataFrTitle.setText("Avg speed");
-        dataFrValue.setText(rl.getAvgSpeed()+"km/h");
+        dataFrValue.setText(rl.getAvgSpeed() + "km/h");
     }
 
-    private void setDistance(RealmLocation rl)
-    {
+    private void setDistance(RealmLocation rl) {
         dataFrTitle.setText("Distance");
-        dataFrValue.setText(rl.getDistance()+"m");
+        dataFrValue.setText(rl.getDistance() + "m");
+    }
+
+    @OnLongClick(R.id.data_fr_recycleview)
+    boolean changeFragment() {
+        super.changeFragment(tag);
+        return true;
     }
 
     @Override
@@ -134,22 +128,22 @@ public class DataFragment extends BaseDataFragment {
                 sub = mService.training.getCalculatedSubject().subscribe(this::setAvgSpeed);
                 break;
             case DATA_POSITION:
-                 sub =  mService.getRawGpsSubject().subscribe(this::setPosition);
+                sub = mService.getRawGpsSubject().subscribe(this::setPosition);
                 break;
             case DATA_SPEED:
-                sub =mService.getRawGpsSubject().subscribe(this::setSpeed);
+                sub = mService.getRawGpsSubject().subscribe(this::setSpeed);
                 break;
             case DATA_BEARING:
-                sub =mService.getRawGpsSubject().subscribe(this::setBearing);
+                sub = mService.getRawGpsSubject().subscribe(this::setBearing);
                 break;
             case DATA_ACCURACY:
-                sub =mService.getRawGpsSubject().subscribe(this::setAccurancy);
+                sub = mService.getRawGpsSubject().subscribe(this::setAccurancy);
                 break;
             case DATA_ALTITUDE:
-                sub =mService.getRawGpsSubject().subscribe(this::setAltitude);
+                sub = mService.getRawGpsSubject().subscribe(this::setAltitude);
                 break;
             case DATA_TIME:
-                sub =mService.getRawGpsSubject().subscribe(this::setTime);
+                sub = mService.getRawGpsSubject().subscribe(this::setTime);
                 break;
         }
         mService.getRawGpsSubject().onNext(new Location(""));

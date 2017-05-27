@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface IPrepareContainersPresenter {
 
-    public void loadConfigFromDB();
-    public void saveConfigFromScreen(List<RealmContainer> list);
+    void loadConfigFromDB();
+    void saveConfigFromScreen(List<RealmContainer> list);
 }

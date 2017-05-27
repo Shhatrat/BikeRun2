@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public interface IStravaStatsActivity {
-    public void setDataToAdapter(AthleteDataToStats data);
+    void setDataToAdapter(AthleteDataToStats data);
 }

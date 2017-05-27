@@ -18,7 +18,6 @@ import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.adapter.DraggableContainersAdapter;
 import com.shhatrat.bikerun2.adapter.helper.OnStartDragListener;
 import com.shhatrat.bikerun2.adapter.helper.SimpleItemTouchHelperCallback;
-import com.shhatrat.bikerun2.db.NormalContainer;
 import com.shhatrat.bikerun2.db.RealmContainer;
 import com.shhatrat.bikerun2.di.UtilImpl;
 import com.shhatrat.bikerun2.presenter.activity.PrepareContainersPresenter;
@@ -35,6 +34,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+
+import static com.shhatrat.bikerun2.RealmUtils.prepareNormalFromRealm;
+import static com.shhatrat.bikerun2.RealmUtils.prepareRealmFromNormal;
 
 public class PrepareContainersActivity extends AppCompatActivity implements OnStartDragListener, IPrepareContainersActivity {
 
@@ -64,6 +66,7 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
             @Override
             public void onClick(View v) {
                 finish();
+                //todo check changes and ask about it
             }
         });
         Realm realm = new UtilImpl(this).getRealm(); //// TODO: 26.05.17
@@ -118,7 +121,7 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
         }
 
         if (id == R.id.menu_done) {
-            List<RealmContainer> d = ll(dca.getCollection());
+            List<RealmContainer> d = prepareRealmFromNormal(dca.getCollection());
             containersPresenter.saveConfigFromScreen(d);
             finish();
             return true;
@@ -133,26 +136,8 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
 
     @Override
     public void preapreRecycleViewData(List<RealmContainer> list) {
-        dca = new DraggableContainersAdapter(getApplicationContext(), this, prLi(list));
+        dca = new DraggableContainersAdapter(getApplicationContext(), this, prepareNormalFromRealm(list));
         prepareRecycleview.setAdapter(dca);
-    }
-
-    private List<RealmContainer> ll(List<NormalContainer> l)
-    {
-        List<RealmContainer> o = new ArrayList<>();
-        for (NormalContainer normalContainer : l) {
-            o.add(new RealmContainer(normalContainer));
-        }
-        return o;
-    }
-
-    private List<NormalContainer> prLi(List<RealmContainer> rl)
-    {
-        List<NormalContainer> l = new ArrayList<>();
-        for (RealmContainer realmContainer : rl) {
-            l.add(new NormalContainer(realmContainer));
-        }
-        return l;
     }
 
     void showTips()
@@ -197,19 +182,7 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
                                                 .setPrimaryText("This is preview of screens")
                                                 .setCaptureTouchEventOnFocal(true)
                                                 .setCaptureTouchEventOutsidePrompt(true)
-                                                .setSecondaryText("you can remove it by swapping it down")
-                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener()
-                                                {
-                                                    @Override
-                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget)
-                                                    {
-                                                    }
-
-                                                    @Override
-                                                    public void onHidePromptComplete()
-                                                    {
-                                                    }
-                                                })
+                                                .setSecondaryText("you can remove it by swapping it down or change order by long click")
                                                 .show();
                                     }
                                 })

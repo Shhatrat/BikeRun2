@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.shhatrat.bikerun2.service.SportService;
+import com.shhatrat.bikerun2.view.fragment.container.IContainer;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
@@ -21,10 +22,16 @@ import io.reactivex.subjects.Subject;
 
 abstract public class BaseDataFragment extends Fragment {
 
+    boolean changeFragment(String tag) {
+        ((IContainer)getParentFragment()).setDataField(tag);
+        return false;
+    }
+
     SportService mService;
     boolean mBound = false;
     Subject<Boolean> mObservable;
     EnumDataType enumDataType;
+    String tag;
 
     public void setmBound(boolean val) {
         if(mBound!=val) {
@@ -49,6 +56,7 @@ abstract public class BaseDataFragment extends Fragment {
         getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
         Bundle b = this.getArguments();
         enumDataType = (EnumDataType) b.get("enumDataType");
+        tag = b.getString("tag");
     }
 
     Disposable sub;

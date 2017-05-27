@@ -16,20 +16,11 @@ import com.shhatrat.bikerun2.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends BaseDataFragment implements OnMapReadyCallback {
 
     public MapFragment() {
     }
     MapView mMapView;
-
-    public static MapFragment newInstance(EnumDataType buttonType)
-    {
-        MapFragment mapFragment = new MapFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("enumDataType", buttonType);
-        mapFragment.setArguments(bundle);
-        return mapFragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,5 +45,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.setMyLocationEnabled(true);
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
+    }
+
+    @Override
+    boolean changeFragment(String tag) {
+        //// TODO: 27.05.17
+        return true;
+    }
+
+    @Override
+    void subscribeData() {
+        //// TODO: 27.05.17  
     }
 }

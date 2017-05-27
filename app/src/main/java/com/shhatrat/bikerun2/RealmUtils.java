@@ -2,11 +2,13 @@ package com.shhatrat.bikerun2;
 
 import android.util.Log;
 
+import com.shhatrat.bikerun2.db.NormalContainer;
 import com.shhatrat.bikerun2.db.RealmContainer;
 import com.shhatrat.bikerun2.exception.ListException;
 import com.shhatrat.bikerun2.exception.ParameterException;
 import com.shhatrat.bikerun2.service.EnumSportType;
 
+import java.util.ArrayList;
 import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -51,5 +53,22 @@ public class RealmUtils {
         }
         realm.copyToRealm(list);
         realm.commitTransaction();
+    }
+    public static List<RealmContainer> prepareRealmFromNormal(List<NormalContainer> l)
+    {
+        List<RealmContainer> o = new ArrayList<>();
+        for (NormalContainer normalContainer : l) {
+            o.add(new RealmContainer(normalContainer));
+        }
+        return o;
+    }
+
+    public static List<NormalContainer> prepareNormalFromRealm(List<RealmContainer> rl)
+    {
+        List<NormalContainer> l = new ArrayList<>();
+        for (RealmContainer realmContainer : rl) {
+            l.add(new NormalContainer(realmContainer));
+        }
+        return l;
     }
 }

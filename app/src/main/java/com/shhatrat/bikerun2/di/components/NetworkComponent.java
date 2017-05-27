@@ -13,5 +13,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = {NetworkModule.class})
 public interface NetworkComponent {
-    public void inject(MenuActivityView menuActivityView);
+    void inject(MenuActivityView menuActivityView);
 }

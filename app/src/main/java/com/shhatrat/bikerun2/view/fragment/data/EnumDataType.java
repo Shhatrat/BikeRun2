@@ -11,6 +11,7 @@ public enum EnumDataType {
         BUTTON_PAUSE,
         BUTTON_MOVE_LEFT,
         BUTTON_MOVE_RIGHT,
+        BUTTON_BLANK,
 
         DATA_POSITION,
         DATA_SPEED,
@@ -20,5 +21,6 @@ public enum EnumDataType {
         DATA_TIME,
         DATA_AVG_SPEED,
         DATA_DISTANCE,
-        MAP;
+
+        MAP
 }

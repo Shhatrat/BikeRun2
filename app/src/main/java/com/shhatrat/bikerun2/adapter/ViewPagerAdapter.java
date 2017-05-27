@@ -4,8 +4,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.shhatrat.bikerun2.db.NormalContainer;
 import com.shhatrat.bikerun2.view.fragment.data.MapFragment;
 import com.shhatrat.bikerun2.view.fragment.container.NormalFragment;
+
+import java.util.List;
 
 /**
  * Created by szymon on 16.04.17.
@@ -13,8 +16,11 @@ import com.shhatrat.bikerun2.view.fragment.container.NormalFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    private final List<NormalContainer> list;
+
+    public ViewPagerAdapter(FragmentManager fm, List<NormalContainer> list) {
         super(fm);
+        this.list = list;
     }
 
     @Override
@@ -29,6 +35,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+//       return list.size();
+        return 1;
     }
 }

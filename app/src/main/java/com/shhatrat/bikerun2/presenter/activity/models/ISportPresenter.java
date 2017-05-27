@@ -6,6 +6,6 @@ package com.shhatrat.bikerun2.presenter.activity.models;
 
 public interface ISportPresenter {
 
-    public void prepareScreen();
-    public void prepareScreenConfiguration();
+    void prepareScreen();
+    void prepareScreenConfiguration();
 }

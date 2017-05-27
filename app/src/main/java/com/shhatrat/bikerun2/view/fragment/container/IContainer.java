@@ -6,5 +6,5 @@ package com.shhatrat.bikerun2.view.fragment.container;
 
 public interface IContainer {
 
-    public void setDataField();
+    void setDataField(String tag);
 }

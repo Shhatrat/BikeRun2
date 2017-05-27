@@ -10,9 +10,9 @@ import io.reactivex.Observable;
 
 interface ISportData {
 
-    public boolean startService();
-    public boolean stopService();
-    public Observable<Location> getLocation();
-    public Observable<Long> getAvgSpeed();
-    public Observable<Long> getDistance();
+    boolean startService();
+    boolean stopService();
+    Observable<Location> getLocation();
+    Observable<Long> getAvgSpeed();
+    Observable<Long> getDistance();
 }

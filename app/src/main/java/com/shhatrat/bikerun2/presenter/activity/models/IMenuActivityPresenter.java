@@ -5,8 +5,8 @@ package com.shhatrat.bikerun2.presenter.activity.models;
  */
 
 public interface IMenuActivityPresenter {
-    public void refreshImages();
-    public void loginResultCode(String code);
-    public void logUser();
-    public void isStravaReady();
+    void refreshImages();
+    void loginResultCode(String code);
+    void logUser();
+    void isStravaReady();
 }
