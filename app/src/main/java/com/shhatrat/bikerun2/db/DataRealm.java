@@ -1,5 +1,7 @@
 package com.shhatrat.bikerun2.db;
 
+import com.shhatrat.bikerun2.view.fragment.data.EnumDataType;
+
 import io.realm.RealmObject;
 
 /**
@@ -7,15 +9,24 @@ import io.realm.RealmObject;
  */
 
 public class DataRealm extends RealmObject {
-    private String val;
-    private String fieldName;
-
-    public String getVal() {
-        return val;
+    public String getConfig() {
+        return config;
     }
 
-    public void setVal(String val) {
-        this.val = val;
+    public void setConfig(String config) {
+        this.config = config;
+    }
+
+    private String config;
+    private String fieldName;
+    private String enumDataType;
+
+    public void saveDataType(EnumDataType val) {
+        this.enumDataType = val.toString();
+    }
+
+    public EnumDataType getDataType() {
+        return EnumDataType.valueOf(enumDataType);
     }
 
     public String getFieldName() {
@@ -29,8 +40,9 @@ public class DataRealm extends RealmObject {
     public DataRealm() {
     }
 
-    public DataRealm(String val, String fieldName) {
-        this.val = val;
+    public DataRealm(String config, String fieldName, String enumDataType) {
+        this.config = config;
         this.fieldName = fieldName;
+        this.enumDataType = enumDataType;
     }
 }

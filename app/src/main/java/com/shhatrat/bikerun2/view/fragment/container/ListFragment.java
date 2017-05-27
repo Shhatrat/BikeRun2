@@ -22,7 +22,7 @@ public class ListFragment extends BaseContainer implements IContainer {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        enumContainer = EnumContainer.LIST;
+        enumContainerType = EnumContainerType.LIST;
         return inflater.inflate(R.layout.fragment_list, container, false);
     }
 

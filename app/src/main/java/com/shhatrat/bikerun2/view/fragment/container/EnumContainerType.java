@@ -7,15 +7,15 @@ import java.util.List;
  * Created by szymon on 01.05.17.
  */
 
-public enum  EnumContainer {
+public enum EnumContainerType {
 
     LIST,
     NORMAL;
 
-    public static List<EnumContainer> getEnumList()
+    public static List<EnumContainerType> getEnumList()
     {
-        ArrayList<EnumContainer> list = new ArrayList<>();
-        for(EnumContainer e : EnumContainer.values())
+        ArrayList<EnumContainerType> list = new ArrayList<>();
+        for(EnumContainerType e : EnumContainerType.values())
         list.add(e);
         return list;
     }

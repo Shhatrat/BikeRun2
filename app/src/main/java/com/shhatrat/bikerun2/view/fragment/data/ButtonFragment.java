@@ -10,14 +10,12 @@ import android.view.ViewGroup;
 
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.view.activity.SportActivity;
-import com.shhatrat.bikerun2.view.fragment.DataType;
 import com.tapadoo.alerter.Alerter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import de.mateware.snacky.Snacky;
 import info.hoang8f.widget.FButton;
 
 /**
@@ -32,10 +30,10 @@ public class ButtonFragment extends BaseDataFragment {
     public ButtonFragment() {
     }
 
-    public static ButtonFragment newInstance(DataType buttonType) {
+    public static ButtonFragment newInstance(EnumDataType buttonType) {
         ButtonFragment buttonFragment = new ButtonFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("dataType", buttonType);
+        bundle.putSerializable("enumDataType", buttonType);
         buttonFragment.setArguments(bundle);
         return buttonFragment;
     }
@@ -43,7 +41,7 @@ public class ButtonFragment extends BaseDataFragment {
     @OnClick(R.id.bfrag_fbutton)
     public void click()
     {
-        switch (dataType) {
+        switch (enumDataType) {
             case BUTTON_START:
                 mService.training.startTraining();
                 break;
@@ -131,7 +129,7 @@ public class ButtonFragment extends BaseDataFragment {
 
     @Override
     void subscribeData() {
-        switch (dataType) {
+        switch (enumDataType) {
             case BUTTON_START:
                 bfragFbutton.setText("START");
                 break;

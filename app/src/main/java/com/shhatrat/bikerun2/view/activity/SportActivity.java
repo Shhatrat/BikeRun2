@@ -15,7 +15,7 @@ import com.shhatrat.bikerun2.adapter.ViewPagerAdapter;
 import com.shhatrat.bikerun2.di.UtilImpl;
 import com.shhatrat.bikerun2.presenter.activity.SportPresenter;
 import com.shhatrat.bikerun2.presenter.activity.models.ISportPresenter;
-import com.shhatrat.bikerun2.service.SportType;
+import com.shhatrat.bikerun2.service.EnumSportType;
 
 import javax.inject.Inject;
 
@@ -49,8 +49,8 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
             }
         });
 
-        SportType sportType = (SportType) getIntent().getSerializableExtra(getResources().getString(R.string.sport_type));
-        sportPresenter = new SportPresenter(this,this,sportType, utils.getRealm());
+        EnumSportType enumSportType = (EnumSportType) getIntent().getSerializableExtra(getResources().getString(R.string.sport_type));
+        sportPresenter = new SportPresenter(this,this, enumSportType, utils.getRealm());
         sportPresenter.prepareScreen();
     }
 

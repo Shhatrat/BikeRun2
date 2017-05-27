@@ -16,7 +16,8 @@ import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.adapter.helper.ItemTouchHelperAdapter;
 import com.shhatrat.bikerun2.adapter.helper.ItemTouchHelperViewHolder;
 import com.shhatrat.bikerun2.adapter.helper.OnStartDragListener;
-import com.shhatrat.bikerun2.db.DataRealm;
+import com.shhatrat.bikerun2.db.NormalContainer;
+import com.shhatrat.bikerun2.db.RealmContainer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,23 +30,25 @@ import java.util.List;
 public class DraggableContainersAdapter extends RecyclerView.Adapter<DraggableContainersAdapter.ItemViewHolder>
         implements ItemTouchHelperAdapter {
 
-    private  List<String> mItems = new ArrayList<>();
+    private  List<NormalContainer> mItems = new ArrayList<>();
 
     private final OnStartDragListener mDragStartListener;
 
-    public DraggableContainersAdapter(Context context, OnStartDragListener dragStartListener, List<DataRealm> l) {
+    public DraggableContainersAdapter(Context context, OnStartDragListener dragStartListener, List<NormalContainer> l) {
         mDragStartListener = dragStartListener;
-        mItems = Stream.of(l).map(DataRealm::getFieldName).toList();
+        if(l.size()!=0)
+        mItems = l;
     }
 
-    public void addSection(String s)
+    public void addSection(RealmContainer s)
     {
-        mItems.add(s);
+        mItems.add(new NormalContainer(s));
         notifyDataSetChanged();
     }
 
-    public List<String> getCollection()
+    public List<NormalContainer> getCollection()
     {
+        Stream.of(mItems).forEachIndexed((i, e) -> e.setPosition(i));
         return mItems;
     }
 
@@ -58,9 +61,8 @@ public class DraggableContainersAdapter extends RecyclerView.Adapter<DraggableCo
 
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, int position) {
-        holder.textView.setText(mItems.get(position));
+        holder.textView.setText(mItems.get(position).getContainerType().name());
 
-        // Start a drag whenever the handle view it touched
         holder.handleView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -90,10 +92,6 @@ public class DraggableContainersAdapter extends RecyclerView.Adapter<DraggableCo
         return mItems.size();
     }
 
-    /**
-     * Simple example of a view holder that implements {@link ItemTouchHelperViewHolder} and has a
-     * "handle" view that initiates a drag event when touched.
-     */
     public static class ItemViewHolder extends RecyclerView.ViewHolder implements
             ItemTouchHelperViewHolder {
 

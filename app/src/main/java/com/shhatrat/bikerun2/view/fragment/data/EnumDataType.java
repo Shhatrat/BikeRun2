@@ -1,10 +1,10 @@
-package com.shhatrat.bikerun2.view.fragment;
+package com.shhatrat.bikerun2.view.fragment.data;
 
 /**
  * Created by szymon on 17.04.17.
  */
 
-public enum DataType {
+public enum EnumDataType {
         BUTTON_START,
         BUTTON_STOP,
         BUTTON_STARTSTOP,

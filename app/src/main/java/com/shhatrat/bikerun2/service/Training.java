@@ -15,7 +15,7 @@ import io.realm.RealmConfiguration;
 public class Training {
     
     private SportService sportService;
-    private SportType sportType;
+    private EnumSportType enumSportType;
     private PublishSubject<Location> locationPublishSubject;
     private PublishSubject<RealmLocation> calculatedPublishSubject;
     private boolean trainingRunning =false;
@@ -25,9 +25,9 @@ public class Training {
     private Realm realm = Realm.getInstance(config);
 
 
-    public Training(SportService sportService, SportType sportType, PublishSubject<Location> locationPublishSubject) {
+    public Training(SportService sportService, EnumSportType enumSportType, PublishSubject<Location> locationPublishSubject) {
         this.sportService = sportService;
-        this.sportType = sportType;
+        this.enumSportType = enumSportType;
         this.locationPublishSubject = locationPublishSubject;
         this.calculatedPublishSubject = PublishSubject.create();
     }

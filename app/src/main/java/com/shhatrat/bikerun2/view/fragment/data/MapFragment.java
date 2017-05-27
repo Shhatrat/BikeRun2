@@ -2,27 +2,16 @@ package com.shhatrat.bikerun2.view.fragment.data;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.shhatrat.bikerun2.R;
-import com.shhatrat.bikerun2.view.fragment.DataType;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,11 +22,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
     MapView mMapView;
 
-    public static MapFragment newInstance(DataType buttonType)
+    public static MapFragment newInstance(EnumDataType buttonType)
     {
         MapFragment mapFragment = new MapFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("dataType", buttonType);
+        bundle.putSerializable("enumDataType", buttonType);
         mapFragment.setArguments(bundle);
         return mapFragment;
     }

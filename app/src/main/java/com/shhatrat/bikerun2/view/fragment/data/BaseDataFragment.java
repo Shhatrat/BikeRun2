@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.shhatrat.bikerun2.service.SportService;
-import com.shhatrat.bikerun2.view.fragment.DataType;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
@@ -25,7 +24,7 @@ abstract public class BaseDataFragment extends Fragment {
     SportService mService;
     boolean mBound = false;
     Subject<Boolean> mObservable;
-    DataType dataType;
+    EnumDataType enumDataType;
 
     public void setmBound(boolean val) {
         if(mBound!=val) {
@@ -49,7 +48,7 @@ abstract public class BaseDataFragment extends Fragment {
         Intent intent = new Intent(getActivity(), SportService.class);
         getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
         Bundle b = this.getArguments();
-        dataType = (DataType) b.get("dataType");
+        enumDataType = (EnumDataType) b.get("enumDataType");
     }
 
     Disposable sub;

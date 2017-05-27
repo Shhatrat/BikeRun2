@@ -78,7 +78,7 @@ dependencies {
     compile 'info.hoang8f:fbutton:1.0.5'
     compile 'me.grantland:autofittextview:0.2.1'
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
-
+    compile 'uk.co.samuelwall:material-tap-target-prompt:1.9.3'
 
     //di
     compile 'com.jakewharton:butterknife:8.5.1'

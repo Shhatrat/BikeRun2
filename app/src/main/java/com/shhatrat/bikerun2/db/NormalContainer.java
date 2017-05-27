@@ -4,31 +4,24 @@ import com.shhatrat.bikerun2.service.EnumSportType;
 import com.shhatrat.bikerun2.view.fragment.container.EnumContainerType;
 
 import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.Required;
 
 /**
- * Created by szymon on 01.05.17.
+ * Created by szymon on 27.05.17.
  */
 
-public class RealmContainer extends RealmObject {
-
-
-    @PrimaryKey
-    @Required
+public class NormalContainer {
     Long id;
 
-    public RealmContainer(NormalContainer nc)
-    {
-        this.position = nc.getPosition();
-        this.id= (nc.getId());
-        this.saveContainerType(nc.getContainerType());
-        this.saveSportType(nc.getSportType());
+    public NormalContainer() {
+        this.id = System.currentTimeMillis();
     }
 
-    public RealmContainer() {
-        this.id = System.currentTimeMillis();
+    public NormalContainer(RealmContainer nc)
+    {
+        this.position = (nc.getPosition());
+        this.id = (nc.getId());
+        this.saveContainerType(nc.getContainerType());
+        this.saveSportType(nc.getSportType());
     }
 
     public Long getId() {

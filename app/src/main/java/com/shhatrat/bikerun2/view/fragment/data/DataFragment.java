@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.db.RealmLocation;
-import com.shhatrat.bikerun2.view.fragment.DataType;
 import com.shhatrat.bikerun2.view.fragment.container.IContainer;
 
 import butterknife.BindView;
@@ -33,10 +32,10 @@ public class DataFragment extends BaseDataFragment {
     public DataFragment() {
     }
 
-    public static DataFragment newInstance(DataType buttonType) {
+    public static DataFragment newInstance(EnumDataType buttonType) {
         DataFragment dataFragment = new DataFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("dataType", buttonType);
+        bundle.putSerializable("enumDataType", buttonType);
         dataFragment.setArguments(bundle);
         return dataFragment;
     }
@@ -45,7 +44,7 @@ public class DataFragment extends BaseDataFragment {
     public void onStart() {
         super.onStart();
         Bundle b = this.getArguments();
-        dataType = (DataType) b.get("dataType");
+        enumDataType = (EnumDataType) b.get("enumDataType");
     }
 
     @Override
@@ -127,7 +126,7 @@ public class DataFragment extends BaseDataFragment {
 
     @Override
     void subscribeData() {
-        switch (dataType) {
+        switch (enumDataType) {
             case DATA_DISTANCE:
                 sub = mService.training.getCalculatedSubject().subscribe(this::setDistance);
                 break;

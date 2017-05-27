@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -17,9 +18,14 @@ import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.adapter.DraggableContainersAdapter;
 import com.shhatrat.bikerun2.adapter.helper.OnStartDragListener;
 import com.shhatrat.bikerun2.adapter.helper.SimpleItemTouchHelperCallback;
-import com.shhatrat.bikerun2.db.DataRealm;
-import com.shhatrat.bikerun2.service.SportType;
-import com.shhatrat.bikerun2.view.fragment.container.EnumContainer;
+import com.shhatrat.bikerun2.db.NormalContainer;
+import com.shhatrat.bikerun2.db.RealmContainer;
+import com.shhatrat.bikerun2.di.UtilImpl;
+import com.shhatrat.bikerun2.presenter.activity.PrepareContainersPresenter;
+import com.shhatrat.bikerun2.presenter.activity.models.IPrepareContainersPresenter;
+import com.shhatrat.bikerun2.service.EnumSportType;
+import com.shhatrat.bikerun2.view.activity.models.IPrepareContainersActivity;
+import com.shhatrat.bikerun2.view.fragment.container.EnumContainerType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +33,19 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
-public class PrepareContainersActivity extends AppCompatActivity implements OnStartDragListener {
+public class PrepareContainersActivity extends AppCompatActivity implements OnStartDragListener, IPrepareContainersActivity {
 
     @BindView(R.id.prepare_recycleview)
     RecyclerView prepareRecycleview;
     @BindView(R.id.fab)
     FloatingActionButton fab;
     private ItemTouchHelper mItemTouchHelper;
-    private SportType sportType;
+    private EnumSportType enumSportType;
     DraggableContainersAdapter dca;
+    IPrepareContainersPresenter containersPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +55,8 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        sportType = (SportType) getIntent().getSerializableExtra(getResources().getString(R.string.config_screen));
+        enumSportType = (EnumSportType) getIntent().getSerializableExtra(getResources().getString(R.string.config_screen));
+        dca = new DraggableContainersAdapter(getApplicationContext(), this, new ArrayList<>());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -56,15 +66,10 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
                 finish();
             }
         });
-
-        List<DataRealm> l = new ArrayList<>();
-        l.add(new DataRealm("aa", "bb"));
-        l.add(new DataRealm("a2", "df"));
-        l.add(new DataRealm("a44", "sb"));
-
-        dca = new DraggableContainersAdapter(getApplicationContext(), this, l);
+        Realm realm = new UtilImpl(this).getRealm(); //// TODO: 26.05.17
+        containersPresenter = new PrepareContainersPresenter(realm, enumSportType, this);
+        containersPresenter.loadConfigFromDB();
         prepareRecycleview.setHasFixedSize(true);
-        prepareRecycleview.setAdapter(dca);
         prepareRecycleview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(dca);
@@ -83,11 +88,14 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
     void showDialog() {
         new MaterialDialog.Builder(this)
                 .title("Add screen")
-                .items(EnumContainer.getEnumList())
+                .items(EnumContainerType.getEnumList())
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        dca.addSection(text.toString());
+                        RealmContainer rc= new RealmContainer();
+                        rc.saveContainerType(EnumContainerType.valueOf(text.toString()));
+                        rc.saveSportType(enumSportType);
+                        dca.addSection(rc);
                     }
                 })
                 .show();
@@ -105,10 +113,14 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
         int id = item.getItemId();
 
         if (id == R.id.menu_help) {
+            showTips();
             return true;
         }
 
         if (id == R.id.menu_done) {
+            List<RealmContainer> d = ll(dca.getCollection());
+            containersPresenter.saveConfigFromScreen(d);
+            finish();
             return true;
         }
         return false;
@@ -117,5 +129,93 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
     @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
 
+    }
+
+    @Override
+    public void preapreRecycleViewData(List<RealmContainer> list) {
+        dca = new DraggableContainersAdapter(getApplicationContext(), this, prLi(list));
+        prepareRecycleview.setAdapter(dca);
+    }
+
+    private List<RealmContainer> ll(List<NormalContainer> l)
+    {
+        List<RealmContainer> o = new ArrayList<>();
+        for (NormalContainer normalContainer : l) {
+            o.add(new RealmContainer(normalContainer));
+        }
+        return o;
+    }
+
+    private List<NormalContainer> prLi(List<RealmContainer> rl)
+    {
+        List<NormalContainer> l = new ArrayList<>();
+        for (RealmContainer realmContainer : rl) {
+            l.add(new NormalContainer(realmContainer));
+        }
+        return l;
+    }
+
+    void showTips()
+    {
+        new MaterialTapTargetPrompt.Builder(this)
+                .setTarget(findViewById(R.id.fab))
+                .setBackgroundColourFromRes(R.color.colorPrimaryDark)
+                .setPrimaryText("Click this button")
+                .setCaptureTouchEventOnFocal(true)
+                .setCaptureTouchEventOutsidePrompt(true)
+                .setSecondaryText("to add new container screen")
+                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener()
+                {
+                    @Override
+                    public void onHidePrompt(MotionEvent event, boolean tappedTarget)
+                    {
+                    }
+
+                    @Override
+                    public void onHidePromptComplete()
+                    {
+                        new MaterialTapTargetPrompt.Builder(PrepareContainersActivity.this)
+                                .setTarget(findViewById(R.id.menu_done))
+                                .setBackgroundColourFromRes(R.color.colorPrimaryDark)
+                                .setPrimaryText("Click this button")
+                                .setCaptureTouchEventOnFocal(true)
+                                .setCaptureTouchEventOutsidePrompt(true)
+                                .setSecondaryText("to save screens")
+                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener()
+                                {
+                                    @Override
+                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget)
+                                    {
+                                    }
+
+                                    @Override
+                                    public void onHidePromptComplete()
+                                    {
+                                        new MaterialTapTargetPrompt.Builder(PrepareContainersActivity.this)
+                                                .setTarget(findViewById(R.id.toolbar))
+                                                .setBackgroundColourFromRes(R.color.colorPrimaryDark)
+                                                .setPrimaryText("This is preview of screens")
+                                                .setCaptureTouchEventOnFocal(true)
+                                                .setCaptureTouchEventOutsidePrompt(true)
+                                                .setSecondaryText("you can remove it by swapping it down")
+                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener()
+                                                {
+                                                    @Override
+                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget)
+                                                    {
+                                                    }
+
+                                                    @Override
+                                                    public void onHidePromptComplete()
+                                                    {
+                                                    }
+                                                })
+                                                .show();
+                                    }
+                                })
+                                .show();
+                    }
+                })
+                .show();
     }
 }

@@ -20,7 +20,7 @@ import com.shhatrat.bikerun2.di.NetImpl;
 import com.shhatrat.bikerun2.di.UtilImpl;
 import com.shhatrat.bikerun2.presenter.activity.models.IMenuActivityPresenter;
 import com.shhatrat.bikerun2.presenter.activity.MenuActivityPresenter;
-import com.shhatrat.bikerun2.service.SportType;
+import com.shhatrat.bikerun2.service.EnumSportType;
 import com.shhatrat.bikerun2.view.activity.models.IMenuActivityView;
 import com.shhatrat.bikerun2.view.activity.settings.SettingsActivity;
 import com.sweetzpot.stravazpot.authenticaton.ui.StravaLoginActivity;
@@ -113,11 +113,11 @@ public class MenuActivityView extends BaseActivity implements IMenuActivityView 
     {
         Intent i = new Intent(this, SportActivity.class);
         if(button.getId()==R.id.menu_imagebutton_bike)
-            i.putExtra(getResources().getString(R.string.sport_type), SportType.BIKE);
+            i.putExtra(getResources().getString(R.string.sport_type), EnumSportType.BIKE);
         if(button.getId()==R.id.menu_imagebutton_running)
-            i.putExtra(getResources().getString(R.string.sport_type), SportType.RUNNING);
+            i.putExtra(getResources().getString(R.string.sport_type), EnumSportType.RUNNING);
         if(button.getId()==R.id.cm_imagebutton_trainer)
-            i.putExtra(getResources().getString(R.string.sport_type), SportType.TRAINER);
+            i.putExtra(getResources().getString(R.string.sport_type), EnumSportType.TRAINER);
         startActivity(i);
     }
 
