@@ -90,4 +90,12 @@
     <string name="strava">Strava</string>
     <string name="gps">Gps</string>
     <string name="title_activity_prepare_containers">Prepare containers</string>
+    <string name="stop">STOP</string>
+    <string name="start">START</string>
+    <string name="pause">PAUSE</string>
+    <string name="training_is_not_started">Training is not started</string>
+    <string name="unpause">UNPAUSE</string>
+    <string name="left_page">LEFT PAGE</string>
+    <string name="right_page">RIGHT PAGE</string>
+    <string name="click_to_set">Click to set</string>
 </resources>

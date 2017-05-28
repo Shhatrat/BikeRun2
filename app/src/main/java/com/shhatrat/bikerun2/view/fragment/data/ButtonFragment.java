@@ -90,12 +90,12 @@ public class ButtonFragment extends BaseDataFragment {
         if(mService.training.isTrainingRunning())
         {
             bfragFbutton.setButtonColor(ContextCompat.getColor(this.getActivity(), R.color.colorAccent));
-            bfragFbutton.setText("STOP");
+            bfragFbutton.setText(R.string.stop);
         }
         else
         {
             bfragFbutton.setButtonColor(ContextCompat.getColor(this.getActivity(), R.color.fbutton_color_green_sea));
-            bfragFbutton.setText("START");
+            bfragFbutton.setText(R.string.start);
         }
     }
 
@@ -104,10 +104,10 @@ public class ButtonFragment extends BaseDataFragment {
         if(!mService.training.isTrainingRunning())
         {
             bfragFbutton.setButtonColor(ContextCompat.getColor(this.getActivity(), R.color.colorAccent));
-            bfragFbutton.setText("PAUSE");
+            bfragFbutton.setText(R.string.pause);
             Alerter.create(this.getActivity())
                     .setBackgroundColor(R.color.colorPrimary)
-                    .setTitle("Training is not started")
+                    .setTitle(R.string.training_is_not_started)
                     .show();
         }
         else
@@ -115,12 +115,12 @@ public class ButtonFragment extends BaseDataFragment {
             if(mService.training.isTrainingPaused())
             {
                 bfragFbutton.setButtonColor(ContextCompat.getColor(this.getActivity(), R.color.fbutton_color_green_sea));
-                bfragFbutton.setText("UNPAUSE");
+                bfragFbutton.setText(R.string.unpause);
             }
             else
             {
                 bfragFbutton.setButtonColor(ContextCompat.getColor(this.getActivity(), R.color.colorAccent));
-                bfragFbutton.setText("PAUSE");
+                bfragFbutton.setText(R.string.pause);
             }
         }
     }
@@ -136,7 +136,7 @@ public class ButtonFragment extends BaseDataFragment {
     void subscribeData() {
         switch (enumDataType) {
             case BUTTON_START:
-                bfragFbutton.setText("START");
+                bfragFbutton.setText(R.string.start);
                 break;
             case BUTTON_STARTSTOP:
                 prepareStartStop();
@@ -145,16 +145,16 @@ public class ButtonFragment extends BaseDataFragment {
                 preparePauseUnpause();
                 break;
             case BUTTON_STOP:
-                bfragFbutton.setText("STOP");
+                bfragFbutton.setText(R.string.stop);
                 break;
             case BUTTON_MOVE_LEFT:
-                bfragFbutton.setText("LEFT PAGE");
+                bfragFbutton.setText(R.string.left_page);
                 break;
             case BUTTON_MOVE_RIGHT:
-                bfragFbutton.setText("RIGHT PAGE");
+                bfragFbutton.setText(R.string.right_page);
                 break;
             case BUTTON_BLANK:
-                bfragFbutton.setText("Click to set");
+                bfragFbutton.setText(R.string.click_to_set);
                 break;
         }
         bfragFbutton.setEnabled(true);
