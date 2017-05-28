@@ -1,4 +1,4 @@
-package com.shhatrat.bikerun2;
+package com.shhatrat.bikerun2.utils;
 
 import java.math.BigInteger;
 import java.util.Random;

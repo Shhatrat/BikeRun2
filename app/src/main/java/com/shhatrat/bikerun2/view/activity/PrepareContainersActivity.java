@@ -35,8 +35,8 @@ import butterknife.OnClick;
 import io.realm.Realm;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
-import static com.shhatrat.bikerun2.RealmUtils.prepareNormalFromRealm;
-import static com.shhatrat.bikerun2.RealmUtils.prepareRealmFromNormal;
+import static com.shhatrat.bikerun2.utils.RealmUtils.prepareNormalFromRealm;
+import static com.shhatrat.bikerun2.utils.RealmUtils.prepareRealmFromNormal;
 
 public class PrepareContainersActivity extends AppCompatActivity implements OnStartDragListener, IPrepareContainersActivity {
 

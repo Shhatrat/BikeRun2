@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import com.shhatrat.bikerun2.R;
-import com.shhatrat.bikerun2.RealmUtils;
+import com.shhatrat.bikerun2.utils.RealmUtils;
 import com.shhatrat.bikerun2.adapter.ViewPagerAdapter;
-import com.shhatrat.bikerun2.db.NormalContainer;
 import com.shhatrat.bikerun2.exception.RealmException;
 import com.shhatrat.bikerun2.presenter.activity.models.ISportPresenter;
 import com.shhatrat.bikerun2.service.EnumSportType;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 
-import static com.shhatrat.bikerun2.RealmUtils.checkConfAvailable;
+import static com.shhatrat.bikerun2.utils.RealmUtils.checkConfAvailable;
 
 /**
  * Created by szymon on 01.05.17.

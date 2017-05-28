@@ -1,6 +1,6 @@
 package com.shhatrat.bikerun2.db;
 
-import com.shhatrat.bikerun2.StringUtil;
+import com.shhatrat.bikerun2.utils.StringUtil;
 import com.shhatrat.bikerun2.service.EnumSportType;
 import com.shhatrat.bikerun2.view.fragment.container.EnumContainerType;
 

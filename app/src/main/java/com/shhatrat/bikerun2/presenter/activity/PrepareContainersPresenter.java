@@ -1,6 +1,6 @@
 package com.shhatrat.bikerun2.presenter.activity;
 
-import com.shhatrat.bikerun2.RealmUtils;
+import com.shhatrat.bikerun2.utils.RealmUtils;
 import com.shhatrat.bikerun2.db.RealmContainer;
 import com.shhatrat.bikerun2.exception.ParameterException;
 import com.shhatrat.bikerun2.exception.RealmException;
