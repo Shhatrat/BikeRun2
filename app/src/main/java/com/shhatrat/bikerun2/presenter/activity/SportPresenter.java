@@ -55,6 +55,14 @@ public class SportPresenter implements ISportPresenter {
         prepareNewScreenConfiguration(enumSportType);
     }
 
+    @Override
+    public void prepareScreenConfigurationFromIntent() {
+        if(checkConfAvailable(realm, enumSportType))
+            prepareScreenFromConfig(enumSportType);
+        else
+            appCompatActivity.finish();
+    }
+
     private void prepareScreenFromConfig(EnumSportType enumSportType) {
         try {
             RealmUtils.getContainerList(realm, enumSportType);

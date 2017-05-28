@@ -67,7 +67,7 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == getResources().getInteger(R.integer.config_screen))
         {
-            sportPresenter.prepareScreen();
+            sportPresenter.prepareScreenConfigurationFromIntent();
         }
     }
 

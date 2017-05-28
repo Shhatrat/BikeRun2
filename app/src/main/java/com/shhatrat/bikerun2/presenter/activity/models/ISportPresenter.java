@@ -8,4 +8,5 @@ public interface ISportPresenter {
 
     void prepareScreen();
     void prepareScreenConfiguration();
+    void prepareScreenConfigurationFromIntent();
 }
