@@ -1,7 +1,8 @@
 package com.shhatrat.bikerun2.db;
 
-import com.shhatrat.bikerun2.utils.StringUtil;
+import com.google.gson.Gson;
 import com.shhatrat.bikerun2.service.EnumSportType;
+import com.shhatrat.bikerun2.utils.StringUtil;
 import com.shhatrat.bikerun2.view.fragment.container.EnumContainerType;
 
 import io.realm.RealmList;
@@ -23,6 +24,14 @@ public class NormalContainer {
         this.id = (nc.getId());
         this.saveContainerType(nc.getContainerType());
         this.saveSportType(nc.getSportType());
+    }
+
+    public String serialize() {
+        return new Gson().toJson(this);
+    }
+
+    public static NormalContainer deserialize(String json) {
+        return new Gson().fromJson(json, NormalContainer.class);
     }
 
     public String getId() {

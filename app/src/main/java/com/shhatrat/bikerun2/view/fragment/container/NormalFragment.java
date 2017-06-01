@@ -32,7 +32,6 @@ public class NormalFragment extends BaseContainer implements IContainer {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        enumContainerType = EnumContainerType.NORMAL;
         return inflater.inflate(R.layout.fragment_some, container, false);
     }
 
@@ -41,7 +40,7 @@ public class NormalFragment extends BaseContainer implements IContainer {
         super.onViewCreated(view, savedInstanceState);
         Fragment childFragment = DataFragmentFactory.getInstance(EnumDataType.BUTTON_BLANK, "1");
         Fragment childFragment2 = DataFragmentFactory.getInstance(EnumDataType.BUTTON_START, "2");
-        Fragment childFragment3 = DataFragmentFactory.getInstance(EnumDataType.DATA_TIME, "3");
+        Fragment childFragment3 = DataFragmentFactory.getInstance(EnumDataType.BUTTON_START, "3");
         Fragment childFragment4 = DataFragmentFactory.getInstance(EnumDataType.BUTTON_BLANK, "4");
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction
