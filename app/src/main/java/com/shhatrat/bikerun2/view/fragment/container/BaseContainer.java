@@ -10,7 +10,7 @@ import com.shhatrat.bikerun2.db.NormalContainer;
  * Created by szymon on 01.05.17.
  */
 
-public abstract class BaseContainer extends Fragment {
+public abstract class BaseContainer extends Fragment implements IContainer {
 
     EnumContainerType enumContainerType;
     NormalContainer normalContainer;

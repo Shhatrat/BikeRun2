@@ -17,7 +17,7 @@ import com.shhatrat.bikerun2.view.fragment.data.EnumDataType;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NormalFragment extends BaseContainer implements IContainer {
+public class NormalFragment extends BaseContainer {
 
 
     public NormalFragment() {
