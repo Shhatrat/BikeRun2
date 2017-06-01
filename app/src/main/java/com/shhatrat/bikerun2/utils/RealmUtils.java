@@ -10,9 +10,9 @@ import com.shhatrat.bikerun2.service.EnumSportType;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 /**
  * Created by szymon on 26.05.17.
@@ -54,7 +54,8 @@ public class RealmUtils {
         realm.copyToRealm(list);
         realm.commitTransaction();
     }
-    public static List<RealmContainer> prepareRealmFromNormal(List<NormalContainer> l)
+
+    public static List<RealmContainer> prepareRealmContainerFromNormal(List<NormalContainer> l)
     {
         List<RealmContainer> o = new ArrayList<>();
         for (NormalContainer normalContainer : l) {
@@ -63,7 +64,7 @@ public class RealmUtils {
         return o;
     }
 
-    public static List<NormalContainer> prepareNormalFromRealm(List<RealmContainer> rl)
+    public static List<NormalContainer> prepareNormalContainerFromRealm(List<RealmContainer> rl)
     {
         List<NormalContainer> l = new ArrayList<>();
         for (RealmContainer realmContainer : rl) {

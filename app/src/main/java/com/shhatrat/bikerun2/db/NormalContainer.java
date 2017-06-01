@@ -1,11 +1,13 @@
 package com.shhatrat.bikerun2.db;
 
+import com.annimon.stream.Stream;
 import com.google.gson.Gson;
 import com.shhatrat.bikerun2.service.EnumSportType;
 import com.shhatrat.bikerun2.utils.StringUtil;
 import com.shhatrat.bikerun2.view.fragment.container.EnumContainerType;
 
-import io.realm.RealmList;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by szymon on 27.05.17.
@@ -24,6 +26,8 @@ public class NormalContainer {
         this.id = (nc.getId());
         this.saveContainerType(nc.getContainerType());
         this.saveSportType(nc.getSportType());
+        List<NormalData> normalDatas = new ArrayList<>();
+        Stream.of(nc.getList()).forEach(o -> normalDatas.add(new NormalData(o)));
     }
 
     public String serialize() {
@@ -42,7 +46,15 @@ public class NormalContainer {
         this.id = id;
     }
 
-    private RealmList<DataRealm> list = new RealmList<DataRealm>();
+    private List<NormalData> list;
+
+    public List<NormalData> getList() {
+        return list;
+    }
+
+    public void setList(List<NormalData> list) {
+        this.list = list;
+    }
 
     public Integer getPosition() {
         return position;

@@ -2,13 +2,11 @@ package com.shhatrat.bikerun2.db;
 
 import com.shhatrat.bikerun2.view.fragment.data.EnumDataType;
 
-import io.realm.RealmObject;
-
 /**
- * Created by szymon on 01.05.17.
+ * Created by szymon on 6/1/17.
  */
 
-public class DataRealm extends RealmObject {
+public class NormalData {
     public String getConfig() {
         return config;
     }
@@ -37,12 +35,18 @@ public class DataRealm extends RealmObject {
         this.fieldName = fieldName;
     }
 
-    public DataRealm() {
+    public NormalData() {
     }
 
-    public DataRealm(String config, String fieldName, String enumDataType) {
+    public NormalData(String config, String fieldName, String enumDataType) {
         this.config = config;
         this.fieldName = fieldName;
         this.enumDataType = enumDataType;
+    }
+
+    public NormalData(RealmData realmData) {
+        this.config = realmData.getConfig();
+        this.saveDataType(realmData.getDataType());
+        this.fieldName = realmData.getFieldName();
     }
 }

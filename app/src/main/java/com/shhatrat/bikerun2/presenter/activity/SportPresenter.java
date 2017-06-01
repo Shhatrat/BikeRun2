@@ -65,7 +65,7 @@ public class SportPresenter implements ISportPresenter {
 
     private void prepareScreenFromConfig(EnumSportType enumSportType) {
         try {
-            List<NormalContainer> list = RealmUtils.prepareNormalFromRealm(RealmUtils.getContainerList(realm, enumSportType));
+            List<NormalContainer> list = RealmUtils.prepareNormalContainerFromRealm(RealmUtils.getContainerList(realm, enumSportType));
             sportActivity.putNewAdapter(new ViewPagerAdapter(appCompatActivity.getSupportFragmentManager(), list));
         } catch (RealmException e) {
             e.printStackTrace();

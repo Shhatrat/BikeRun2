@@ -35,8 +35,8 @@ import butterknife.OnClick;
 import io.realm.Realm;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
-import static com.shhatrat.bikerun2.utils.RealmUtils.prepareNormalFromRealm;
-import static com.shhatrat.bikerun2.utils.RealmUtils.prepareRealmFromNormal;
+import static com.shhatrat.bikerun2.utils.RealmUtils.prepareNormalContainerFromRealm;
+import static com.shhatrat.bikerun2.utils.RealmUtils.prepareRealmContainerFromNormal;
 
 public class PrepareContainersActivity extends AppCompatActivity implements OnStartDragListener, IPrepareContainersActivity {
 
@@ -121,7 +121,7 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
         }
 
         if (id == R.id.menu_done) {
-            List<RealmContainer> d = prepareRealmFromNormal(dca.getCollection());
+            List<RealmContainer> d = prepareRealmContainerFromNormal(dca.getCollection());
             containersPresenter.saveConfigFromScreen(d);
             finish();
             return true;
@@ -136,7 +136,7 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
 
     @Override
     public void preapreRecycleViewData(List<RealmContainer> list) {
-        dca = new DraggableContainersAdapter(getApplicationContext(), this, prepareNormalFromRealm(list));
+        dca = new DraggableContainersAdapter(getApplicationContext(), this, prepareNormalContainerFromRealm(list));
         prepareRecycleview.setAdapter(dca);
     }
 

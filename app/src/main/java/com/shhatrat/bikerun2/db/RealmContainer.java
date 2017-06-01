@@ -1,7 +1,7 @@
 package com.shhatrat.bikerun2.db;
 
-import com.shhatrat.bikerun2.utils.StringUtil;
 import com.shhatrat.bikerun2.service.EnumSportType;
+import com.shhatrat.bikerun2.utils.StringUtil;
 import com.shhatrat.bikerun2.view.fragment.container.EnumContainerType;
 
 import io.realm.RealmList;
@@ -40,7 +40,15 @@ public class RealmContainer extends RealmObject {
         this.id = id;
     }
 
-    private RealmList<DataRealm> list = new RealmList<DataRealm>();
+    public RealmList<RealmData> getList() {
+        return list;
+    }
+
+    public void setList(RealmList<RealmData> list) {
+        this.list = list;
+    }
+
+    private RealmList<RealmData> list = new RealmList<RealmData>();
 
     public Integer getPosition() {
         return position;
