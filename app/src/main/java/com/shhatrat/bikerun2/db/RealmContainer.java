@@ -1,5 +1,6 @@
 package com.shhatrat.bikerun2.db;
 
+import com.annimon.stream.Stream;
 import com.shhatrat.bikerun2.service.EnumSportType;
 import com.shhatrat.bikerun2.utils.StringUtil;
 import com.shhatrat.bikerun2.view.fragment.container.EnumContainerType;
@@ -26,6 +27,10 @@ public class RealmContainer extends RealmObject {
         this.id= (nc.getId());
         this.saveContainerType(nc.getContainerType());
         this.saveSportType(nc.getSportType());
+
+        RealmList<RealmData> realmList = new RealmList<>();
+        Stream.of(nc.getList()).forEach(l -> realmList.add(new RealmData(l)));
+        this.list = realmList;
     }
 
     public RealmContainer() {

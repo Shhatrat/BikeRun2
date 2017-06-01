@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.shhatrat.bikerun2.R;
 
@@ -23,11 +24,11 @@ public class NormalFragment extends BaseContainer {
     public NormalFragment() {
     }
 
-    @Override
-    public void setDataField(String tag)
-    {
-        Log.d("dddd", "JESTEM SOME FRAGMENTEM, tag " + tag);
-    }
+//    @Override
+//    public void setDataField(String tag)
+//    {
+//        Log.d("dddd", "JESTEM SOME FRAGMENTEM, tag " + tag);
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,21 +39,20 @@ public class NormalFragment extends BaseContainer {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        Fragment childFragment = DataFragmentFactory.getInstance(EnumDataType.BUTTON_BLANK, "1");
-//        Fragment childFragment2 = DataFragmentFactory.getInstance(EnumDataType.BUTTON_START, "2");
-//        Fragment childFragment3 = DataFragmentFactory.getInstance(EnumDataType.BUTTON_START, "3");
-//        Fragment childFragment4 = DataFragmentFactory.getInstance(EnumDataType.BUTTON_BLANK, "4");
-//        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//        transaction
-//                .replace(R.id.parent_fragment_container, childFragment)
-//                .replace(R.id.parent_fragment_third, childFragment3)
-//                .replace(R.id.parent_fragment_second3, childFragment4)
-//                .replace(R.id.parent_fragment_second, childFragment2).commit();
-        List<Integer> ids = new ArrayList<>();
-        ids.add(R.id.parent_fragment_container);
-        ids.add(R.id.parent_fragment_third);
-        ids.add(R.id.parent_fragment_second3);
-        ids.add(R.id.parent_fragment_second);
-        prepareView(ids);
+        FrameLayout fl = (FrameLayout) view.findViewById(R.id.framelayout_some);
+        for (int i = 0; i < fl.getChildCount(); i++) {
+            Log.d("pripri", "id = " + fl.getChildAt(i).getId());
+        }
+        prepareView();
+    }
+
+    @Override
+    List<Integer> getListOfIds() {
+        ArrayList<Integer> listOfIds = new ArrayList<>();
+        listOfIds.add(R.id.parent_fragment_container);
+        listOfIds.add(R.id.parent_fragment_third);
+        listOfIds.add(R.id.parent_fragment_second3);
+        listOfIds.add(R.id.parent_fragment_second);
+        return listOfIds;
     }
 }

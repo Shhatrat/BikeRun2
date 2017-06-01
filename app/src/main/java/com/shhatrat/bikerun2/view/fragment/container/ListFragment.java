@@ -31,13 +31,13 @@ public class ListFragment extends BaseContainer {
     }
 
     @Override
-    public void setDataField(String tag) {
-        //// TODO: 27.05.17  
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        prepareView();
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    List<Integer> getListOfIds() {
         List<Integer> list = new ArrayList<>();
         list.add(R.id.fr_list_1);
         list.add(R.id.fr_list_2);
@@ -45,6 +45,6 @@ public class ListFragment extends BaseContainer {
         list.add(R.id.fr_list_4);
         list.add(R.id.fr_list_5);
         list.add(R.id.fr_list_6);
-        prepareView(list);
+        return list;
     }
 }

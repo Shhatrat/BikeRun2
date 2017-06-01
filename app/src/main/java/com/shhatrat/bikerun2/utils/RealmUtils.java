@@ -2,6 +2,7 @@ package com.shhatrat.bikerun2.utils;
 
 import android.util.Log;
 
+import com.annimon.stream.Stream;
 import com.shhatrat.bikerun2.db.NormalContainer;
 import com.shhatrat.bikerun2.db.RealmContainer;
 import com.shhatrat.bikerun2.exception.ListException;
@@ -48,7 +49,11 @@ public class RealmUtils {
         if(list == null)
             throw new ParameterException("No list avaliable!");
         realm.beginTransaction();
-        try{realm.where(RealmContainer.class).like("sportType", enumSportType.name()).findAll().deleteAllFromRealm();}catch (Throwable e ){
+        try {
+            RealmResults<RealmContainer> results = realm.where(RealmContainer.class).like("sportType", enumSportType.name()).findAll();
+            Stream.of(results).forEach(e -> e.getList().deleteAllFromRealm());
+            results.deleteAllFromRealm();
+        } catch (Throwable e) {
             Log.w("sssss", e.getMessage());
         }
         realm.copyToRealm(list);

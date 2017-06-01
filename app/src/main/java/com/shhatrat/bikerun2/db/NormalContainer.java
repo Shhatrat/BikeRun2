@@ -28,6 +28,7 @@ public class NormalContainer {
         this.saveSportType(nc.getSportType());
         List<NormalData> normalDatas = new ArrayList<>();
         Stream.of(nc.getList()).forEach(o -> normalDatas.add(new NormalData(o)));
+        this.list = normalDatas;
     }
 
     public String serialize() {

@@ -1,5 +1,8 @@
 package com.shhatrat.bikerun2.view.fragment.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by szymon on 17.04.17.
  */
@@ -22,5 +25,12 @@ public enum EnumDataType {
         DATA_AVG_SPEED,
         DATA_DISTANCE,
 
-        MAP
+        MAP;
+
+        public static List<EnumDataType> getEnumList() {
+                ArrayList<EnumDataType> list = new ArrayList<>();
+                for (EnumDataType e : EnumDataType.values())
+                        list.add(e);
+                return list;
+        }
 }

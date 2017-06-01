@@ -1,40 +1,46 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/framelayout_some"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.shhatrat.bikerun2.view.fragment.container.NormalFragment">
+
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/dddddd"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <FrameLayout
             android:id="@+id/parent_fragment_container"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="match_parent"/>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_weight="1"
-    android:orientation="horizontal"
-    android:layout_height="match_parent">
-        <FrameLayout
-            android:id="@+id/parent_fragment_second"
-            android:layout_width="match_parent"
-            android:layout_weight="2"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
-    <FrameLayout
-        android:id="@+id/parent_fragment_second3"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/parent_fragment_second"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+            <FrameLayout
+                android:id="@+id/parent_fragment_second3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
         <FrameLayout
             android:id="@+id/parent_fragment_third"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
     </LinearLayout>
 
 </FrameLayout>
