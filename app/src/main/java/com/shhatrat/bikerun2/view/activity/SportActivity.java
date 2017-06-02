@@ -2,6 +2,7 @@ package com.shhatrat.bikerun2.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -82,17 +83,49 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
 
     @Override
     public void moveToLeftActivity() {
+        if (viewpager.getCurrentItem() != 0)
         viewpager.setCurrentItem(viewpager.getCurrentItem()-1);
+        else
+            viewpager.setCurrentItem(viewpager.getAdapter().getCount() + 1);
     }
 
     @Override
     public void moveToRightActivity() {
+        if (viewpager.getCurrentItem() != viewpager.getAdapter().getCount() - 1)
         viewpager.setCurrentItem(viewpager.getCurrentItem()+1);
+        else
+            viewpager.setCurrentItem(0);
     }
 
     @Override
+    public boolean startStopScan() {
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                moveToRightActivity();
+                handler.postDelayed(this, 2000);    //// TODO: 6/2/17 add it to settings
+            }
+        };
+        if (handler == null) {
+            handler = new Handler();
+            handler.post(r);
+            return true;
+        } else {
+            handler.removeCallbacksAndMessages(null);
+            handler = null;
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isScanStarted() {
+        return handler == null;
+    }
+
+    Handler handler;
+
+    @Override
     public void putNewAdapter(ViewPagerAdapter adapter) {
-//        adapter = new ViewPagerAdapter(getSupportFragmentManager(), new ArrayList<>());
         viewpager.setAdapter(adapter);
     }
 }

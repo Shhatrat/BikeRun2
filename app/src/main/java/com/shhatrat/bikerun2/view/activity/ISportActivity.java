@@ -9,5 +9,10 @@ import com.shhatrat.bikerun2.adapter.ViewPagerAdapter;
 public interface ISportActivity {
     void moveToLeftActivity();
     void moveToRightActivity();
+
+    boolean startStopScan();
+
+    boolean isScanStarted();
+
     void putNewAdapter(ViewPagerAdapter adapter);
 }

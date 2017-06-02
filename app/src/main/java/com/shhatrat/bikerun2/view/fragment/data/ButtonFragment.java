@@ -53,6 +53,12 @@ public class ButtonFragment extends BaseDataFragment {
             case BUTTON_MOVE_RIGHT:
                 ((SportActivity)this.getActivity()).moveToRightActivity();
                 break;
+            case BUTTON_SCAN:
+                if (((SportActivity) this.getActivity()).startStopScan())
+                    bfragFbutton.setText("STOP SCAN");
+                else
+                    bfragFbutton.setText("START SCAN");
+                break;
             case BUTTON_BLANK:
                 changeFragment(normalData.getFieldName());
                 break;
@@ -152,6 +158,12 @@ public class ButtonFragment extends BaseDataFragment {
                 break;
             case BUTTON_MOVE_RIGHT:
                 bfragFbutton.setText(R.string.right_page);
+                break;
+            case BUTTON_SCAN:
+                if (!((SportActivity) this.getActivity()).isScanStarted())
+                    bfragFbutton.setText(R.string.stop_scan);
+                else
+                    bfragFbutton.setText(R.string.start_scan);
                 break;
             case BUTTON_BLANK:
                 bfragFbutton.setText(R.string.click_to_set);

@@ -15,6 +15,7 @@ public enum EnumDataType {
         BUTTON_MOVE_LEFT,
         BUTTON_MOVE_RIGHT,
         BUTTON_BLANK,
+        BUTTON_SCAN,
 
         DATA_POSITION,
         DATA_SPEED,

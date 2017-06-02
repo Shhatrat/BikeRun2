@@ -17,17 +17,12 @@ public class DataFragmentFactory {
     {
         switch (normalData.getDataType()) {
             case BUTTON_START:
-                return newButtonInstance(normalData);
             case BUTTON_STOP:
-                return newButtonInstance(normalData);
             case BUTTON_STARTSTOP:
-                return newButtonInstance(normalData);
             case BUTTON_PAUSE:
-                return newButtonInstance(normalData);
             case BUTTON_MOVE_LEFT:
-                return newButtonInstance(normalData);
             case BUTTON_MOVE_RIGHT:
-                return newButtonInstance(normalData);
+            case BUTTON_SCAN:
             case BUTTON_BLANK:
                 return newButtonInstance(normalData);
 

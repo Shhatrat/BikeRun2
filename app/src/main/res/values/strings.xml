@@ -98,4 +98,6 @@
     <string name="left_page">LEFT PAGE</string>
     <string name="right_page">RIGHT PAGE</string>
     <string name="click_to_set">Click to set</string>
+    <string name="stop_scan">STOP SCAN</string>
+    <string name="start_scan">START SCAN</string>
 </resources>
