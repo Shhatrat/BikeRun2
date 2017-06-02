@@ -82,7 +82,6 @@ public class ButtonFragment extends BaseDataFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_button, container, false);
         unbinder = ButterKnife.bind(this, view);
-        subscribeData();
         return view;
     }
 
