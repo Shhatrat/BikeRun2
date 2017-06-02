@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import com.shhatrat.bikerun2.db.NormalData;
 import com.shhatrat.bikerun2.service.SportService;
 import com.shhatrat.bikerun2.view.fragment.container.IContainer;
 
@@ -27,11 +28,11 @@ abstract public class BaseDataFragment extends Fragment {
         return false;
     }
 
+    NormalData normalData;
+
     SportService mService;
     boolean mBound = false;
     Subject<Boolean> mObservable;
-    EnumDataType enumDataType;
-    String tag;
 
     public void setmBound(boolean val) {
         if(mBound!=val) {
@@ -43,6 +44,8 @@ abstract public class BaseDataFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Bundle b = this.getArguments();
+        normalData = NormalData.deserialise(b.getString(DataFragmentFactory.BUNDLE_KEY));
         mObservable = PublishSubject.create();
         this.mObservable.filter(e -> e).subscribe(ee -> subscribeData(), e -> Log.e("mObservable", e.getMessage()));
     }
@@ -54,9 +57,6 @@ abstract public class BaseDataFragment extends Fragment {
         super.onStart();
         Intent intent = new Intent(getActivity(), SportService.class);
         getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-        Bundle b = this.getArguments();
-        enumDataType = (EnumDataType) b.get("enumDataType");
-        tag = b.getString("tag");
     }
 
     Disposable sub;

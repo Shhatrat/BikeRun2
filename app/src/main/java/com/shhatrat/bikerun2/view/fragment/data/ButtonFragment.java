@@ -34,7 +34,7 @@ public class ButtonFragment extends BaseDataFragment {
     @OnClick(R.id.bfrag_fbutton)
     public void click()
     {
-        switch (enumDataType) {
+        switch (normalData.getDataType()) {
             case BUTTON_START:
                 mService.training.startTraining();
                 break;
@@ -54,7 +54,7 @@ public class ButtonFragment extends BaseDataFragment {
                 ((SportActivity)this.getActivity()).moveToRightActivity();
                 break;
             case BUTTON_BLANK:
-                changeFragment(tag);
+                changeFragment(normalData.getFieldName());
                 break;
         }
     }
@@ -82,6 +82,7 @@ public class ButtonFragment extends BaseDataFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_button, container, false);
         unbinder = ButterKnife.bind(this, view);
+        subscribeData();
         return view;
     }
 
@@ -128,13 +129,13 @@ public class ButtonFragment extends BaseDataFragment {
     @OnLongClick(R.id.bfrag_fbutton)
     boolean changeFragmentExecutor()
     {
-        changeFragment(tag);
+        changeFragment(normalData.getFieldName());
         return false;
     }
 
     @Override
     void subscribeData() {
-        switch (enumDataType) {
+        switch (normalData.getDataType()) {
             case BUTTON_START:
                 bfragFbutton.setText(R.string.start);
                 break;

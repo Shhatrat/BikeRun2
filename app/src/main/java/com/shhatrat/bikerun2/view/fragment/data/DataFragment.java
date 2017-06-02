@@ -39,8 +39,6 @@ public class DataFragment extends BaseDataFragment {
     @Override
     public void onStart() {
         super.onStart();
-        Bundle b = this.getArguments();
-        enumDataType = (EnumDataType) b.get("enumDataType");
     }
 
     @Override
@@ -69,7 +67,7 @@ public class DataFragment extends BaseDataFragment {
 
     void prepareField() {
         IContainer f = (IContainer) getParentFragment();
-        f.setDataField(tag);
+        f.setDataField(normalData.getFieldName());
     }
 
     private void setPosition(Location l) {
@@ -114,13 +112,13 @@ public class DataFragment extends BaseDataFragment {
 
     @OnLongClick(R.id.data_fr_recycleview)
     boolean changeFragment() {
-        super.changeFragment(tag);
+        super.changeFragment(normalData.getFieldName());
         return true;
     }
 
     @Override
     void subscribeData() {
-        switch (enumDataType) {
+        switch (normalData.getDataType()) {
             case DATA_DISTANCE:
                 sub = mService.training.getCalculatedSubject().subscribe(this::setDistance);
                 break;

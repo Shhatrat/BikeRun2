@@ -1,5 +1,6 @@
 package com.shhatrat.bikerun2.db;
 
+import com.google.gson.Gson;
 import com.shhatrat.bikerun2.view.fragment.data.EnumDataType;
 
 /**
@@ -36,6 +37,14 @@ public class NormalData {
     }
 
     public NormalData() {
+    }
+
+    public String serialize() {
+        return new Gson().toJson(this);
+    }
+
+    public static NormalData deserialise(String json) {
+        return new Gson().fromJson(json, NormalData.class);
     }
 
     public NormalData(String config, String fieldName, String enumDataType) {

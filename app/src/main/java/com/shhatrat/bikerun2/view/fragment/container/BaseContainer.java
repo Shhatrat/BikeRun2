@@ -44,10 +44,13 @@ public abstract class BaseContainer extends Fragment implements IContainer {
             Optional<NormalData> ch = Stream.of(normalContainer.getList()).filter(nc -> nc.getFieldName().equals(l + "")).findFirst();
             if (ch.isPresent()) {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(l, DataFragmentFactory.getInstance(ch.get().getDataType(), l + "")).commit();
+                transaction.replace(l, DataFragmentFactory.getInstance(ch.get())).commit();
             } else {
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(l, DataFragmentFactory.getInstance(EnumDataType.BUTTON_BLANK, l + "")).commit();
+                NormalData nd = new NormalData();
+                nd.setFieldName(l + "");
+                nd.saveDataType(EnumDataType.BUTTON_BLANK);
+                transaction.replace(l, DataFragmentFactory.getInstance(nd)).commit();
             }
         });
     }
@@ -61,7 +64,12 @@ public abstract class BaseContainer extends Fragment implements IContainer {
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                        transaction.replace(Integer.parseInt(tag), DataFragmentFactory.getInstance(EnumDataType.valueOf(text.toString()), Integer.parseInt(tag) + "")).commit();
+
+                        NormalData nd = new NormalData();
+                        nd.setFieldName(Integer.parseInt(tag) + "");
+                        nd.saveDataType(EnumDataType.valueOf(text.toString()));
+
+                        transaction.replace(Integer.parseInt(tag), DataFragmentFactory.getInstance(nd)).commit();
                         saveToDb(normalContainer, tag, EnumDataType.valueOf(text.toString()));
                     }
                 })
