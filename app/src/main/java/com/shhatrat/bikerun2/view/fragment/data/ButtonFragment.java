@@ -55,9 +55,9 @@ public class ButtonFragment extends BaseDataFragment {
                 break;
             case BUTTON_SCAN:
                 if (((SportActivity) this.getActivity()).startStopScan())
-                    bfragFbutton.setText("STOP SCAN");
+                    bfragFbutton.setText(R.string.stop_scan);
                 else
-                    bfragFbutton.setText("START SCAN");
+                    bfragFbutton.setText(R.string.start_scan);
                 break;
             case BUTTON_BLANK:
                 changeFragment(normalData.getFieldName());

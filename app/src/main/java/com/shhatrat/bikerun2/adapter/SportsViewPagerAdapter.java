@@ -13,11 +13,11 @@ import java.util.List;
  * Created by szymon on 16.04.17.
  */
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class SportsViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private final List<NormalContainer> list;
 
-    public ViewPagerAdapter(FragmentManager fm, List<NormalContainer> list) {
+    public SportsViewPagerAdapter(FragmentManager fm, List<NormalContainer> list) {
         super(fm);
         this.list = list;
     }

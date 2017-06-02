@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import com.shhatrat.bikerun2.R;
-import com.shhatrat.bikerun2.adapter.ViewPagerAdapter;
+import com.shhatrat.bikerun2.adapter.SportsViewPagerAdapter;
 import com.shhatrat.bikerun2.db.NormalContainer;
 import com.shhatrat.bikerun2.exception.RealmException;
 import com.shhatrat.bikerun2.presenter.activity.models.ISportPresenter;
@@ -66,7 +66,7 @@ public class SportPresenter implements ISportPresenter {
     private void prepareScreenFromConfig(EnumSportType enumSportType) {
         try {
             List<NormalContainer> list = RealmUtils.prepareNormalContainerFromRealm(RealmUtils.getContainerList(realm, enumSportType));
-            sportActivity.putNewAdapter(new ViewPagerAdapter(appCompatActivity.getSupportFragmentManager(), list));
+            sportActivity.putNewAdapter(new SportsViewPagerAdapter(appCompatActivity.getSupportFragmentManager(), list));
         } catch (RealmException e) {
             e.printStackTrace();
         }

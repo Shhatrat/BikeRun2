@@ -3,6 +3,7 @@ package com.shhatrat.bikerun2.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -89,8 +90,14 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
 
     @OnClick(R.id.fab)
     void showDialog() {
+//        DataFieldsDialogAdapter adapter = new DataFieldsDialogAdapter(getApplicationContext());
+//        adapter.setCallbacks(
+//                ee -> Log.d("dddddddddd", ee.getTitle() + "dd")
+//        );
         new MaterialDialog.Builder(this)
                 .title("Add screen")
+                .backgroundColor(ContextCompat.getColor(this.getApplicationContext(), R.color.cardview_shadow_start_color))
+//                .adapter(adapter, null)
                 .items(EnumContainerType.getEnumList())
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override

@@ -1,6 +1,6 @@
 package com.shhatrat.bikerun2.view.activity;
 
-import com.shhatrat.bikerun2.adapter.ViewPagerAdapter;
+import com.shhatrat.bikerun2.adapter.SportsViewPagerAdapter;
 
 /**
  * Created by szymon on 4/27/17.
@@ -14,5 +14,5 @@ public interface ISportActivity {
 
     boolean isScanStarted();
 
-    void putNewAdapter(ViewPagerAdapter adapter);
+    void putNewAdapter(SportsViewPagerAdapter adapter);
 }

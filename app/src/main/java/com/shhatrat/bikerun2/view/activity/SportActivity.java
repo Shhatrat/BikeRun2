@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.shhatrat.bikerun2.BRApplication;
 import com.shhatrat.bikerun2.R;
-import com.shhatrat.bikerun2.adapter.ViewPagerAdapter;
+import com.shhatrat.bikerun2.adapter.SportsViewPagerAdapter;
 import com.shhatrat.bikerun2.di.UtilImpl;
 import com.shhatrat.bikerun2.presenter.activity.SportPresenter;
 import com.shhatrat.bikerun2.presenter.activity.models.ISportPresenter;
@@ -125,7 +125,7 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
     Handler handler;
 
     @Override
-    public void putNewAdapter(ViewPagerAdapter adapter) {
+    public void putNewAdapter(SportsViewPagerAdapter adapter) {
         viewpager.setAdapter(adapter);
     }
 }
