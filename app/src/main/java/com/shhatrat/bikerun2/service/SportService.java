@@ -67,7 +67,7 @@ public class SportService extends Service {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         training = new Training(this, EnumSportType.BIKE, locationPublishSubject);
     }
-
+//// TODO: 28.05.17 permission check fail 
     private void prepareListener()
     {
      locationListener =   new LocationListener() {

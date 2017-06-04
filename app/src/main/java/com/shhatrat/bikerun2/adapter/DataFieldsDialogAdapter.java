@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shhatrat.bikerun2.R;
@@ -15,6 +14,8 @@ import com.shhatrat.bikerun2.model.SingleData;
 import com.shhatrat.bikerun2.view.fragment.data.EnumDataType;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by szymon on 6/2/17.
@@ -40,7 +41,7 @@ public class DataFieldsDialogAdapter extends RecyclerView.Adapter<DataFieldsDial
     public ButtonVH onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view =
                 LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.card_view_stats, parent, false);
+                        .inflate(R.layout.card_data_field, parent, false);
         return new ButtonVH(view, this);
     }
 
@@ -49,7 +50,8 @@ public class DataFieldsDialogAdapter extends RecyclerView.Adapter<DataFieldsDial
     public void onBindViewHolder(ButtonVH holder, int position) {
         holder.title.setText(enumDataTypeList.get(position).getTitle());
         holder.content.setText(enumDataTypeList.get(position).getContent());
-        holder.imageView.setImageDrawable(ContextCompat.getDrawable(context, enumDataTypeList.get(position).getDrawable()));
+//        holder.imageView.setImageDrawable(ContextCompat.getDrawable(context, enumDataTypeList.get(position).getDrawable()));
+        holder.imageView.setImageResource(enumDataTypeList.get(position).getDrawable());
 //        holder.button.setTag(position);
     }
 
@@ -73,14 +75,14 @@ public class DataFieldsDialogAdapter extends RecyclerView.Adapter<DataFieldsDial
 
         final TextView title;
         final TextView content;
-        final ImageView imageView;
+        final CircleImageView imageView;
         final DataFieldsDialogAdapter adapter;
 
         ButtonVH(View itemView, DataFieldsDialogAdapter adapter) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.stats_title);
             content = (TextView) itemView.findViewById(R.id.stats_value);
-            imageView = (ImageView) itemView.findViewById(R.id.stats_image);
+            imageView = (CircleImageView) itemView.findViewById(R.id.profile_image);
             this.adapter = adapter;
             itemView.setOnClickListener(this);
         }

@@ -4,14 +4,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
+import android.support.v4.content.ContextCompat;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
+import com.shhatrat.bikerun2.R;
+import com.shhatrat.bikerun2.adapter.DataFieldsDialogAdapter;
 import com.shhatrat.bikerun2.db.NormalContainer;
 import com.shhatrat.bikerun2.db.NormalData;
 import com.shhatrat.bikerun2.db.RealmContainer;
+import com.shhatrat.bikerun2.model.SingleData;
 import com.shhatrat.bikerun2.view.fragment.data.DataFragmentFactory;
 import com.shhatrat.bikerun2.view.fragment.data.EnumDataType;
 
@@ -57,23 +60,26 @@ public abstract class BaseContainer extends Fragment implements IContainer {
 
     @Override
     public void setDataField(String tag) {
-        new MaterialDialog.Builder(BaseContainer.this.getActivity())
-                .title(tag)
+        DataFieldsDialogAdapter adapter = new DataFieldsDialogAdapter(getContext());
+        MaterialDialog dd = new MaterialDialog.Builder(BaseContainer.this.getActivity())
+                .title(R.string.choose_field)
                 .items(EnumDataType.getEnumList())
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//                .backgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark))
+                .adapter(adapter, null)
+                .show();
+        adapter.setCallbacks(c -> preapareData(c, tag, dd));
 
+    }
+
+    void preapareData(SingleData singleData, String tag, MaterialDialog md)
+    {
+                        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                         NormalData nd = new NormalData();
                         nd.setFieldName(Integer.parseInt(tag) + "");
-                        nd.saveDataType(EnumDataType.valueOf(text.toString()));
-
+                        nd.saveDataType(EnumDataType.valueOf(singleData.getDatakey()));
                         transaction.replace(Integer.parseInt(tag), DataFragmentFactory.getInstance(nd)).commit();
-                        saveToDb(normalContainer, tag, EnumDataType.valueOf(text.toString()));
-                    }
-                })
-                .show();
+                        saveToDb(normalContainer, tag, EnumDataType.valueOf(singleData.getDatakey()));
+                        md.dismiss();
     }
 
     void saveToDb(NormalContainer normalContainer, String tag, EnumDataType enumDataType) {

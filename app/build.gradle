@@ -79,6 +79,7 @@ dependencies {
     compile 'me.grantland:autofittextview:0.2.1'
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     compile 'uk.co.samuelwall:material-tap-target-prompt:1.9.3'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 
     //di
     compile 'com.jakewharton:butterknife:8.5.1'

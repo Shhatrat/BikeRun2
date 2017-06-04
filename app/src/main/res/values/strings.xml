@@ -100,4 +100,5 @@
     <string name="click_to_set">Click to set</string>
     <string name="stop_scan">STOP SCAN</string>
     <string name="start_scan">START SCAN</string>
+    <string name="choose_field">Choose field</string>
 </resources>

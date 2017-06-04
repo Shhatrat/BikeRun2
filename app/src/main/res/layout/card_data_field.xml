@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            android:src="@drawable/ic_publish_white_24dp"
+            app:civ_border_color="@android:color/white"
+            app:civ_fill_color="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/stats_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/profile_image"
+            android:layout_toEndOf="@+id/profile_image"
+            android:paddingLeft="72dp"
+            android:paddingTop="8dp"
+            android:text="Test Test"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/stats_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/stats_title"
+            android:layout_alignStart="@+id/stats_title"
+            android:layout_below="@+id/stats_title"
+            android:paddingLeft="76dp"
+            android:text="250km/h" />
+
+        <Space
+            android:id="@+id/person_age2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_below="@+id/stats_value"
+            android:layout_toRightOf="@+id/stats_image" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eff3f4" />
+</LinearLayout>
