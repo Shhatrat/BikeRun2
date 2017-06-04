@@ -16,6 +16,8 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.shhatrat.bikerun2.R;
+import com.shhatrat.bikerun2.adapter.ContainerFieldsDialogAdapter;
+import com.shhatrat.bikerun2.adapter.DataFieldsDialogAdapter;
 import com.shhatrat.bikerun2.adapter.DraggableContainersAdapter;
 import com.shhatrat.bikerun2.adapter.helper.OnStartDragListener;
 import com.shhatrat.bikerun2.adapter.helper.SimpleItemTouchHelperCallback;
@@ -38,6 +40,7 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import static com.shhatrat.bikerun2.utils.RealmUtils.prepareNormalContainerFromRealm;
 import static com.shhatrat.bikerun2.utils.RealmUtils.prepareRealmContainerFromNormal;
+import static java.security.AccessController.getContext;
 
 public class PrepareContainersActivity extends AppCompatActivity implements OnStartDragListener, IPrepareContainersActivity {
 
@@ -90,25 +93,22 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
 
     @OnClick(R.id.fab)
     void showDialog() {
-        new MaterialDialog.Builder(this)
+        ContainerFieldsDialogAdapter adapter = new ContainerFieldsDialogAdapter(this.getApplicationContext());
+        MaterialDialog md = new MaterialDialog.Builder(this)
                 .title("Add screen")
-                .titleColor(ContextCompat.getColor(this.getApplicationContext(), R.color.white))
-                //.backgroundColor(ContextCompat.getColor(this.getApplicationContext(), R.color.colorPrimaryDark))
-                .items(EnumContainerType.getEnumList())
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        RealmContainer rc= new RealmContainer();
-                        rc.saveContainerType(EnumContainerType.valueOf(text.toString()));
-                        rc.saveSportType(enumSportType);
-                        dca.addSection(rc);
-                    }
-                })
+                .adapter(adapter, new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false))
                 .show();
+        adapter.setCallbacks(c -> saveToDb(c.getDatakey(), md));
     }
 
-
-
+    void saveToDb(String text, MaterialDialog md)
+    {
+        md.dismiss();
+        RealmContainer rc = new RealmContainer();
+        rc.saveContainerType(EnumContainerType.valueOf(text));
+        rc.saveSportType(enumSportType);
+        dca.addSection(rc);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

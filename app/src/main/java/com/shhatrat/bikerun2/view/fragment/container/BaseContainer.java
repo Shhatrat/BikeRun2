@@ -64,7 +64,6 @@ public abstract class BaseContainer extends Fragment implements IContainer {
         MaterialDialog dd = new MaterialDialog.Builder(BaseContainer.this.getActivity())
                 .title(R.string.choose_field)
                 .items(EnumDataType.getEnumList())
-//                .backgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark))
                 .adapter(adapter, null)
                 .show();
         adapter.setCallbacks(c -> preapareData(c, tag, dd));

@@ -2,35 +2,32 @@ package com.shhatrat.bikerun2.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.model.SingleData;
-import com.shhatrat.bikerun2.view.fragment.data.EnumDataType;
+import com.shhatrat.bikerun2.view.fragment.container.EnumContainerType;
 
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 /**
- * Created by szymon on 6/2/17.
+ * Created by szymon on 04.06.17.
  */
 
-public class DataFieldsDialogAdapter extends RecyclerView.Adapter<DataFieldsDialogAdapter.ButtonVH> {
+public class ContainerFieldsDialogAdapter extends RecyclerView.Adapter<ContainerFieldsDialogAdapter.ButtonVH> {
 
     private List<SingleData> enumDataTypeList;
     private ItemCallback itemCallback;
-    private ButtonCallback buttonCallback;
-    Context context;
+    private Context context;
 
-    public DataFieldsDialogAdapter(Context c) {
+    public ContainerFieldsDialogAdapter(Context c) {
         this.context = c;
-        enumDataTypeList = EnumDataType.getSingleListData();
+        enumDataTypeList = EnumContainerType.getContainersList();
     }
 
     public void setCallbacks(ItemCallback itemCallback) {
@@ -39,9 +36,10 @@ public class DataFieldsDialogAdapter extends RecyclerView.Adapter<DataFieldsDial
 
     @Override
     public ButtonVH onCreateViewHolder(ViewGroup parent, int viewType) {
+
         final View view =
                 LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.card_data_field, parent, false);
+                        .inflate(R.layout.card_container_vertical, parent, false);
         return new ButtonVH(view, this);
     }
 
@@ -51,7 +49,6 @@ public class DataFieldsDialogAdapter extends RecyclerView.Adapter<DataFieldsDial
         holder.title.setText(enumDataTypeList.get(position).getTitle());
         holder.content.setText(enumDataTypeList.get(position).getContent());
         holder.imageView.setImageResource(enumDataTypeList.get(position).getDrawable());
-//        holder.button.setTag(position);
     }
 
     @Override
@@ -74,14 +71,14 @@ public class DataFieldsDialogAdapter extends RecyclerView.Adapter<DataFieldsDial
 
         final TextView title;
         final TextView content;
-        final CircleImageView imageView;
-        final DataFieldsDialogAdapter adapter;
+        final ImageView imageView;
+        final ContainerFieldsDialogAdapter adapter;
 
-        ButtonVH(View itemView, DataFieldsDialogAdapter adapter) {
+        ButtonVH(View itemView, ContainerFieldsDialogAdapter adapter) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.stats_title);
-            content = (TextView) itemView.findViewById(R.id.stats_value);
-            imageView = (CircleImageView) itemView.findViewById(R.id.profile_image);
+            title = (TextView) itemView.findViewById(R.id.card_container_title);
+            content = (TextView) itemView.findViewById(R.id.card_container_desc);
+            imageView = (ImageView) itemView.findViewById(R.id.card_container_image);
             this.adapter = adapter;
             itemView.setOnClickListener(this);
         }
@@ -91,7 +88,7 @@ public class DataFieldsDialogAdapter extends RecyclerView.Adapter<DataFieldsDial
             if (adapter.itemCallback == null) {
                 return;
             }
-            SingleData value = EnumDataType.getSingleListData().get(getAdapterPosition());
+            SingleData value = EnumContainerType.getContainersList().get(getAdapterPosition());
             adapter.itemCallback.onItemClicked(value);
         }
     }
