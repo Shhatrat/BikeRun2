@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.lb.auto_fit_textview.AutoResizeTextView;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.db.RealmLocation;
 import com.shhatrat.bikerun2.view.fragment.container.IContainer;
@@ -18,7 +19,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnLongClick;
 import butterknife.Unbinder;
-import me.grantland.widget.AutofitTextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,9 +27,9 @@ public class DataFragment extends BaseDataFragment {
 
     Unbinder unbinder;
     @BindView(R.id.data_fr_title)
-    AutofitTextView dataFrTitle;
+    AutoResizeTextView dataFrTitle;
     @BindView(R.id.data_fr_value)
-    AutofitTextView dataFrValue;
+    AutoResizeTextView dataFrValue;
     @BindView(R.id.data_fr_recycleview)
     RelativeLayout dataFrRecycleview;
 

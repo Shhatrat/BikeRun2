@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.IntDef;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -29,11 +30,16 @@ public class SportService extends Service {
     public SportService() {
     }
 
+    @Override
+    public int onStartCommand(Intent intent,  int flags, int startId) {
+        EnumSportType enumSportType =  EnumSportType.valueOf(intent.getExtras().getString(getResources().getString(R.string.sport_type)));
+        return super.onStartCommand(intent, flags, startId);
+    }
+
     public void createForegroundNotification()
     {
         Intent notificationIntent = new Intent(this, MenuActivityView.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-                notificationIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
         Notification notification = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Training service")

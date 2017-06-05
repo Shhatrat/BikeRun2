@@ -17,6 +17,7 @@ import com.shhatrat.bikerun2.di.UtilImpl;
 import com.shhatrat.bikerun2.presenter.activity.SportPresenter;
 import com.shhatrat.bikerun2.presenter.activity.models.ISportPresenter;
 import com.shhatrat.bikerun2.service.EnumSportType;
+import com.shhatrat.bikerun2.service.SportService;
 
 import javax.inject.Inject;
 
@@ -53,6 +54,15 @@ public class SportActivity extends AppCompatActivity implements ISportActivity{
         EnumSportType enumSportType = (EnumSportType) getIntent().getSerializableExtra(getResources().getString(R.string.sport_type));
         sportPresenter = new SportPresenter(this,this, enumSportType, utils.getRealm());
         sportPresenter.prepareScreen();
+        startService(enumSportType);
+    }
+
+    @Override
+    public void startService(EnumSportType enumSportType)
+    {
+        Intent intent = new Intent(this, SportService.class);
+        intent.putExtra(getResources().getString(R.string.sport_type), enumSportType.name());
+        startService(intent);
     }
 
     @Override

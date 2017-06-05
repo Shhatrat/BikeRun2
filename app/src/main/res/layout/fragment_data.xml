@@ -6,14 +6,14 @@
     tools:context="com.shhatrat.bikerun2.view.fragment.data.DataFragment">
 
     <RelativeLayout
-        android:background="@color/white"
-        android:layout_margin="10dp"
         android:id="@+id/data_fr_recycleview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="@color/white">
 
 
-        <me.grantland.widget.AutofitTextView
+        <com.lb.auto_fit_textview.AutoResizeTextView
             android:id="@+id/data_fr_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,23 +21,26 @@
             android:layout_alignParentTop="true"
             android:maxLines="2"
             android:singleLine="true"
+            android:includeFontPadding="false"
             android:text=""
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
-            autofit:minTextSize="16sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
 
-        <me.grantland.widget.AutofitTextView
+        <com.lb.auto_fit_textview.AutoResizeTextView
             android:id="@+id/data_fr_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/data_fr_title"
             android:maxLines="1"
+            android:gravity="center"
             android:singleLine="false"
+            android:includeFontPadding="false"
+            android:textSize="1000dp"
             android:text=""
             android:textAlignment="center"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="100sp" />
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
 
 </FrameLayout>
