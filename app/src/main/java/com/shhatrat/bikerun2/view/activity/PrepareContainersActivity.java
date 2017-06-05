@@ -3,7 +3,6 @@ package com.shhatrat.bikerun2.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,6 @@ import android.view.View;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.adapter.ContainerFieldsDialogAdapter;
-import com.shhatrat.bikerun2.adapter.DataFieldsDialogAdapter;
 import com.shhatrat.bikerun2.adapter.DraggableContainersAdapter;
 import com.shhatrat.bikerun2.adapter.helper.OnStartDragListener;
 import com.shhatrat.bikerun2.adapter.helper.SimpleItemTouchHelperCallback;
@@ -40,7 +38,6 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import static com.shhatrat.bikerun2.utils.RealmUtils.prepareNormalContainerFromRealm;
 import static com.shhatrat.bikerun2.utils.RealmUtils.prepareRealmContainerFromNormal;
-import static java.security.AccessController.getContext;
 
 public class PrepareContainersActivity extends AppCompatActivity implements OnStartDragListener, IPrepareContainersActivity {
 

@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="150dp"
-    android:background="@color/white"
-    android:layout_margin="10dp"
     android:id="@+id/row_con_relative"
-    android:layout_height="match_parent">
+    android:layout_width="150dp"
+    android:layout_height="match_parent"
+    app:cardBackgroundColor="#33000000">
 
     <ImageView
         android:id="@+id/row_con_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        app:srcCompat="@drawable/btn_strava_connectwith_orange" />
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/list"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/row_con_text"
+        android:id="@+id/row_con_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/row_con_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/row_con_image"
+        android:layout_below="@+id/row_con_title"
         android:layout_centerHorizontal="true"
-        android:text="TextView" />
+        android:layout_marginBottom="5dp"
+        android:gravity="bottom"
+        android:text="No items..."
+        android:textAlignment="center"
+        android:textColor="@color/white" />
 </RelativeLayout>
