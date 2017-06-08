@@ -1,0 +1,193 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="pref_datafr_scan"
+        android:title="@string/scan_button">
+
+        <ListPreference
+            android:capitalize="none"
+            android:defaultValue="5"
+            android:entries="@array/pref_datafr_scan_titles"
+            android:entryValues="@array/pref_datafr_scan_values"
+            android:key="pref_datafr_scan_value"
+            android:maxLines="2"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="%s senconds"
+            android:title="Frequency of switching screens" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="pref_datafr_scan_auto"
+            android:summary="Starts automatically"
+            android:title="Autostart" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_datafr_position"
+        android:title="@string/position">
+        <ListPreference
+            android:capitalize="none"
+            android:defaultValue="5"
+            android:entries="@array/pref_datafr_position_titles"
+            android:entryValues="@array/pref_datafr_position_values"
+            android:key="pref_datafr_scan_value"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="%s"
+            android:title="Type of position system" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:key="pref_datafr_speed"
+        android:title="Speed">
+
+        <ListPreference
+            android:defaultValue="@string/pref_speed_value_def"
+            android:entries="@array/pref_datafr_speed_titles"
+            android:entryValues="@array/pref_datafr_speed_values"
+            android:key="pref_datafr_speed_unit"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="%s"
+            android:title="Type of unit" />
+
+        <ListPreference
+            android:capitalize="none"
+            android:defaultValue="@string/pref_datafr_speed_accurancy_def"
+            android:entries="@array/pref_datafr_accurancy_number_titles"
+            android:entryValues="@array/pref_datafr_accurancy_number_values"
+            android:key="pref_datafr_speed_accurancy"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="%s"
+            android:title="Accurancy" />
+
+        <SwitchPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="false"
+            android:key="pref_datafr_speed_auto"
+            android:title="Autochange units" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:key="pref_datafr_gps"
+        android:title="GPS Accurancy">
+
+        <ListPreference
+            android:capitalize="none"
+            android:defaultValue="1"
+            android:entries="@array/pref_datafr_accurancy_number_titles"
+            android:entryValues="@array/pref_datafr_accurancy_number_values"
+            android:key="pref_datafr_accurancy_accurancy"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="%s"
+            android:title="Accurancy" />
+
+        <SwitchPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="false"
+            android:key="pref_datafr_accurancy_auto"
+            android:title="Autochange units" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:key="pref_datafr_speed"
+        android:title="Time">
+
+        <ListPreference
+            android:capitalize="none"
+            android:defaultValue="5"
+            android:entries="@array/pref_example_list_titles"
+            android:entryValues="@array/pref_example_list_values"
+            android:key="pref_datafr_scan_value"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Type of position system" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_datafr_speed"
+        android:title="Avg speed">
+
+        <ListPreference
+            android:capitalize="none"
+            android:defaultValue="1"
+            android:entries="@array/pref_datafr_speed_titles"
+            android:entryValues="@array/pref_datafr_speed_values"
+            android:key="pref_datafr_avg_value"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="%s"
+            android:title="Type of unit" />
+
+        <ListPreference
+            android:capitalize="none"
+            android:defaultValue="1"
+            android:entries="@array/pref_datafr_accurancy_number_titles"
+            android:entryValues="@array/pref_datafr_accurancy_number_values"
+            android:key="pref_datafr_avgspeed_accurancy"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="%s"
+            android:title="Accurancy" />
+
+        <SwitchPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="false"
+            android:key="pref_datafr_avgspeed_auto"
+            android:title="Autochange units" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_datafr_distance"
+        android:title="Distance">
+
+        <ListPreference
+            android:capitalize="none"
+            android:defaultValue="1"
+            android:entries="@array/pref_datafr_distance_titles"
+            android:entryValues="@array/pref_datafr_distance_values"
+            android:key="pref_datafr_distance_type"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="%s"
+            android:title="Unit type" />
+
+        <ListPreference
+            android:capitalize="none"
+            android:defaultValue="1"
+            android:entries="@array/pref_datafr_accurancy_number_titles"
+            android:entryValues="@array/pref_datafr_accurancy_number_values"
+            android:key="pref_datafr_distance_accurancy"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="%s"
+            android:title="Accurancy" />
+
+        <SwitchPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="false"
+            android:key="pref_datafr_distance_auto"
+            android:title="Autochange units" />
+    </PreferenceCategory>
+</PreferenceScreen>

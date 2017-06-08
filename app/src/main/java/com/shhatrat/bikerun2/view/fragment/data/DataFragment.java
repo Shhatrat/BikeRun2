@@ -1,8 +1,10 @@
 package com.shhatrat.bikerun2.view.fragment.data;
 
 
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -32,6 +34,62 @@ public class DataFragment extends BaseDataFragment {
     AutoResizeTextView dataFrValue;
     @BindView(R.id.data_fr_recycleview)
     RelativeLayout dataFrRecycleview;
+
+    DataSetting setting;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadSettings();
+    }
+
+    private void loadSettings() {
+        switch (normalData.getDataType()) {
+            case DATA_POSITION:
+                break;
+            case DATA_SPEED:
+                setting = getSpeedSetting("pref_datafr_speed");
+                break;
+            case DATA_BEARING:
+                break;
+            case DATA_ACCURACY:
+                break;
+            case DATA_ALTITUDE:
+                break;
+            case DATA_TIME:
+                break;
+            case DATA_AVG_SPEED:
+                break;
+            case DATA_DISTANCE:
+                break;
+        }
+    }
+
+    DataSetting getSpeedSetting(String key)
+    {
+        DataSetting ds = new DataSetting();
+        ds.setUnitType(getStringSettings(key+"_unit"));
+        ds.setAccurancy(getStringSettings(key+"_accurancy"));
+        ds.setAuto(getBoolSettings(key+"_auto"));
+        return ds;
+    }
+
+    String getStringSettings(String key)
+    {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        String syncConnPref = sharedPref.getString(key, "");
+        if(!syncConnPref.isEmpty())
+            return syncConnPref;
+            else
+             return sharedPref.getString(key+"def", "");
+    }
+
+    Boolean getBoolSettings(String key)
+    {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        Boolean syncConnPref = sharedPref.getBoolean(key, false);
+            return syncConnPref;
+    }
 
     public DataFragment() {
     }
@@ -76,6 +134,7 @@ public class DataFragment extends BaseDataFragment {
     }
 
     private void setSpeed(Location l) {
+//        setting.getUnitType()
         dataFrTitle.setText("Speed");
         dataFrValue.setText(l.getSpeed() + "km/h");
     }
@@ -118,6 +177,8 @@ public class DataFragment extends BaseDataFragment {
 
     @Override
     void subscribeData() {
+        if(setting==null)
+            loadSettings();
         switch (normalData.getDataType()) {
             case DATA_DISTANCE:
                 sub = mService.training.getCalculatedSubject().subscribe(this::setDistance);

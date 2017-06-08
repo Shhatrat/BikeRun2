@@ -101,4 +101,7 @@
     <string name="stop_scan">STOP SCAN</string>
     <string name="start_scan">START SCAN</string>
     <string name="choose_field">Choose field</string>
+    <string name="scan_button">Scan button</string>
+    <string name="position">position</string>
+    <string name="km">km</string>
 </resources>

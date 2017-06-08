@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="pref_speed_value_def">km</string>
+    <string name="pref_datafr_speed_accurancy_def">0.1</string>
+
+    <string-array name="pref_datafr_scan_titles">
+        <item>1 seconds</item>
+        <item>3 seconds</item>
+        <item>5 seconds</item>
+        <item>7 seconds</item>
+        <item>10 seconds</item>
+        <item>15 seconds</item>
+    </string-array>
+
+    <string-array name="pref_datafr_scan_values">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>7</item>
+        <item>10</item>
+        <item>15</item>
+    </string-array>
+
+    <string-array name="pref_datafr_position_titles">
+        <item>DDD MM SS.S</item>
+        <item>DDD MM MMM</item>
+        <item>DDD.DDDDD</item>
+    </string-array>
+
+    <string-array name="pref_datafr_position_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+
+    <string-array name="pref_datafr_speed_titles">
+        <item>km/h</item>
+        <item>m/s</item>
+    </string-array>
+
+    <string-array name="pref_datafr_speed_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+
+    <string-array name="pref_datafr_accurancy_number_titles">
+        <item>0.1</item>
+        <item>0.01</item>
+        <item>0.001</item>
+        <item>0.0001</item>
+        <item>0.00001</item>
+    </string-array>
+
+    <string-array name="pref_datafr_accurancy_number_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="pref_datafr_distance_titles">
+        <item>km</item>
+        <item>m</item>
+        <item>cm</item>
+    </string-array>
+
+    <string-array name="pref_datafr_distance_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+</resources>
