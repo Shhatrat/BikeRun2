@@ -1,12 +1,11 @@
 package com.shhatrat.bikerun2.model;
 
-import com.shhatrat.bikerun2.utils.DataConverter;
-
 /**
  * Created by szymon on 08.06.17.
  */
 
-public class SimpleValue {
+public class SimpleValue<T extends SimpleValue.BaseEnum> {
+
 
     public interface BaseEnum{}
 
@@ -22,8 +21,7 @@ public class SimpleValue {
         HOURS, MINUTES, SECONDS
     }
 
-
-    public <T extends BaseEnum> SimpleValue(Float orginalValue, T orginalType) {
+    public SimpleValue(Float orginalValue, T orginalType) {
         this.orginalValue = orginalValue;
         this.orginalType = orginalType;
         this.newType = orginalType;
@@ -34,21 +32,22 @@ public class SimpleValue {
         return newValue;
     }
 
-    public BaseEnum getNewType() {
+    public T getOrginalType() {
+        return orginalType;
+    }
+
+    public T getNewType() {
         return newType;
     }
 
+    public void setNewType(T newType) {this.newType = newType;}
     public void setNewValue(Float newValue) {
         this.newValue = newValue;
     }
 
-    public void setNewType(BaseEnum newType) {
-        this.newType = newType;
-    }
-
     Float orginalValue;
-    BaseEnum orginalType;
+    T orginalType;
 
     Float newValue;
-    BaseEnum newType;
+    T newType;
 }
