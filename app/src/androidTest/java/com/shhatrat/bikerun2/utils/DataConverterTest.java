@@ -58,4 +58,23 @@ public class DataConverterTest {
                 .convertType(SimpleValue.EnumMetricType.M).build();
         Assert.assertEquals(oo.getNewValue(), 10.0f);
     }
+
+    @Test
+    public void TimeUnitTest() throws Exception {
+        SimpleValue simple2Value = new SimpleValue(120f, SimpleValue.EnumTimeType.MINUTES);
+        SimpleValue oo = new DataConverter.Builder<SimpleValue.EnumTimeType>(simple2Value)
+                .convertType(SimpleValue.EnumTimeType.HOURS).build();
+        Assert.assertEquals(oo.getNewValue(), 2f);
+        Assert.assertEquals(oo.getNewType(), SimpleValue.EnumTimeType.HOURS);
+    }
+
+    @Test
+    public void SecondsUnitTest() throws Exception {
+        SimpleValue simple2Value = new SimpleValue(3600f, SimpleValue.EnumTimeType.SECONDS);
+        SimpleValue oo = new DataConverter.Builder<SimpleValue.EnumTimeType>(simple2Value)
+                .convertType(SimpleValue.EnumTimeType.HOURS).build();
+        Assert.assertEquals(oo.getNewValue(), 1f);
+        Assert.assertEquals(oo.getNewType(), SimpleValue.EnumTimeType.HOURS);
+    }
+
 }
