@@ -39,6 +39,45 @@ public class DataConverter {
                         }
                 }
             }
+
+            if (btype instanceof SimpleValue.EnumMetricType) {
+                switch ((SimpleValue.EnumMetricType) newType) {
+                    case KM:
+                        if (btype == SimpleValue.EnumMetricType.M) {
+                            bvalue = bvalue * 1000;
+                            btype = (T) SimpleValue.EnumMetricType.KM;
+                            return this;
+                        }
+                        if (btype == SimpleValue.EnumMetricType.CM) {
+                            bvalue = bvalue * 100000;
+                            btype = (T) SimpleValue.EnumMetricType.KM;
+                            return this;
+                        }
+                    case M:
+                        if (btype == SimpleValue.EnumMetricType.KM) {
+                            bvalue = bvalue / 1000;
+                            btype = (T) SimpleValue.EnumMetricType.M;
+                            return this;
+                        }
+                        if (btype == SimpleValue.EnumMetricType.CM) {
+                            bvalue = bvalue * 100;
+                            btype = (T) SimpleValue.EnumMetricType.M;
+                            return this;
+                        }
+                    case CM:
+                        if (btype == SimpleValue.EnumMetricType.KM) {
+                            bvalue = bvalue / 100000;
+                            btype = (T) SimpleValue.EnumMetricType.M;
+                            return this;
+                        }
+                        if (btype == SimpleValue.EnumMetricType.M) {
+                            bvalue = bvalue * 100;
+                            btype = (T) SimpleValue.EnumMetricType.M;
+                            return this;
+                        }
+                }
+            }
+
             return this;
         }
 

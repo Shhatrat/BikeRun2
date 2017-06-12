@@ -50,4 +50,12 @@ public class DataConverterTest {
                 .convertType(SimpleValue.EnumSpeedType.M_PER_S).build();
         Assert.assertEquals(((SimpleValue.EnumSpeedType)oo.getNewType()).name(), SimpleValue.EnumSpeedType.M_PER_S.name());
     }
+
+    @Test
+    public void speedUnitTest() throws Exception {
+        SimpleValue simple2Value = new SimpleValue(1000.0f, SimpleValue.EnumMetricType.CM);
+        SimpleValue oo = new DataConverter.Builder<SimpleValue.EnumMetricType>(simple2Value)
+                .convertType(SimpleValue.EnumMetricType.M).build();
+        Assert.assertEquals(oo.getNewValue(), 10.0f);
+    }
 }
