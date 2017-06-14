@@ -117,6 +117,45 @@
 
 
     <PreferenceCategory
+        android:key="pref_datafr_altitude"
+        android:title="Altitude">
+
+
+        <ListPreference
+            android:defaultValue="M"
+            android:entries="@array/pref_datafr_distance_titles"
+            android:entryValues="@array/pref_datafr_distance_values"
+            android:key="pref_datafr_altitude_unit"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="%s"
+            android:title="Type of unit" />
+
+        <ListPreference
+            android:capitalize="none"
+            android:defaultValue="1"
+            android:entries="@array/pref_datafr_accurancy_number_titles"
+            android:entryValues="@array/pref_datafr_accurancy_number_values"
+            android:key="pref_datafr_altitude_accurancy"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:summary="%s"
+            android:title="Accurancy" />
+
+
+        <SwitchPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="false"
+            android:key="pref_datafr_altitude_unit_auto"
+            android:title="Autochange units" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
         android:key="pref_datafr_speed"
         android:title="Time">
 

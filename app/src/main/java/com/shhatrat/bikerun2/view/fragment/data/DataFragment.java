@@ -1,6 +1,7 @@
 package com.shhatrat.bikerun2.view.fragment.data;
 
 
+import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,7 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnLongClick;
 import butterknife.Unbinder;
 
-import static com.shhatrat.bikerun2.utils.SettingsUtil.getSpeedSetting;
+import static com.shhatrat.bikerun2.utils.SettingsUtil.getSettings;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,18 +47,18 @@ public class DataFragment extends BaseDataFragment {
     }
 
     private void loadSettings() {
+        Context c = this.getActivity().getApplication().getApplicationContext();
         switch (normalData.getDataType()) {
-            case DATA_POSITION:
-                break;
             case DATA_SPEED:
-//                setting = getSpeedSetting("pref_datafr_speed");
+//                setting = getSettings("pref_datafr_speed");
                 break;
             case DATA_BEARING:
                 break;
             case DATA_ACCURACY:
-                setting = getSpeedSetting("pref_datafr_gps_accurancy", this.getContext());
+                setting = getSettings("pref_datafr_gps_accurancy", c);
                 break;
             case DATA_ALTITUDE:
+                setting = getSettings("pref_datafr_altitude", c);
                 break;
             case DATA_TIME:
                 break;
@@ -105,19 +106,24 @@ public class DataFragment extends BaseDataFragment {
         f.setDataField(normalData.getFieldName());
     }
 
-    private void setPosition(Location l) {
-        dataFrTitle.setText("Position");
-        dataFrValue.setText(l.getLatitude() + "\n" + l.getLongitude());
+    private void setPositionLat(Location l) {
+        dataFrTitle.setText("Latitude");
+        dataFrValue.setText(l.getLatitude() + "");
+    }
+
+    private void setPositionLon(Location l) {
+        dataFrTitle.setText("Longitude");
+        dataFrValue.setText(l.getLongitude() + "");
     }
 
     private void setSpeed(Location l) {
         dataFrTitle.setText("Speed");
-        SimpleValue sv = new SimpleValue(l.getSpeed(), SimpleValue.EnumSpeedType.M_PER_S);
-        sv = new DataConverter.Builder<SimpleValue.EnumSpeedType>(sv)
-                .convertType(SimpleValue.EnumSpeedType.valueOf(setting.getUnitType()))
-                .convertAccurancy(Integer.parseInt(setting.getAccurancy()))
-                .build();
-        dataFrValue.setText(sv.getNewType() + " " + sv.getNewType());
+//        SimpleValue sv = new SimpleValue(l.getSpeed(), SimpleValue.EnumSpeedType.M_PER_S);
+//        sv = new DataConverter.Builder<SimpleValue.EnumSpeedType>(sv)
+//                .convertType(SimpleValue.EnumSpeedType.valueOf(setting.getUnitType()))
+//                .convertAccurancy(Integer.parseInt(setting.getAccurancy()))
+//                .build();
+//        dataFrValue.setText(sv.getNewType() + " " + sv.getNewType());
     }
 
     private void setBearing(Location l) {
@@ -128,17 +134,21 @@ public class DataFragment extends BaseDataFragment {
     private void setAccurancy(Location l) {
         dataFrTitle.setText("Accurancy");
         SimpleValue sv = new SimpleValue(l.getAccuracy(), SimpleValue.EnumMetricType.M);
+        setupView(sv);
+    }
+
+    private void setupView(SimpleValue sv) {
         sv = new DataConverter.Builder<SimpleValue.EnumMetricType>(sv)
-                .convertType(SimpleValue.EnumMetricType.valueOf(setting.getUnitType()))
-//                .convertAccurancy(Integer.parseInt(setting.getAccurancy()))
+//                .convertType(SimpleValue.EnumMetricType.valueOf(setting.getUnitType()))
+                .convertAccurancy(Integer.parseInt(setting.getAccurancy()))
                 .build();
-        dataFrValue.setText(sv.getNewType() + " " + sv.getNewType());
-//        dataFrValue.setText(l.getAccuracy() + "m");
+        dataFrValue.setText(sv.getPrettyNewValue() + " " + sv.getNewType());
     }
 
     private void setAltitude(Location l) {
         dataFrTitle.setText("Altitude");
-        dataFrValue.setText(l.getAltitude() + "m");
+        SimpleValue sv = new SimpleValue((float) l.getAltitude(), SimpleValue.EnumMetricType.M);
+        setupView(sv);
     }
 
     private void setTime(Location l) {
@@ -173,8 +183,11 @@ public class DataFragment extends BaseDataFragment {
             case DATA_AVG_SPEED:
                 sub = mService.training.getCalculatedSubject().subscribe(this::setAvgSpeed);
                 break;
-            case DATA_POSITION:
-                sub = mService.getRawGpsSubject().subscribe(this::setPosition);
+            case DATA_POSITION_LAT:
+                sub = mService.getRawGpsSubject().subscribe(this::setPositionLat);
+                break;
+            case DATA_POSITION_LON:
+                sub = mService.getRawGpsSubject().subscribe(this::setPositionLon);
                 break;
             case DATA_SPEED:
                 sub = mService.getRawGpsSubject().subscribe(this::setSpeed);

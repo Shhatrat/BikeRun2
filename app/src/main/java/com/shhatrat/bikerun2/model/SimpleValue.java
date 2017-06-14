@@ -28,6 +28,14 @@ public class SimpleValue<T extends SimpleValue.BaseEnum> {
         this.newValue = orginalValue;
     }
 
+    public String getPrettyNewValue() {
+        float tmp = newValue - newValue.intValue();
+        if (tmp == 0) {
+            return String.valueOf(newValue.intValue());
+        }
+        return String.valueOf(newValue);
+    }
+
     public Float getNewValue() {
         return newValue;
     }

@@ -77,4 +77,11 @@ public class DataConverterTest {
         Assert.assertEquals(oo.getNewType(), SimpleValue.EnumTimeType.HOURS);
     }
 
+    @Test
+    public void cmToKm() throws Exception {
+        SimpleValue simple2Value = new SimpleValue(10.0f, SimpleValue.EnumMetricType.CM);
+        SimpleValue oo = new DataConverter.Builder<SimpleValue.EnumMetricType>(simple2Value)
+                .convertType(SimpleValue.EnumMetricType.KM).build();
+        Assert.assertEquals(0.0001f, oo.getNewValue());
+    }
 }

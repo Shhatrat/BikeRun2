@@ -84,12 +84,14 @@ public class DataConverter {
                         btype = (T) SimpleValue.EnumSpeedType.KM_PER_H;
                         return true;
                     }
+                    break;
                 case M_PER_S:
                     if (btype == SimpleValue.EnumSpeedType.KM_PER_H) {
                         bvalue = bvalue * 0.27f;
                         btype = (T) SimpleValue.EnumSpeedType.M_PER_S;
                         return true;
                     }
+                    break;
             }
             return false;
         }
@@ -98,18 +100,19 @@ public class DataConverter {
             switch (newType) {
                 case KM:
                     if (btype == SimpleValue.EnumMetricType.M) {
-                        bvalue = bvalue * 1000;
+                        bvalue = bvalue / 1000;
                         btype = (T) SimpleValue.EnumMetricType.KM;
                         return true;
                     }
                     if (btype == SimpleValue.EnumMetricType.CM) {
-                        bvalue = bvalue * 100000;
+                        bvalue = bvalue / 100000;
                         btype = (T) SimpleValue.EnumMetricType.KM;
                         return true;
                     }
+                    break;
                 case M:
                     if (btype == SimpleValue.EnumMetricType.KM) {
-                        bvalue = bvalue / 1000;
+                        bvalue = bvalue * 1000;
                         btype = (T) SimpleValue.EnumMetricType.M;
                         return true;
                     }
@@ -118,17 +121,19 @@ public class DataConverter {
                         btype = (T) SimpleValue.EnumMetricType.M;
                         return true;
                     }
+                    break;
                 case CM:
                     if (btype == SimpleValue.EnumMetricType.KM) {
-                        bvalue = bvalue / 100000;
-                        btype = (T) SimpleValue.EnumMetricType.M;
+                        bvalue = bvalue * 100000;
+                        btype = (T) SimpleValue.EnumMetricType.CM;
                         return true;
                     }
                     if (btype == SimpleValue.EnumMetricType.M) {
                         bvalue = bvalue * 100;
-                        btype = (T) SimpleValue.EnumMetricType.M;
+                        btype = (T) SimpleValue.EnumMetricType.CM;
                         return true;
                     }
+                    break;
             }
             return false;
         }
@@ -137,6 +142,8 @@ public class DataConverter {
         {
             BigDecimal bd = new BigDecimal(this.bvalue);
             bd = bd.setScale(accurancy, BigDecimal.ROUND_HALF_UP);
+            if (bd.remainder(BigDecimal.ONE).equals(0))
+                bd = bd.setScale(0, BigDecimal.ROUND_HALF_UP);
             bvalue = bd.floatValue();
             return this;
         }

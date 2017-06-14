@@ -1,6 +1,7 @@
 package com.shhatrat.bikerun2;
 
 import android.app.Application;
+import android.preference.PreferenceManager;
 
 import com.facebook.stetho.Stetho;
 import com.shhatrat.bikerun2.di.components.ApplicationComponent;
@@ -43,6 +44,8 @@ public class BRApplication extends Application {
                 .builder()
                 .networkModule(new NetworkModule(getApplicationContext()))
                 .build();
+
+        PreferenceManager.setDefaultValues(getApplicationContext(), R.xml.pref_data_fragment, false);
     }
 
     public ApplicationComponent getComponent() {

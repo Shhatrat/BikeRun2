@@ -26,7 +26,8 @@ public class DataFragmentFactory {
             case BUTTON_BLANK:
                 return newButtonInstance(normalData);
 
-            case DATA_POSITION:
+            case DATA_POSITION_LAT:
+            case DATA_POSITION_LON:
             case DATA_SPEED:
             case DATA_BEARING:
             case DATA_ACCURACY:

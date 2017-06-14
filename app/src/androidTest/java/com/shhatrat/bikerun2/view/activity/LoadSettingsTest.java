@@ -7,6 +7,8 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.shhatrat.bikerun2.R;
+import com.shhatrat.bikerun2.utils.SettingsUtil;
+import com.shhatrat.bikerun2.view.fragment.data.DataSetting;
 
 import junit.framework.Assert;
 
@@ -58,4 +60,13 @@ public class LoadSettingsTest {
         String v = sharedPref.getString("pref_datafr_speed_accurancy", "");
         Assert.assertEquals(v, "1");
     }
+
+    @Test
+    public void speedSettings() throws Exception {
+        DataSetting s = SettingsUtil.getSettings("pref_datafr_gps_accurancy", appContext);
+        Assert.assertEquals(s.getAuto(), Boolean.FALSE);
+        Assert.assertEquals(s.getAccurancy(), 1 + "");
+        Assert.assertEquals(s.getUnitType(), "M");
+    }
+
 }

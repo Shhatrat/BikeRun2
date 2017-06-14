@@ -6,8 +6,6 @@ import com.shhatrat.bikerun2.model.SingleData;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.shhatrat.bikerun2.R.mipmap.ic_launcher_round;
-
 /**
  * Created by szymon on 17.04.17.
  */
@@ -22,7 +20,8 @@ public enum EnumDataType {
         BUTTON_BLANK,
         BUTTON_SCAN,
 
-        DATA_POSITION,
+        DATA_POSITION_LAT,
+        DATA_POSITION_LON,
         DATA_SPEED,
         DATA_BEARING,
         DATA_ACCURACY,
@@ -49,7 +48,8 @@ public enum EnumDataType {
                 list.add(new SingleData("Left page", "Move to left page", R.drawable.ic_arrow_back_white_24dp, BUTTON_MOVE_LEFT.name()));
                 list.add(new SingleData("Right page", "Move to right page", R.drawable.ic_arrow_forward_white_24dp, BUTTON_MOVE_RIGHT.name()));
                 list.add(new SingleData("Scan screens", "Move screens automatically", R.drawable.ic_replay_white_24dp, BUTTON_SCAN.name()));
-                list.add(new SingleData("Position", "Latitude and Longitude", R.drawable.ic_place_white_24dp, DATA_POSITION.name()));
+                list.add(new SingleData("Latitude", "Latitude", R.drawable.ic_place_white_24dp, DATA_POSITION_LAT.name()));
+                list.add(new SingleData("Longitude", "Latitude", R.drawable.ic_place_white_24dp, DATA_POSITION_LON.name()));
                 list.add(new SingleData("Speed", "Instant speed", R.drawable.ic_transfer_within_a_station_white_24dp, DATA_SPEED.name()));
                 list.add(new SingleData("Bearing", "Direction of the user", R.drawable.ic_near_me_white_24dp, DATA_BEARING.name()));
                 list.add(new SingleData("Accuracy", "GPS accuracy", R.drawable.ic_satellite_white_24dp, DATA_ACCURACY.name()));
