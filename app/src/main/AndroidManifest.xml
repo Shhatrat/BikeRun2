@@ -60,6 +60,10 @@
         <activity
             android:name=".view.activity.PrepareContainersActivity"
             android:label="@string/title_activity_prepare_containers"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.activity.PreapreSingleContainer"
+            android:label="@string/title_activity_preapre_single_container"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

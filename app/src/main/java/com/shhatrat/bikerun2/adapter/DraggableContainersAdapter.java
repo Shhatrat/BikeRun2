@@ -1,8 +1,8 @@
 package com.shhatrat.bikerun2.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,16 +12,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.adapter.helper.ItemTouchHelperAdapter;
 import com.shhatrat.bikerun2.adapter.helper.ItemTouchHelperViewHolder;
 import com.shhatrat.bikerun2.adapter.helper.OnStartDragListener;
 import com.shhatrat.bikerun2.db.NormalContainer;
-import com.shhatrat.bikerun2.db.NormalData;
 import com.shhatrat.bikerun2.db.RealmContainer;
-import com.shhatrat.bikerun2.service.EnumSportType;
+import com.shhatrat.bikerun2.view.activity.PreapreSingleContainer;
 import com.shhatrat.bikerun2.view.fragment.container.EnumContainerType;
 import com.shhatrat.bikerun2.view.fragment.data.EnumDataType;
 
@@ -37,13 +35,16 @@ public class DraggableContainersAdapter extends RecyclerView.Adapter<DraggableCo
         implements ItemTouchHelperAdapter {
 
     private  List<NormalContainer> mItems = new ArrayList<>();
-
+    private Context c;
+    private String sportType;
     private final OnStartDragListener mDragStartListener;
 
-    public DraggableContainersAdapter(Context context, OnStartDragListener dragStartListener, List<NormalContainer> l) {
+    public DraggableContainersAdapter(Context context, OnStartDragListener dragStartListener, List<NormalContainer> l, String sportType) {
         mDragStartListener = dragStartListener;
         if(l.size()!=0)
         mItems = l;
+        this.sportType = sportType;
+        c = context;
     }
 
     public void addSection(RealmContainer s)
@@ -86,6 +87,16 @@ public class DraggableContainersAdapter extends RecyclerView.Adapter<DraggableCo
                 return false;
             }
         });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(c, PreapreSingleContainer.class);
+                i.putExtra("sport_type", sportType);
+                i.putExtra("container_id", mItems.get(position).getId());
+                c.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -93,6 +104,7 @@ public class DraggableContainersAdapter extends RecyclerView.Adapter<DraggableCo
         mItems.remove(position);
         notifyItemRemoved(position);
     }
+
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
@@ -122,9 +134,7 @@ public class DraggableContainersAdapter extends RecyclerView.Adapter<DraggableCo
 
         @Override
         public void onItemSelected() {
-
             itemView.setBackgroundColor(Color.LTGRAY);
-
         }
 
         @Override

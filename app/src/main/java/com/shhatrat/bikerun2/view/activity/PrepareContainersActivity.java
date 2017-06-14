@@ -59,7 +59,7 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
         setSupportActionBar(toolbar);
 
         enumSportType = (EnumSportType) getIntent().getSerializableExtra(getResources().getString(R.string.config_screen));
-        dca = new DraggableContainersAdapter(getApplicationContext(), this, new ArrayList<>());
+        dca = new DraggableContainersAdapter(getApplicationContext(), this, new ArrayList<>(), enumSportType.name());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -70,15 +70,21 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
                 //todo check changes and ask about it
             }
         });
+
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(dca);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(prepareRecycleview);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         Realm realm = new UtilImpl(this).getRealm(); //// TODO: 26.05.17
         containersPresenter = new PrepareContainersPresenter(realm, enumSportType, this);
         containersPresenter.loadConfigFromDB();
         prepareRecycleview.setHasFixedSize(true);
         prepareRecycleview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(dca);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(prepareRecycleview);
     }
 
     @Override
@@ -138,8 +144,15 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
 
     @Override
     public void preapreRecycleViewData(List<RealmContainer> list) {
-        dca = new DraggableContainersAdapter(getApplicationContext(), this, prepareNormalContainerFromRealm(list));
+        dca = new DraggableContainersAdapter(getApplicationContext(), this, prepareNormalContainerFromRealm(list), enumSportType.name());
         prepareRecycleview.setAdapter(dca);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        List<RealmContainer> d = prepareRealmContainerFromNormal(dca.getCollection());
+        containersPresenter.saveConfigFromScreen(d);
     }
 
     void showTips()

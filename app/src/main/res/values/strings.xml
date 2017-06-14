@@ -108,4 +108,5 @@
     <string name="pref_speed_unit_def">KM</string>
     <string name="pref_datafr_gps_accurancy_unit_def">M</string>
     <string name="pref_datafr_gps_accurancy_accurancy_def">0.1</string>
+    <string name="title_activity_preapre_single_container">Preapre single container</string>
 </resources>
