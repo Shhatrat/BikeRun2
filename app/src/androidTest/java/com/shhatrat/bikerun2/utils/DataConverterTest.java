@@ -53,10 +53,10 @@ public class DataConverterTest {
 
     @Test
     public void speedUnitTest() throws Exception {
-        SimpleValue simple2Value = new SimpleValue(1000.0f, SimpleValue.EnumMetricType.CM);
+        SimpleValue simple2Value = new SimpleValue(100.0f, SimpleValue.EnumMetricType.CM);
         SimpleValue oo = new DataConverter.Builder<SimpleValue.EnumMetricType>(simple2Value)
                 .convertType(SimpleValue.EnumMetricType.M).build();
-        Assert.assertEquals(oo.getNewValue(), 10.0f);
+        Assert.assertEquals(1.0f, oo.getNewValue());
     }
 
     @Test

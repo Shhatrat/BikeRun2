@@ -28,12 +28,6 @@
         <item>DDD.DDDDD</item>
     </string-array>
 
-    <string-array name="pref_datafr_position_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
 
     <string-array name="pref_datafr_speed_titles">
         <item>km/h</item>
@@ -41,8 +35,8 @@
     </string-array>
 
     <string-array name="pref_datafr_speed_values">
-        <item>1</item>
-        <item>2</item>
+        <item>KM_PER_H</item>
+        <item>M_PER_S</item>
     </string-array>
 
 
@@ -69,9 +63,10 @@
     </string-array>
 
     <string-array name="pref_datafr_distance_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+        <item>KM</item>
+        <item>M</item>
+        <item>CM</item>
     </string-array>
+
 
 </resources>

@@ -1,10 +1,8 @@
 package com.shhatrat.bikerun2.view.fragment.data;
 
 
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,12 +13,16 @@ import android.widget.RelativeLayout;
 import com.lb.auto_fit_textview.AutoResizeTextView;
 import com.shhatrat.bikerun2.R;
 import com.shhatrat.bikerun2.db.RealmLocation;
+import com.shhatrat.bikerun2.model.SimpleValue;
+import com.shhatrat.bikerun2.utils.DataConverter;
 import com.shhatrat.bikerun2.view.fragment.container.IContainer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnLongClick;
 import butterknife.Unbinder;
+
+import static com.shhatrat.bikerun2.utils.SettingsUtil.getSpeedSetting;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,11 +50,12 @@ public class DataFragment extends BaseDataFragment {
             case DATA_POSITION:
                 break;
             case DATA_SPEED:
-                setting = getSpeedSetting("pref_datafr_speed");
+//                setting = getSpeedSetting("pref_datafr_speed");
                 break;
             case DATA_BEARING:
                 break;
             case DATA_ACCURACY:
+                setting = getSpeedSetting("pref_datafr_gps_accurancy", this.getContext());
                 break;
             case DATA_ALTITUDE:
                 break;
@@ -63,32 +66,6 @@ public class DataFragment extends BaseDataFragment {
             case DATA_DISTANCE:
                 break;
         }
-    }
-
-    DataSetting getSpeedSetting(String key)
-    {
-        DataSetting ds = new DataSetting();
-        ds.setUnitType(getStringSettings(key+"_unit"));
-        ds.setAccurancy(getStringSettings(key+"_accurancy"));
-        ds.setAuto(getBoolSettings(key+"_auto"));
-        return ds;
-    }
-
-    String getStringSettings(String key)
-    {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        String syncConnPref = sharedPref.getString(key, "");
-        if(!syncConnPref.isEmpty())
-            return syncConnPref;
-            else
-             return sharedPref.getString(key+"def", "");
-    }
-
-    Boolean getBoolSettings(String key)
-    {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        Boolean syncConnPref = sharedPref.getBoolean(key, false);
-            return syncConnPref;
     }
 
     public DataFragment() {
@@ -134,9 +111,13 @@ public class DataFragment extends BaseDataFragment {
     }
 
     private void setSpeed(Location l) {
-//        setting.getUnitType()
         dataFrTitle.setText("Speed");
-        dataFrValue.setText(l.getSpeed() + "km/h");
+        SimpleValue sv = new SimpleValue(l.getSpeed(), SimpleValue.EnumSpeedType.M_PER_S);
+        sv = new DataConverter.Builder<SimpleValue.EnumSpeedType>(sv)
+                .convertType(SimpleValue.EnumSpeedType.valueOf(setting.getUnitType()))
+                .convertAccurancy(Integer.parseInt(setting.getAccurancy()))
+                .build();
+        dataFrValue.setText(sv.getNewType() + " " + sv.getNewType());
     }
 
     private void setBearing(Location l) {
@@ -146,7 +127,13 @@ public class DataFragment extends BaseDataFragment {
 
     private void setAccurancy(Location l) {
         dataFrTitle.setText("Accurancy");
-        dataFrValue.setText(l.getAccuracy() + "m");
+        SimpleValue sv = new SimpleValue(l.getAccuracy(), SimpleValue.EnumMetricType.M);
+        sv = new DataConverter.Builder<SimpleValue.EnumMetricType>(sv)
+                .convertType(SimpleValue.EnumMetricType.valueOf(setting.getUnitType()))
+//                .convertAccurancy(Integer.parseInt(setting.getAccurancy()))
+                .build();
+        dataFrValue.setText(sv.getNewType() + " " + sv.getNewType());
+//        dataFrValue.setText(l.getAccuracy() + "m");
     }
 
     private void setAltitude(Location l) {

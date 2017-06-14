@@ -114,7 +114,7 @@ public class DataConverter {
                         return true;
                     }
                     if (btype == SimpleValue.EnumMetricType.CM) {
-                        bvalue = bvalue * 100;
+                        bvalue = bvalue / 100;
                         btype = (T) SimpleValue.EnumMetricType.M;
                         return true;
                     }

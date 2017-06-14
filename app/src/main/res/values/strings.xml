@@ -104,4 +104,8 @@
     <string name="scan_button">Scan button</string>
     <string name="position">position</string>
     <string name="km">km</string>
+    <string name="pref_speed_def">KM</string>
+    <string name="pref_speed_unit_def">KM</string>
+    <string name="pref_datafr_gps_accurancy_unit_def">M</string>
+    <string name="pref_datafr_gps_accurancy_accurancy_def">0.1</string>
 </resources>
