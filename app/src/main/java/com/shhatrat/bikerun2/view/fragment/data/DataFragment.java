@@ -50,7 +50,7 @@ public class DataFragment extends BaseDataFragment {
         Context c = this.getActivity().getApplication().getApplicationContext();
         switch (normalData.getDataType()) {
             case DATA_SPEED:
-//                setting = getSettings("pref_datafr_speed");
+                setting = getSettings("pref_datafr_speed", c);
                 break;
             case DATA_BEARING:
                 break;
@@ -63,8 +63,10 @@ public class DataFragment extends BaseDataFragment {
             case DATA_TIME:
                 break;
             case DATA_AVG_SPEED:
+                setting = getSettings("pref_datafr_avgspeed", c);
                 break;
             case DATA_DISTANCE:
+                setting = getSettings("pref_datafr_distance", c);
                 break;
         }
     }
@@ -118,12 +120,8 @@ public class DataFragment extends BaseDataFragment {
 
     private void setSpeed(Location l) {
         dataFrTitle.setText("Speed");
-//        SimpleValue sv = new SimpleValue(l.getSpeed(), SimpleValue.EnumSpeedType.M_PER_S);
-//        sv = new DataConverter.Builder<SimpleValue.EnumSpeedType>(sv)
-//                .convertType(SimpleValue.EnumSpeedType.valueOf(setting.getUnitType()))
-//                .convertAccurancy(Integer.parseInt(setting.getAccurancy()))
-//                .build();
-//        dataFrValue.setText(sv.getNewType() + " " + sv.getNewType());
+        SimpleValue sv = new SimpleValue(l.getSpeed(), SimpleValue.EnumSpeedType.M_PER_S);
+        setupViewSpeed(sv);
     }
 
     private void setBearing(Location l) {
@@ -134,12 +132,20 @@ public class DataFragment extends BaseDataFragment {
     private void setAccurancy(Location l) {
         dataFrTitle.setText("Accurancy");
         SimpleValue sv = new SimpleValue(l.getAccuracy(), SimpleValue.EnumMetricType.M);
-        setupView(sv);
+        setupViewMetric(sv);
     }
 
-    private void setupView(SimpleValue sv) {
+    private void setupViewMetric(SimpleValue sv) {
         sv = new DataConverter.Builder<SimpleValue.EnumMetricType>(sv)
-//                .convertType(SimpleValue.EnumMetricType.valueOf(setting.getUnitType()))
+                //  .convertType(SimpleValue.EnumMetricType.valueOf(setting.getUnitType()))
+                .convertAccurancy(Integer.parseInt(setting.getAccurancy()))
+                .build();
+        dataFrValue.setText(sv.getPrettyNewValue() + " " + sv.getNewType());
+    }
+
+    private void setupViewSpeed(SimpleValue sv) {
+        sv = new DataConverter.Builder<SimpleValue.EnumSpeedType>(sv)
+                .convertType(SimpleValue.EnumSpeedType.valueOf(setting.getUnitType()))
                 .convertAccurancy(Integer.parseInt(setting.getAccurancy()))
                 .build();
         dataFrValue.setText(sv.getPrettyNewValue() + " " + sv.getNewType());
@@ -148,7 +154,7 @@ public class DataFragment extends BaseDataFragment {
     private void setAltitude(Location l) {
         dataFrTitle.setText("Altitude");
         SimpleValue sv = new SimpleValue((float) l.getAltitude(), SimpleValue.EnumMetricType.M);
-        setupView(sv);
+        setupViewMetric(sv);
     }
 
     private void setTime(Location l) {
@@ -158,12 +164,14 @@ public class DataFragment extends BaseDataFragment {
 
     private void setAvgSpeed(RealmLocation rl) {
         dataFrTitle.setText("Avg speed");
-        dataFrValue.setText(rl.getAvgSpeed() + "km/h");
+        SimpleValue sv = new SimpleValue((float) rl.getAvgSpeed(), SimpleValue.EnumSpeedType.M_PER_S);
+        setupViewSpeed(sv);
     }
 
     private void setDistance(RealmLocation rl) {
         dataFrTitle.setText("Distance");
-        dataFrValue.setText(rl.getDistance() + "m");
+        SimpleValue sv = new SimpleValue((float) rl.getDistance(), SimpleValue.EnumMetricType.M);
+        setupViewMetric(sv);
     }
 
     @OnLongClick(R.id.data_fr_recycleview)

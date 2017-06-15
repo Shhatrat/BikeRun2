@@ -110,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="false"
-            android:key="pref_datafr_gps_accurancy_unit_auto"
+            android:key="pref_datafr_gps_accurancy_auto"
             android:title="Autochange units" />
 
     </PreferenceCategory>
@@ -149,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultValue="false"
-            android:key="pref_datafr_altitude_unit_auto"
+            android:key="pref_datafr_altitude_auto"
             android:title="Autochange units" />
 
     </PreferenceCategory>
@@ -172,7 +172,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="pref_datafr_speed"
+        android:key="pref_datafr_avgspeed"
         android:title="Avg speed">
 
         <ListPreference
@@ -180,7 +180,7 @@
             android:defaultValue="KM_PER_H"
             android:entries="@array/pref_datafr_speed_titles"
             android:entryValues="@array/pref_datafr_speed_values"
-            android:key="pref_datafr_avg_value"
+            android:key="pref_datafr_avgspeed_value"
             android:maxLines="1"
             android:selectAllOnFocus="true"
             android:singleLine="true"
@@ -216,7 +216,7 @@
             android:defaultValue="M"
             android:entries="@array/pref_datafr_distance_titles"
             android:entryValues="@array/pref_datafr_distance_values"
-            android:key="pref_datafr_distance_type"
+            android:key="pref_datafr_distance_unit"
             android:maxLines="1"
             android:selectAllOnFocus="true"
             android:singleLine="true"

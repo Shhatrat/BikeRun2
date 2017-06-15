@@ -84,4 +84,12 @@ public class DataConverterTest {
                 .convertType(SimpleValue.EnumMetricType.KM).build();
         Assert.assertEquals(0.0001f, oo.getNewValue());
     }
+
+    @Test
+    public void mToKM() throws Exception {
+        SimpleValue simple2Value = new SimpleValue(1320.0f, SimpleValue.EnumMetricType.M);
+        SimpleValue oo = new DataConverter.Builder<SimpleValue.EnumMetricType>(simple2Value)
+                .convertType(SimpleValue.EnumMetricType.KM).build();
+        Assert.assertEquals(1.320f, oo.getNewValue());
+    }
 }

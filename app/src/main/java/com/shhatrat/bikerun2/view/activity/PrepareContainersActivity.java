@@ -81,6 +81,7 @@ public class PrepareContainersActivity extends AppCompatActivity implements OnSt
     protected void onResume() {
         super.onResume();
         Realm realm = new UtilImpl(this).getRealm(); //// TODO: 26.05.17
+
         containersPresenter = new PrepareContainersPresenter(realm, enumSportType, this);
         containersPresenter.loadConfigFromDB();
         prepareRecycleview.setHasFixedSize(true);
